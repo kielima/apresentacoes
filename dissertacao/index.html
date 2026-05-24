@@ -1719,476 +1719,134 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 
 <!-- =========================== 17b-N8N · FLUXOGRAMA N8N — TRIAGEM IA =========================== -->
 <section data-label="17b-N8N Fluxo N8N" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Plataforma n8n · triagem automatizada com IA generativa · Gemini 2.0 Flash" data-screen-label="21 17b-N8N Fluxo N8N" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
-  <style>
-    /* N8N flow diagram slide */
-    .n8n-slide { display: flex; flex-direction: column; height: 100%; }
-
-    .n8n-diagram-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      min-height: 0;
-      padding: 0 32px 0 0;
-    }
-
-    /* Main flow row */
-    .n8n-flow {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      padding: 20px 0 0 0;
-      position: relative;
-    }
-
-    /* Sub-nodes row (under AI Agent) */
-    .n8n-sub-row {
-      display: flex;
-      align-items: flex-start;
-      position: relative;
-      margin-top: 8px;
-    }
-
-    .n8n-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .n8n-node-box {
-      width: 148px;
-      height: 80px;
-      border-radius: 14px;
-      border: 2px solid var(--rule);
-      background: var(--bg-paper);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: border-color 200ms, box-shadow 200ms, transform 150ms;
-      position: relative;
-      z-index: 1;
-    }
-
-    .n8n-node:hover .n8n-node-box,
-    .n8n-node.active .n8n-node-box {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(62,165,104,0.18);
-      transform: translateY(-2px);
-    }
-
-    .n8n-node-icon {
-      font-size: 26px;
-      line-height: 1;
-    }
-
-    .n8n-node-label {
-      font-family: 'Geist', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-      text-align: center;
-      letter-spacing: 0.01em;
-      line-height: 1.2;
-    }
-
-    /* Sub-node (Gemini, Parser) */
-    .n8n-sub-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .n8n-sub-box {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 2px solid var(--rule);
-      background: var(--bg-paper);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      transition: border-color 200ms, box-shadow 200ms, transform 150ms;
-      cursor: pointer;
-    }
-
-    .n8n-sub-node:hover .n8n-sub-box,
-    .n8n-sub-node.active .n8n-sub-box {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(62,165,104,0.18);
-      transform: translateY(-2px);
-    }
-
-    .n8n-sub-icon { font-size: 22px; line-height: 1; }
-
-    .n8n-sub-label {
-      font-family: 'Geist', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      text-align: center;
-      margin-top: 6px;
-    }
-
-    /* Connector arrows (horizontal) */
-    .n8n-arrow {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      width: 36px;
-    }
-
-    .n8n-arrow svg { width: 36px; height: 20px; overflow: visible; }
-
-    /* Loop back arrow — vertical connector going down-up */
-    .n8n-loop-back {
-      position: absolute;
-      bottom: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--ink-mute);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    /* "done" / "loop" branch labels on Loop node */
-    .n8n-branch {
-      position: absolute;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--ink-mute);
-      white-space: nowrap;
-    }
-
-    /* Description panel at bottom */
-    .n8n-desc-panel {
-      margin-top: 12px;
-      padding: 20px 28px;
-      border-top: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 24px;
-      align-items: start;
-      min-height: 110px;
-      transition: opacity 200ms;
-    }
-
-    .n8n-desc-panel .dp-node-name {
-      font-family: 'Newsreader', serif;
-      font-style: italic;
-      font-size: 30px;
-      color: var(--green-deep);
-      line-height: 1.15;
-    }
-
-    .n8n-desc-panel .dp-node-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-      margin-bottom: 6px;
-    }
-
-    .n8n-desc-panel .dp-text {
-      font-family: 'Geist', sans-serif;
-      font-size: 20px;
-      line-height: 1.5;
-      color: var(--ink-soft);
-    }
-
-    .n8n-hint {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      color: var(--ink-mute);
-      text-align: center;
-      padding: 6px 0 0 0;
-      text-transform: uppercase;
-    }
-
-    /* vertical connector from AI Agent to sub-nodes */
-    .n8n-vert-connector {
-      position: absolute;
-      left: 50%;
-      top: 80px;
-      width: 1px;
-      height: 32px;
-      background: var(--rule);
-      transform: translateX(-50%);
-    }
-
-    /* horizontal connector between sub-nodes */
-    .n8n-sub-hconn {
-      width: 36px;
-      height: 2px;
-      background: var(--rule);
-      flex-shrink: 0;
-      align-self: center;
-      margin-top: -6px;
-    }
-
-    /* Special styling for AI Agent (green) */
-    .n8n-node.agent .n8n-node-box {
-      background: var(--green-deep);
-      border-color: var(--green-deep);
-      color: var(--bg-cream);
-    }
-    .n8n-node.agent .n8n-node-label { color: rgba(232,229,221,0.9); }
-    .n8n-node.agent:hover .n8n-node-box,
-    .n8n-node.agent.active .n8n-node-box {
-      box-shadow: 0 0 0 3px rgba(62,165,104,0.35);
-    }
-
-    /* Sheets icon color */
-    .icon-sheets { color: #0f9d58; }
-    /* Gemini icon color */
-    .icon-gemini { color: #4285f4; }
-    /* Orange for parser */
-    .icon-parser { color: var(--orange); }
-    /* Clock */
-    .icon-clock { color: var(--green); }
-    /* Loop */
-    .icon-loop { color: var(--green-deep); }
-
-    /* If node — diamond shape */
-    .n8n-node.if-node .n8n-node-box {
-      border-radius: 6px;
-      transform: rotate(0deg);
-      background: rgba(240,160,75,0.08);
-      border-color: var(--orange);
-    }
-    .n8n-node.if-node:hover .n8n-node-box,
-    .n8n-node.if-node.active .n8n-node-box {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(240,160,75,0.2);
-      transform: translateY(-2px);
-    }
-
-    /* True/false labels */
-    .n8n-true-label {
-      position: absolute;
-      top: -18px;
-      right: -46px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--green);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .n8n-false-label {
-      position: absolute;
-      bottom: -18px;
-      right: -50px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--ink-mute);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-  </style>
-
-  <div class="slide n8n-slide" style="padding-bottom: 80px;">
-    <div class="slide-header" style="margin-bottom: 8px;">
-      <div class="crumb anim-in">Triagem automatizada por IA generativa</div>
-      <div class="h1 anim-in d1">Fluxo de trabalho <em class="ital" style="color: var(--green-deep);">n8n</em> — classificação de resumos com LLM.</div>
+  <div class="slide" style="padding-bottom: 80px;">
+    <div class="slide-header" style="margin-bottom: 28px;">
+      <div class="h1 anim-in d1">Figura 6 — <em class="ital" style="color: var(--green-deep);">Fluxograma no N8N.</em></div>
     </div>
 
-    <div class="n8n-diagram-area anim-in d2">
-      <!-- Main flow row -->
-      <div class="n8n-flow">
+    <div class="anim-in d2" style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 18px; align-items: stretch;">
 
-        <!-- 1. Schedule Trigger -->
-        <div class="n8n-node" data-node="trigger" onclick="n8nSelect(this)">
-          <div class="n8n-node-box">
-            <span class="n8n-node-icon icon-clock">⏱</span>
-            <span class="n8n-node-label">Schedule<br>Trigger</span>
-          </div>
-        </div>
+      <div style="flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;">
+        <svg viewBox="0 0 1520 370" style="width: 100%; height: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="ah" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="rgba(15,20,16,0.28)"/>
+            </marker>
+            <marker id="ah-sm" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="rgba(15,20,16,0.22)"/>
+            </marker>
+          </defs>
 
-        <!-- arrow -->
-        <div class="n8n-arrow">
-          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
-        </div>
+          <!-- ── MAIN FLOW ARROWS ── -->
+          <!-- Trigger → Get Data -->
+          <line x1="163" y1="104" x2="230" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
+          <!-- Get Data → If -->
+          <line x1="373" y1="104" x2="440" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
+          <!-- If → Loop  (true) -->
+          <line x1="583" y1="104" x2="650" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
+          <text x="617" y="95" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" fill="#3ea568" letter-spacing="0.07em">true</text>
+          <!-- If false branch (going down to +) -->
+          <line x1="511" y1="140" x2="511" y2="168" stroke="rgba(15,20,16,0.22)" stroke-width="1.5" marker-end="url(#ah-sm)"/>
+          <text x="530" y="161" font-family="JetBrains Mono,monospace" font-size="13" fill="rgba(15,20,16,0.38)" letter-spacing="0.07em">false</text>
+          <rect x="492" y="168" width="38" height="22" rx="5" fill="rgba(15,20,16,0.06)" stroke="rgba(15,20,16,0.18)" stroke-width="1"/>
+          <text x="511" y="184" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" fill="rgba(15,20,16,0.4)">+</text>
+          <!-- Loop → AI Agent (done) -->
+          <line x1="793" y1="104" x2="912" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
+          <text x="853" y="93" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" fill="#3ea568" letter-spacing="0.07em">done</text>
+          <text x="853" y="122" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="rgba(15,20,16,0.32)" letter-spacing="0.07em">loop</text>
+          <!-- AI Agent → Insert New Data -->
+          <line x1="1063" y1="104" x2="1162" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
 
-        <!-- 2. Get Data -->
-        <div class="n8n-node" data-node="getdata" onclick="n8nSelect(this)">
-          <div class="n8n-node-box">
-            <span class="n8n-node-icon icon-sheets">▦</span>
-            <span class="n8n-node-label">Get Data</span>
-          </div>
-        </div>
+          <!-- ── VERTICAL + HORIZONTAL CONNECTORS (AI Agent → sub-nodes) ── -->
+          <line x1="988" y1="140" x2="988" y2="254" stroke="rgba(15,20,16,0.22)" stroke-width="1.5"/>
+          <line x1="920" y1="254" x2="1056" y2="254" stroke="rgba(15,20,16,0.22)" stroke-width="1.5"/>
+          <circle cx="988" cy="254" r="3.5" fill="rgba(15,20,16,0.28)"/>
+          <circle cx="920" cy="254" r="3.5" fill="rgba(15,20,16,0.28)"/>
+          <circle cx="1056" cy="254" r="3.5" fill="rgba(15,20,16,0.28)"/>
+          <!-- Return arrow from sub-node area back up to AI Agent -->
+          <path d="M 1056,254 C 1095,220 1060,162 1030,145" stroke="rgba(15,20,16,0.2)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#ah-sm)"/>
 
-        <!-- arrow -->
-        <div class="n8n-arrow">
-          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
-        </div>
+          <!-- ══ NODE 1 — Schedule Trigger ══ -->
+          <rect x="23" y="68" width="140" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
+          <!-- clock icon -->
+          <circle cx="93" cy="86" r="10" fill="none" stroke="#3ea568" stroke-width="1.8"/>
+          <line x1="93" y1="86" x2="93" y2="80" stroke="#3ea568" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="93" y1="86" x2="98" y2="90" stroke="#3ea568" stroke-width="1.8" stroke-linecap="round"/>
+          <text x="93" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Schedule</text>
+          <text x="93" y="128" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Trigger</text>
+          <text x="93" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">GATILHO</text>
 
-        <!-- 3. If -->
-        <div class="n8n-node if-node" data-node="if" onclick="n8nSelect(this)" style="position:relative;">
-          <div class="n8n-node-box">
-            <span class="n8n-node-icon" style="color:var(--orange);">⟶</span>
-            <span class="n8n-node-label">If</span>
-          </div>
-          <span class="n8n-true-label">true →</span>
-          <span class="n8n-false-label">false ↓</span>
-        </div>
+          <!-- ══ NODE 2 — Get Data ══ -->
+          <rect x="233" y="68" width="140" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
+          <!-- sheets icon -->
+          <rect x="285" y="76" width="16" height="20" rx="2" fill="#0f9d58"/>
+          <polygon points="295,76 301,82 295,82" fill="white" opacity="0.6"/>
+          <line x1="289" y1="85" x2="300" y2="85" stroke="white" stroke-width="1.1"/>
+          <line x1="289" y1="90" x2="300" y2="90" stroke="white" stroke-width="1.1"/>
+          <line x1="289" y1="95" x2="300" y2="95" stroke="white" stroke-width="1.1"/>
+          <line x1="294" y1="82" x2="294" y2="96" stroke="white" stroke-width="1" opacity="0.7"/>
+          <text x="303" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Get Data</text>
+          <text x="303" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">GOOGLE SHEETS</text>
 
-        <!-- arrow -->
-        <div class="n8n-arrow">
-          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
-        </div>
+          <!-- ══ NODE 3 — If ══ -->
+          <rect x="443" y="68" width="136" height="72" rx="11" fill="rgba(240,160,75,0.07)" stroke="#f0a04b" stroke-width="1.5"/>
+          <!-- diamond icon -->
+          <polygon points="511,74 522,85 511,96 500,85" fill="none" stroke="#f0a04b" stroke-width="1.8"/>
+          <text x="511" y="116" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">If</text>
+          <text x="511" y="131" text-anchor="middle" font-family="Geist,sans-serif" font-size="12.5" fill="rgba(15,20,16,0.5)">Condição</text>
+          <text x="511" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">JÁ TRIADO?</text>
 
-        <!-- 4. Loop Over Items -->
-        <div class="n8n-node" data-node="loop" onclick="n8nSelect(this)" style="position:relative;">
-          <div class="n8n-node-box">
-            <span class="n8n-node-icon icon-loop">🔄</span>
-            <span class="n8n-node-label">Loop Over<br>Items</span>
-          </div>
-          <span class="n8n-branch" style="top:-17px; right:-28px; color:var(--green);">done →</span>
-          <span class="n8n-branch" style="bottom:-17px; right:-28px;">loop ↓</span>
-        </div>
+          <!-- ══ NODE 4 — Loop Over Items ══ -->
+          <rect x="653" y="68" width="140" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
+          <!-- loop icon -->
+          <path d="M 713,76 A 11,11 0 1 1 702,87" fill="none" stroke="#1f5a3a" stroke-width="1.8" stroke-linecap="round"/>
+          <polygon points="702,82 702,92 710,87" fill="#1f5a3a"/>
+          <text x="723" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Loop Over</text>
+          <text x="723" y="128" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Items</text>
+          <text x="723" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">1 RESUMO / VEZ</text>
 
-        <!-- arrow -->
-        <div class="n8n-arrow">
-          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
-        </div>
+          <!-- ══ NODE 5 — AI Agent ══ -->
+          <rect x="915" y="68" width="148" height="72" rx="11" fill="#1f5a3a" stroke="#1f5a3a" stroke-width="1.5"/>
+          <!-- robot icon -->
+          <rect x="972" y="75" width="28" height="20" rx="4" fill="rgba(232,229,221,0.22)"/>
+          <circle cx="979" cy="84" r="3" fill="rgba(232,229,221,0.85)"/>
+          <circle cx="993" cy="84" r="3" fill="rgba(232,229,221,0.85)"/>
+          <line x1="980" y1="90" x2="992" y2="90" stroke="rgba(232,229,221,0.7)" stroke-width="1.6" stroke-linecap="round"/>
+          <text x="989" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#e8e5dd">AI Agent</text>
+          <text x="989" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">NÓ CENTRAL</text>
 
-        <!-- 5. AI Agent -->
-        <div class="n8n-node agent" data-node="agent" onclick="n8nSelect(this)" style="position:relative;">
-          <div class="n8n-node-box">
-            <span class="n8n-node-icon" style="font-size:24px;">🤖</span>
-            <span class="n8n-node-label">AI Agent</span>
-          </div>
-          <!-- vertical line down to sub-nodes -->
-          <div class="n8n-vert-connector"></div>
-        </div>
+          <!-- ══ NODE 6 — Insert New Data ══ -->
+          <rect x="1165" y="68" width="150" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
+          <!-- sheets icon -->
+          <rect x="1213" y="76" width="16" height="20" rx="2" fill="#0f9d58"/>
+          <polygon points="1223,76 1229,82 1223,82" fill="white" opacity="0.6"/>
+          <line x1="1217" y1="85" x2="1228" y2="85" stroke="white" stroke-width="1.1"/>
+          <line x1="1217" y1="90" x2="1228" y2="90" stroke="white" stroke-width="1.1"/>
+          <line x1="1217" y1="95" x2="1228" y2="95" stroke="white" stroke-width="1.1"/>
+          <line x1="1222" y1="82" x2="1222" y2="96" stroke="white" stroke-width="1" opacity="0.7"/>
+          <text x="1240" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Insert New</text>
+          <text x="1240" y="128" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Data</text>
+          <text x="1240" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">GOOGLE SHEETS</text>
 
-        <!-- arrow -->
-        <div class="n8n-arrow">
-          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
-        </div>
+          <!-- ══ SUB-NODE: Google Gemini (Model) ══ -->
+          <circle cx="920" cy="296" r="42" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
+          <text x="920" y="307" text-anchor="middle" font-family="Geist,sans-serif" font-size="30" font-weight="700" fill="#4285f4">G</text>
+          <text x="920" y="355" text-anchor="middle" font-family="Geist,sans-serif" font-size="13.5" fill="rgba(15,20,16,0.55)">Model</text>
+          <text x="920" y="370" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="rgba(15,20,16,0.38)" letter-spacing="0.05em">Gemini 2.0 Flash</text>
 
-        <!-- 6. Insert New Data -->
-        <div class="n8n-node" data-node="insert" onclick="n8nSelect(this)">
-          <div class="n8n-node-box">
-            <span class="n8n-node-icon icon-sheets">▦</span>
-            <span class="n8n-node-label">Insert New<br>Data</span>
-          </div>
-        </div>
-
-      </div><!-- /.n8n-flow -->
-
-      <!-- Sub-nodes row: Gemini + Parser — aligned under AI Agent -->
-      <div style="position:relative; display:flex; padding-left: 0;">
-        <!-- spacer to align with AI Agent column: 4 nodes + 4 arrows + partial -->
-        <div style="flex-shrink:0; width: calc(4*(148px + 36px) + 148px/2 - 45px);"></div>
-        <div style="display:flex; align-items:center; gap: 0; margin-top: 32px;">
-          <!-- Gemini -->
-          <div class="n8n-sub-node" data-node="gemini" onclick="n8nSelect(this)">
-            <div class="n8n-sub-box">
-              <span class="n8n-sub-icon icon-gemini" style="font-size:28px; font-weight:700; font-family:'Geist',sans-serif;">G</span>
-            </div>
-            <div class="n8n-sub-label">Gemini<br>2.0 Flash</div>
-          </div>
-          <!-- connector -->
-          <div class="n8n-sub-hconn"></div>
-          <!-- Parser -->
-          <div class="n8n-sub-node" data-node="parser" onclick="n8nSelect(this)">
-            <div class="n8n-sub-box">
-              <span class="n8n-sub-icon icon-parser" style="font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:600;">&lt;/&gt;</span>
-            </div>
-            <div class="n8n-sub-label">Output<br>Parser</div>
-          </div>
-        </div>
+          <!-- ══ SUB-NODE: Output Parser ══ -->
+          <circle cx="1056" cy="296" r="42" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
+          <text x="1056" y="305" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="19" font-weight="600" fill="#f0a04b">&lt;/&gt;</text>
+          <text x="1056" y="355" text-anchor="middle" font-family="Geist,sans-serif" font-size="13.5" fill="rgba(15,20,16,0.55)">Parser</text>
+          <text x="1056" y="370" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="rgba(15,20,16,0.38)" letter-spacing="0.05em">Output Parser</text>
+        </svg>
       </div>
 
-      <!-- Description panel -->
-      <div class="n8n-desc-panel" id="n8n-desc">
-        <div>
-          <div class="dp-node-tag" id="n8n-dp-tag">Clique em um nó</div>
-          <div class="dp-node-name" id="n8n-dp-name">para ver sua função</div>
-        </div>
-        <div class="dp-text" id="n8n-dp-text">Cada nó do fluxo executa uma etapa específica da triagem automatizada. Clique em qualquer bloco acima para ver a descrição.</div>
+      <div style="font-family: 'Newsreader', serif; font-style: italic; font-size: 22px; color: rgba(15,20,16,0.5); text-align: center; padding-bottom: 4px;">
+        Fonte: Autoria própria.
       </div>
-
-    </div><!-- /.n8n-diagram-area -->
+    </div>
   </div>
-
-  <script>
-    (function() {
-      const nodes = {
-        trigger: {
-          tag: 'Nó · Gatilho',
-          name: 'Schedule Trigger',
-          text: 'Inicia o fluxo automaticamente a cada 2 horas, sem intervenção manual. O intervalo permite reinício quando o limite de tokens da API é atingido durante processamentos longos.'
-        },
-        getdata: {
-          tag: 'Nó · Entrada de Dados',
-          name: 'Get Data',
-          text: 'Conectado à planilha Google Sheets com os registros das sete bases de dados exportados via Parsifal. Percorre o banco linha a linha, recuperando status e resumo (abstract) de cada artigo.'
-        },
-        if: {
-          tag: 'Nó · Condição Lógica',
-          name: 'If',
-          text: 'Verifica se o artigo já possui status atribuído. Registros previamente classificados são ignorados (false), evitando reprocessamento desnecessário. Apenas registros sem status seguem adiante (true).'
-        },
-        loop: {
-          tag: 'Nó · Iteração',
-          name: 'Loop Over Items',
-          text: 'Itera sobre os registros de forma sequencial, encaminhando um resumo de cada vez ao AI Agent. Garante que cada resumo seja analisado individualmente antes de passar ao próximo.'
-        },
-        agent: {
-          tag: 'Nó · Central — IA Generativa',
-          name: 'AI Agent',
-          text: 'Nó central do fluxo. Envia o resumo de cada artigo ao modelo de linguagem acompanhado do prompt de triagem estruturado, retornando uma classificação: Accepted, Rejected ou ERRO.'
-        },
-        insert: {
-          tag: 'Nó · Saída de Dados',
-          name: 'Insert New Data',
-          text: 'Atualiza o Google Sheets com os resultados da triagem, preenchendo as colunas status, critério e comments para cada artigo processado pelo fluxo.'
-        },
-        gemini: {
-          tag: 'Sub-nó · Modelo de Linguagem',
-          name: 'Google Gemini 2.0 Flash',
-          text: 'LLM acionado pelo AI Agent para executar a classificação. O Gemini 2.0 Flash foi adotado pela combinação entre velocidade de processamento e capacidade de compreensão de texto científico.'
-        },
-        parser: {
-          tag: 'Sub-nó · Análise de Resposta',
-          name: 'Output Parser',
-          text: 'Analisa a resposta gerada pelo Gemini e extrai, em formato estruturado, as três saídas esperadas: o status da classificação (Accepted/Rejected/ERRO), o critério aplicado e a justificativa (comments).'
-        }
-      };
-
-      window.n8nSelect = function(el) {
-        const key = el.dataset.node;
-        const info = nodes[key];
-        if (!info) return;
-
-        // deactivate all
-        document.querySelectorAll('.n8n-node, .n8n-sub-node').forEach(n => n.classList.remove('active'));
-        el.classList.add('active');
-
-        document.getElementById('n8n-dp-tag').textContent = info.tag;
-        document.getElementById('n8n-dp-name').textContent = info.name;
-        document.getElementById('n8n-dp-text').textContent = info.text;
-      };
-    })();
-  </script>
 
 <div class="slide-progress"><div class="fill" style="--p:61.43%"></div></div><div class="slide-pagenum">22</div></section>
 
