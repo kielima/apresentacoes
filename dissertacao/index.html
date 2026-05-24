@@ -3157,7 +3157,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
   })();
 </script>
 
-<!-- Inject page numbers in footer (right side) for slides 3..31 -->
+<!-- Inject page numbers in footer (right side) for slides 3..total-1 -->
 <script>
   (function() {
     const stage = document.querySelector('deck-stage');
@@ -3166,7 +3166,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     const total = sections.length;
     sections.forEach((sec, i) => {
       const pageNum = i + 1; // 1-indexed
-      if (pageNum < 3 || pageNum > 31) return;
+      if (pageNum < 3 || pageNum > total - 1) return;
       if (sec.querySelector(':scope > .slide-pagenum')) return;
       const tag = document.createElement('div');
       tag.className = 'slide-pagenum';
