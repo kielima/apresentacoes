@@ -3221,6 +3221,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
   if (!btn) return;
   const target = document.documentElement;
   const isFs = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const setPresenting = (on) => window.postMessage({ __omelette_presenting: on }, '*');
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isFs()) {
@@ -3229,7 +3230,11 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       (target.requestFullscreen || target.webkitRequestFullscreen).call(target);
     }
   });
-  const sync = () => btn.setAttribute('data-fs-active', isFs() ? 'true' : 'false');
+  const sync = () => {
+    const on = isFs();
+    btn.setAttribute('data-fs-active', on ? 'true' : 'false');
+    setPresenting(on);
+  };
   document.addEventListener('fullscreenchange', sync);
   document.addEventListener('webkitfullscreenchange', sync);
 })();
