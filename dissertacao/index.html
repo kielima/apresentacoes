@@ -3043,7 +3043,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       paused = false;
       // Resync autoPos to current manualY so we resume from where the user left off
       if (manualY !== null) {
-        autoPos = manualY + 120; // +120 to skip the top "hold" offset
+        autoPos = manualY + 22; // +22 to skip the top "hold" offset (1 s at 22 px/s)
         manualY = null;
       }
     });
@@ -3070,10 +3070,10 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     }, { passive: false });
 
     function getCurrentY(pos, maxScroll) {
-      const cycleLen = maxScroll + 240;
+      const cycleLen = maxScroll + 44;
       const p = pos % (cycleLen * 2);
-      if (p < cycleLen) return Math.min(maxScroll, Math.max(0, p - 120));
-      return Math.min(maxScroll, Math.max(0, cycleLen - (p - cycleLen) - 120));
+      if (p < cycleLen) return Math.min(maxScroll, Math.max(0, p - 22));
+      return Math.min(maxScroll, Math.max(0, cycleLen - (p - cycleLen) - 22));
     }
 
     function tick(now) {
