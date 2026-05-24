@@ -2888,6 +2888,9 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 <!-- =========================== 30 · OBRIGADO =========================== -->
 <section data-label="30 Obrigado" data-theme="dark" data-om-id="a0d9d662:562" data-screen-label="35 30 Obrigado" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="34" data-deck-last-visible="">
   <div class="slide cover" style="justify-content: center; align-items: flex-start;" data-om-id="a0d9d662:563">
+    <div class="globe-wrap" aria-hidden="true">
+      <canvas class="globe-canvas" width="920" height="920"></canvas>
+    </div>
     <div class="marks" style="position: absolute; top: 40px; left: var(--pad-x); right: var(--pad-x);" data-om-id="a0d9d662:564">
       <span data-om-id="a0d9d662:565">Apresentação · Qualificação</span>
       <span data-om-id="a0d9d662:566">30 / 30</span>
@@ -3241,14 +3244,16 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 </script>
 
 <script>
-/* Rotating world-map globe on slide 1 (dot continents in green) */
+/* Rotating world-map globe on all .globe-canvas elements (dot continents in green) */
 (() => {
-  const canvas = document.querySelector('.globe-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const cx = W / 2, cy = H / 2;
-  const R = W / 2 - 18;
+  const canvases = [...document.querySelectorAll('.globe-canvas')];
+  if (!canvases.length) return;
+  const ctxs = canvases.map(cv => ({
+    ctx: cv.getContext('2d'),
+    W: cv.width, H: cv.height,
+    cx: cv.width / 2, cy: cv.height / 2,
+    R: cv.width / 2 - 18,
+  }));
 
   const span = (...ranges) => {
     const a = new Array(72).fill('.');
@@ -3314,85 +3319,87 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
   const tilt = -16 * Math.PI / 180;
   const cosT = Math.cos(tilt), sinT = Math.sin(tilt);
 
-  const project = (latR, lonR) => {
-    const cl = Math.cos(latR);
-    const x = cl * Math.sin(lonR);
-    const y = -Math.sin(latR);
-    const z = cl * Math.cos(lonR);
-    return [cx + (x * cosT - y * sinT) * R, cy + (x * sinT + y * cosT) * R, z];
-  };
-
-  const drawArc = (latS, lonS, latE, lonE, segs, alpha) => {
-    ctx.beginPath();
-    let pen = false;
-    for (let i = 0; i <= segs; i++) {
-      const t = i / segs;
-      const [px, py, z] = project(latS + (latE - latS) * t, lonS + (lonE - lonS) * t);
-      if (z < 0) { pen = false; continue; }
-      if (!pen) { ctx.moveTo(px, py); pen = true; }
-      else ctx.lineTo(px, py);
-    }
-    ctx.strokeStyle = `rgba(62, 165, 104, ${alpha})`;
-    ctx.lineWidth = 1.1;
-    ctx.stroke();
-  };
-
   let angle = 0;
   let last = performance.now();
 
-  function frame(t) {
-    const dt = Math.min(60, t - last);
-    last = t;
+  function frame(ts) {
+    const dt = Math.min(60, ts - last);
+    last = ts;
     angle = (angle + dt * 0.012) % 360;
 
-    ctx.clearRect(0, 0, W, H);
+    for (const { ctx, W, H, cx, cy, R } of ctxs) {
+      const project = (latR, lonR) => {
+        const cl = Math.cos(latR);
+        const x = cl * Math.sin(lonR);
+        const y = -Math.sin(latR);
+        const z = cl * Math.cos(lonR);
+        return [cx + (x * cosT - y * sinT) * R, cy + (x * sinT + y * cosT) * R, z];
+      };
 
-    // inner glow
-    const g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.05, cx, cy, R);
-    g.addColorStop(0, 'rgba(62, 165, 104, 0.18)');
-    g.addColorStop(0.55, 'rgba(31, 90, 58, 0.08)');
-    g.addColorStop(1, 'rgba(15, 20, 16, 0.0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    ctx.fill();
+      const drawArc = (latS, lonS, latE, lonE, segs, alpha) => {
+        ctx.beginPath();
+        let pen = false;
+        for (let i = 0; i <= segs; i++) {
+          const u = i / segs;
+          const [px, py, z] = project(latS + (latE - latS) * u, lonS + (lonE - lonS) * u);
+          if (z < 0) { pen = false; continue; }
+          if (!pen) { ctx.moveTo(px, py); pen = true; }
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = `rgba(62, 165, 104, ${alpha})`;
+        ctx.lineWidth = 1.1;
+        ctx.stroke();
+      };
 
-    const aRad = angle * Math.PI / 180;
+      ctx.clearRect(0, 0, W, H);
 
-    // faint meridians (rotate with globe)
-    for (let m = 0; m < 12; m++) {
-      const lon0 = (m * Math.PI / 6) + aRad;
-      drawArc(-Math.PI / 2 + 0.01, lon0, Math.PI / 2 - 0.01, lon0, 60, 0.10);
-    }
-    // parallels (static)
-    for (let p = -60; p <= 60; p += 20) {
-      const latR = p * Math.PI / 180;
-      drawArc(latR, -Math.PI + 0.001, latR, Math.PI - 0.001, 90, p === 0 ? 0.18 : 0.08);
-    }
-
-    // land dots
-    for (const [latR, lonR0] of LAND) {
-      const lonR = lonR0 + aRad;
-      const cl = Math.cos(latR);
-      const x = cl * Math.sin(lonR);
-      const y = -Math.sin(latR);
-      const z = cl * Math.cos(lonR);
-      if (z < 0.02) continue;
-      const px = cx + (x * cosT - y * sinT) * R;
-      const py = cy + (x * sinT + y * cosT) * R;
-      const depth = Math.min(1, z * 1.35);
-      ctx.fillStyle = `rgba(108, 200, 148, ${0.35 + depth * 0.55})`;
+      // inner glow
+      const g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.05, cx, cy, R);
+      g.addColorStop(0, 'rgba(62, 165, 104, 0.18)');
+      g.addColorStop(0.55, 'rgba(31, 90, 58, 0.08)');
+      g.addColorStop(1, 'rgba(15, 20, 16, 0.0)');
+      ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(px, py, 2.3 + depth * 1.4, 0, Math.PI * 2);
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fill();
-    }
 
-    // outer ring
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(62, 165, 104, 0.55)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
+      const aRad = angle * Math.PI / 180;
+
+      // faint meridians (rotate with globe)
+      for (let m = 0; m < 12; m++) {
+        const lon0 = (m * Math.PI / 6) + aRad;
+        drawArc(-Math.PI / 2 + 0.01, lon0, Math.PI / 2 - 0.01, lon0, 60, 0.10);
+      }
+      // parallels (static)
+      for (let p = -60; p <= 60; p += 20) {
+        const latR = p * Math.PI / 180;
+        drawArc(latR, -Math.PI + 0.001, latR, Math.PI - 0.001, 90, p === 0 ? 0.18 : 0.08);
+      }
+
+      // land dots
+      for (const [latR, lonR0] of LAND) {
+        const lonR = lonR0 + aRad;
+        const cl = Math.cos(latR);
+        const x = cl * Math.sin(lonR);
+        const y = -Math.sin(latR);
+        const z = cl * Math.cos(lonR);
+        if (z < 0.02) continue;
+        const px = cx + (x * cosT - y * sinT) * R;
+        const py = cy + (x * sinT + y * cosT) * R;
+        const depth = Math.min(1, z * 1.35);
+        ctx.fillStyle = `rgba(108, 200, 148, ${0.35 + depth * 0.55})`;
+        ctx.beginPath();
+        ctx.arc(px, py, 2.3 + depth * 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // outer ring
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(62, 165, 104, 0.55)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
 
     requestAnimationFrame(frame);
   }
