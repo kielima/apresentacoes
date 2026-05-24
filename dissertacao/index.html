@@ -1717,6 +1717,481 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
   </div>
 <div class="slide-progress"><div class="fill" style="--p:60.00%"></div></div><div class="slide-pagenum">21</div></section>
 
+<!-- =========================== 17b-N8N · FLUXOGRAMA N8N — TRIAGEM IA =========================== -->
+<section data-label="17b-N8N Fluxo N8N" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Plataforma n8n · triagem automatizada com IA generativa · Gemini 2.0 Flash" data-screen-label="21 17b-N8N Fluxo N8N" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+  <style>
+    /* N8N flow diagram slide */
+    .n8n-slide { display: flex; flex-direction: column; height: 100%; }
+
+    .n8n-diagram-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      min-height: 0;
+      padding: 0 32px 0 0;
+    }
+
+    /* Main flow row */
+    .n8n-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 20px 0 0 0;
+      position: relative;
+    }
+
+    /* Sub-nodes row (under AI Agent) */
+    .n8n-sub-row {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .n8n-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .n8n-node-box {
+      width: 148px;
+      height: 80px;
+      border-radius: 14px;
+      border: 2px solid var(--rule);
+      background: var(--bg-paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: border-color 200ms, box-shadow 200ms, transform 150ms;
+      position: relative;
+      z-index: 1;
+    }
+
+    .n8n-node:hover .n8n-node-box,
+    .n8n-node.active .n8n-node-box {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(62,165,104,0.18);
+      transform: translateY(-2px);
+    }
+
+    .n8n-node-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .n8n-node-label {
+      font-family: 'Geist', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-align: center;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    /* Sub-node (Gemini, Parser) */
+    .n8n-sub-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .n8n-sub-box {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid var(--rule);
+      background: var(--bg-paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: border-color 200ms, box-shadow 200ms, transform 150ms;
+      cursor: pointer;
+    }
+
+    .n8n-sub-node:hover .n8n-sub-box,
+    .n8n-sub-node.active .n8n-sub-box {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(62,165,104,0.18);
+      transform: translateY(-2px);
+    }
+
+    .n8n-sub-icon { font-size: 22px; line-height: 1; }
+
+    .n8n-sub-label {
+      font-family: 'Geist', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* Connector arrows (horizontal) */
+    .n8n-arrow {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      width: 36px;
+    }
+
+    .n8n-arrow svg { width: 36px; height: 20px; overflow: visible; }
+
+    /* Loop back arrow — vertical connector going down-up */
+    .n8n-loop-back {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* "done" / "loop" branch labels on Loop node */
+    .n8n-branch {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-mute);
+      white-space: nowrap;
+    }
+
+    /* Description panel at bottom */
+    .n8n-desc-panel {
+      margin-top: 12px;
+      padding: 20px 28px;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      align-items: start;
+      min-height: 110px;
+      transition: opacity 200ms;
+    }
+
+    .n8n-desc-panel .dp-node-name {
+      font-family: 'Newsreader', serif;
+      font-style: italic;
+      font-size: 30px;
+      color: var(--green-deep);
+      line-height: 1.15;
+    }
+
+    .n8n-desc-panel .dp-node-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 6px;
+    }
+
+    .n8n-desc-panel .dp-text {
+      font-family: 'Geist', sans-serif;
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    .n8n-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--ink-mute);
+      text-align: center;
+      padding: 6px 0 0 0;
+      text-transform: uppercase;
+    }
+
+    /* vertical connector from AI Agent to sub-nodes */
+    .n8n-vert-connector {
+      position: absolute;
+      left: 50%;
+      top: 80px;
+      width: 1px;
+      height: 32px;
+      background: var(--rule);
+      transform: translateX(-50%);
+    }
+
+    /* horizontal connector between sub-nodes */
+    .n8n-sub-hconn {
+      width: 36px;
+      height: 2px;
+      background: var(--rule);
+      flex-shrink: 0;
+      align-self: center;
+      margin-top: -6px;
+    }
+
+    /* Special styling for AI Agent (green) */
+    .n8n-node.agent .n8n-node-box {
+      background: var(--green-deep);
+      border-color: var(--green-deep);
+      color: var(--bg-cream);
+    }
+    .n8n-node.agent .n8n-node-label { color: rgba(232,229,221,0.9); }
+    .n8n-node.agent:hover .n8n-node-box,
+    .n8n-node.agent.active .n8n-node-box {
+      box-shadow: 0 0 0 3px rgba(62,165,104,0.35);
+    }
+
+    /* Sheets icon color */
+    .icon-sheets { color: #0f9d58; }
+    /* Gemini icon color */
+    .icon-gemini { color: #4285f4; }
+    /* Orange for parser */
+    .icon-parser { color: var(--orange); }
+    /* Clock */
+    .icon-clock { color: var(--green); }
+    /* Loop */
+    .icon-loop { color: var(--green-deep); }
+
+    /* If node — diamond shape */
+    .n8n-node.if-node .n8n-node-box {
+      border-radius: 6px;
+      transform: rotate(0deg);
+      background: rgba(240,160,75,0.08);
+      border-color: var(--orange);
+    }
+    .n8n-node.if-node:hover .n8n-node-box,
+    .n8n-node.if-node.active .n8n-node-box {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(240,160,75,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* True/false labels */
+    .n8n-true-label {
+      position: absolute;
+      top: -18px;
+      right: -46px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .n8n-false-label {
+      position: absolute;
+      bottom: -18px;
+      right: -50px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div class="slide n8n-slide" style="padding-bottom: 80px;">
+    <div class="slide-header" style="margin-bottom: 8px;">
+      <div class="crumb anim-in">Triagem automatizada por IA generativa</div>
+      <div class="h1 anim-in d1">Fluxo de trabalho <em class="ital" style="color: var(--green-deep);">n8n</em> — classificação de resumos com LLM.</div>
+    </div>
+
+    <div class="n8n-diagram-area anim-in d2">
+      <!-- Main flow row -->
+      <div class="n8n-flow">
+
+        <!-- 1. Schedule Trigger -->
+        <div class="n8n-node" data-node="trigger" onclick="n8nSelect(this)">
+          <div class="n8n-node-box">
+            <span class="n8n-node-icon icon-clock">⏱</span>
+            <span class="n8n-node-label">Schedule<br>Trigger</span>
+          </div>
+        </div>
+
+        <!-- arrow -->
+        <div class="n8n-arrow">
+          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
+        </div>
+
+        <!-- 2. Get Data -->
+        <div class="n8n-node" data-node="getdata" onclick="n8nSelect(this)">
+          <div class="n8n-node-box">
+            <span class="n8n-node-icon icon-sheets">▦</span>
+            <span class="n8n-node-label">Get Data</span>
+          </div>
+        </div>
+
+        <!-- arrow -->
+        <div class="n8n-arrow">
+          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
+        </div>
+
+        <!-- 3. If -->
+        <div class="n8n-node if-node" data-node="if" onclick="n8nSelect(this)" style="position:relative;">
+          <div class="n8n-node-box">
+            <span class="n8n-node-icon" style="color:var(--orange);">⟶</span>
+            <span class="n8n-node-label">If</span>
+          </div>
+          <span class="n8n-true-label">true →</span>
+          <span class="n8n-false-label">false ↓</span>
+        </div>
+
+        <!-- arrow -->
+        <div class="n8n-arrow">
+          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
+        </div>
+
+        <!-- 4. Loop Over Items -->
+        <div class="n8n-node" data-node="loop" onclick="n8nSelect(this)" style="position:relative;">
+          <div class="n8n-node-box">
+            <span class="n8n-node-icon icon-loop">🔄</span>
+            <span class="n8n-node-label">Loop Over<br>Items</span>
+          </div>
+          <span class="n8n-branch" style="top:-17px; right:-28px; color:var(--green);">done →</span>
+          <span class="n8n-branch" style="bottom:-17px; right:-28px;">loop ↓</span>
+        </div>
+
+        <!-- arrow -->
+        <div class="n8n-arrow">
+          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
+        </div>
+
+        <!-- 5. AI Agent -->
+        <div class="n8n-node agent" data-node="agent" onclick="n8nSelect(this)" style="position:relative;">
+          <div class="n8n-node-box">
+            <span class="n8n-node-icon" style="font-size:24px;">🤖</span>
+            <span class="n8n-node-label">AI Agent</span>
+          </div>
+          <!-- vertical line down to sub-nodes -->
+          <div class="n8n-vert-connector"></div>
+        </div>
+
+        <!-- arrow -->
+        <div class="n8n-arrow">
+          <svg viewBox="0 0 36 20"><line x1="0" y1="10" x2="28" y2="10" stroke="rgba(15,20,16,0.25)" stroke-width="1.5"/><polygon points="28,6 36,10 28,14" fill="rgba(15,20,16,0.25)"/></svg>
+        </div>
+
+        <!-- 6. Insert New Data -->
+        <div class="n8n-node" data-node="insert" onclick="n8nSelect(this)">
+          <div class="n8n-node-box">
+            <span class="n8n-node-icon icon-sheets">▦</span>
+            <span class="n8n-node-label">Insert New<br>Data</span>
+          </div>
+        </div>
+
+      </div><!-- /.n8n-flow -->
+
+      <!-- Sub-nodes row: Gemini + Parser — aligned under AI Agent -->
+      <div style="position:relative; display:flex; padding-left: 0;">
+        <!-- spacer to align with AI Agent column: 4 nodes + 4 arrows + partial -->
+        <div style="flex-shrink:0; width: calc(4*(148px + 36px) + 148px/2 - 45px);"></div>
+        <div style="display:flex; align-items:center; gap: 0; margin-top: 32px;">
+          <!-- Gemini -->
+          <div class="n8n-sub-node" data-node="gemini" onclick="n8nSelect(this)">
+            <div class="n8n-sub-box">
+              <span class="n8n-sub-icon icon-gemini" style="font-size:28px; font-weight:700; font-family:'Geist',sans-serif;">G</span>
+            </div>
+            <div class="n8n-sub-label">Gemini<br>2.0 Flash</div>
+          </div>
+          <!-- connector -->
+          <div class="n8n-sub-hconn"></div>
+          <!-- Parser -->
+          <div class="n8n-sub-node" data-node="parser" onclick="n8nSelect(this)">
+            <div class="n8n-sub-box">
+              <span class="n8n-sub-icon icon-parser" style="font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:600;">&lt;/&gt;</span>
+            </div>
+            <div class="n8n-sub-label">Output<br>Parser</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description panel -->
+      <div class="n8n-desc-panel" id="n8n-desc">
+        <div>
+          <div class="dp-node-tag" id="n8n-dp-tag">Clique em um nó</div>
+          <div class="dp-node-name" id="n8n-dp-name">para ver sua função</div>
+        </div>
+        <div class="dp-text" id="n8n-dp-text">Cada nó do fluxo executa uma etapa específica da triagem automatizada. Clique em qualquer bloco acima para ver a descrição.</div>
+      </div>
+
+    </div><!-- /.n8n-diagram-area -->
+  </div>
+
+  <script>
+    (function() {
+      const nodes = {
+        trigger: {
+          tag: 'Nó · Gatilho',
+          name: 'Schedule Trigger',
+          text: 'Inicia o fluxo automaticamente a cada 2 horas, sem intervenção manual. O intervalo permite reinício quando o limite de tokens da API é atingido durante processamentos longos.'
+        },
+        getdata: {
+          tag: 'Nó · Entrada de Dados',
+          name: 'Get Data',
+          text: 'Conectado à planilha Google Sheets com os registros das sete bases de dados exportados via Parsifal. Percorre o banco linha a linha, recuperando status e resumo (abstract) de cada artigo.'
+        },
+        if: {
+          tag: 'Nó · Condição Lógica',
+          name: 'If',
+          text: 'Verifica se o artigo já possui status atribuído. Registros previamente classificados são ignorados (false), evitando reprocessamento desnecessário. Apenas registros sem status seguem adiante (true).'
+        },
+        loop: {
+          tag: 'Nó · Iteração',
+          name: 'Loop Over Items',
+          text: 'Itera sobre os registros de forma sequencial, encaminhando um resumo de cada vez ao AI Agent. Garante que cada resumo seja analisado individualmente antes de passar ao próximo.'
+        },
+        agent: {
+          tag: 'Nó · Central — IA Generativa',
+          name: 'AI Agent',
+          text: 'Nó central do fluxo. Envia o resumo de cada artigo ao modelo de linguagem acompanhado do prompt de triagem estruturado, retornando uma classificação: Accepted, Rejected ou ERRO.'
+        },
+        insert: {
+          tag: 'Nó · Saída de Dados',
+          name: 'Insert New Data',
+          text: 'Atualiza o Google Sheets com os resultados da triagem, preenchendo as colunas status, critério e comments para cada artigo processado pelo fluxo.'
+        },
+        gemini: {
+          tag: 'Sub-nó · Modelo de Linguagem',
+          name: 'Google Gemini 2.0 Flash',
+          text: 'LLM acionado pelo AI Agent para executar a classificação. O Gemini 2.0 Flash foi adotado pela combinação entre velocidade de processamento e capacidade de compreensão de texto científico.'
+        },
+        parser: {
+          tag: 'Sub-nó · Análise de Resposta',
+          name: 'Output Parser',
+          text: 'Analisa a resposta gerada pelo Gemini e extrai, em formato estruturado, as três saídas esperadas: o status da classificação (Accepted/Rejected/ERRO), o critério aplicado e a justificativa (comments).'
+        }
+      };
+
+      window.n8nSelect = function(el) {
+        const key = el.dataset.node;
+        const info = nodes[key];
+        if (!info) return;
+
+        // deactivate all
+        document.querySelectorAll('.n8n-node, .n8n-sub-node').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+
+        document.getElementById('n8n-dp-tag').textContent = info.tag;
+        document.getElementById('n8n-dp-name').textContent = info.name;
+        document.getElementById('n8n-dp-text').textContent = info.text;
+      };
+    })();
+  </script>
+
+<div class="slide-progress"><div class="fill" style="--p:61.43%"></div></div><div class="slide-pagenum">22</div></section>
+
 <!-- =========================== 17c · FUNIL PRISMA — BAR CHART =========================== -->
 <section data-label="17c Funil PRISMA" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="PRISMA 2020 · etapas de seleção · jul 2024 – set 2025" data-om-id="8a35a1bb:890" data-screen-label="21 17c Funil PRISMA" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="20" class="">
   <style>
@@ -1935,7 +2410,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       </div>
     </div>
   </div>
-<div class="slide-progress"><div class="fill" style="--p:62.86%"></div></div><div class="slide-pagenum">22</div></section>
+<div class="slide-progress"><div class="fill" style="--p:62.86%"></div></div><div class="slide-pagenum">23</div></section>
 
 <!-- =========================== 17 · PRISMA =========================== -->
 <section data-label="17 PRISMA" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Protocolo PRISMA 2020 · Page et al., 2021" data-om-id="a0d9d662:352" data-screen-label="22 17 PRISMA" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
@@ -1961,7 +2436,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     </div>
     <div class="progress" data-om-id="a0d9d662:369"><div class="fill" style="width: 65.71%;" data-om-id="a0d9d662:370"></div></div>
   </div>
-<div class="slide-pagenum" data-om-id="4c69169a:813">23</div></section>
+<div class="slide-pagenum" data-om-id="4c69169a:813">24</div></section>
 
 <!-- =========================== 19 · ACV DIAGRAMA =========================== -->
 <section data-label="19 ACV — diagrama" data-chrome="on" data-chap="04 · Fundamentos ACV" data-foot="ISO 14040 / 14044 · EN 15978 · módulos A1–A3" data-om-id="a0d9d662:371" data-screen-label="24 19 ACV — diagrama" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="23">
@@ -1972,7 +2447,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     </div>
     <div id="acv-diagram" class="widget anim-in d2" style="flex: 1; min-height: 0;" data-om-id="a0d9d662:377"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:30950:558:5" style="display: flex; flex-direction: column; height: 100%; gap: 36px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31040:559:7" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31229:563:13" style="background: rgb(31, 90, 58); color: rgb(232, 229, 221); padding: 28px 24px; cursor: pointer; transition: 200ms; position: relative; border: 1px solid rgb(31, 90, 58);"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31686:574:15" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 14px; letter-spacing: 0.15em; opacity: 0.75;">A1—A3</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31826:575:15" style="font-family: Newsreader, serif; font-size: 36px; margin-top: 8px;">Produto</div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31229:563:13" style="background: rgb(241, 238, 229); color: rgb(15, 20, 16); padding: 28px 24px; cursor: pointer; transition: 200ms; position: relative; border: 1px solid rgba(15, 20, 16, 0.14);"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31686:574:15" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 14px; letter-spacing: 0.15em; opacity: 0.75;">A4—A5</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31826:575:15" style="font-family: Newsreader, serif; font-size: 36px; margin-top: 8px;">Construção</div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31229:563:13" style="background: rgb(241, 238, 229); color: rgb(15, 20, 16); padding: 28px 24px; cursor: pointer; transition: 200ms; position: relative; border: 1px solid rgba(15, 20, 16, 0.14);"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31686:574:15" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 14px; letter-spacing: 0.15em; opacity: 0.75;">B1—B7</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31826:575:15" style="font-family: Newsreader, serif; font-size: 36px; margin-top: 8px;">Uso</div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31229:563:13" style="background: rgb(241, 238, 229); color: rgb(15, 20, 16); padding: 28px 24px; cursor: pointer; transition: 200ms; position: relative; border: 1px solid rgba(15, 20, 16, 0.14);"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31686:574:15" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 14px; letter-spacing: 0.15em; opacity: 0.75;">C1—C4</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31826:575:15" style="font-family: Newsreader, serif; font-size: 36px; margin-top: 8px;">Fim de vida</div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31229:563:13" style="background: rgb(241, 238, 229); color: rgb(15, 20, 16); padding: 28px 24px; cursor: pointer; transition: 200ms; position: relative; border: 1px solid rgba(15, 20, 16, 0.14);"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31686:574:15" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 14px; letter-spacing: 0.15em; opacity: 0.75;">D</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:31826:575:15" style="font-family: Newsreader, serif; font-size: 36px; margin-top: 8px;">Além do ciclo</div></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32022:582:7" style="position: relative; height: 80px; margin: 4px 0px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32098:583:9" style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1px; background: rgba(15, 20, 16, 0.2);"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32245:586:9" style="position: absolute; left: 0px; top: 50%; transform: translate(-4px, -50%); width: 18px; height: 18px; border-radius: 50%; background: rgb(31, 90, 58);"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32449:590:9" style="position: absolute; right: 0px; top: 50%; transform: translate(4px, -50%); width: 18px; height: 18px; border-radius: 50%; background: rgb(240, 160, 75);"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32653:594:9" style="position: absolute; left: 0px; top: calc(50% + 18px); font-family: Newsreader, serif; font-style: italic; font-size: 22px; color: rgb(31, 90, 58);"><span data-om-text="txt:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32839:32844" class="__om-t">berço</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:32859:598:9" style="position: absolute; left: 40%; top: calc(50% + 18px); font-family: Newsreader, serif; font-style: italic; font-size: 22px; color: rgba(15, 20, 16, 0.5);"><span data-om-text="txt:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33060:33075" class="__om-t">(portão · gate)</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33090:602:9" style="position: absolute; right: 0px; top: calc(50% + 18px); font-family: Newsreader, serif; font-style: italic; font-size: 22px; color: rgb(240, 160, 75);"><span data-om-text="txt:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33277:33283" class="__om-t">túmulo</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33338:607:9" style="position: absolute; left: 0%; top: calc(50% - 28px); transform: translateX(-50%); font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(31, 90, 58); transition: left 350ms cubic-bezier(0.4, 0, 0.2, 1);"><span data-om-text="txt:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33784:33785" class="__om-t">▼</span><br data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33785:619:12"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:33848:624:7" style="flex: 1 1 0%; padding: 40px; background: rgb(241, 238, 229); border: 1px solid rgba(15, 20, 16, 0.14); display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: center;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34077:630:9"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34093:631:11" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 14px; letter-spacing: 0.15em; color: rgb(31, 90, 58); text-transform: uppercase;"><span data-om-text="txt:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34235:34241" class="__om-t">Módulo </span>A1—A3</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34269:632:11" style="font-family: Newsreader, serif; font-size: 72px; line-height: 1.05; margin-top: 8px;">Produto</div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34405:634:9"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34421:635:11" style="font-family: Newsreader, serif; font-style: italic; font-size: 38px; color: rgba(15, 20, 16, 0.85); line-height: 1.25; letter-spacing: -0.01em;">Matérias-primas, transporte interno, fabricação</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34629:638:11" style="display: flex; gap: 16px; margin-top: 24px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34737:640:13" style="flex: 1 1 0%; height: 8px; background: rgb(31, 90, 58); transition: background 200ms;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34737:640:13" style="flex: 1 1 0%; height: 8px; background: rgba(15, 20, 16, 0.12); transition: background 200ms;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34737:640:13" style="flex: 1 1 0%; height: 8px; background: rgba(15, 20, 16, 0.12); transition: background 200ms;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34737:640:13" style="flex: 1 1 0%; height: 8px; background: rgba(15, 20, 16, 0.12); transition: background 200ms;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34737:640:13" style="flex: 1 1 0%; height: 8px; background: rgba(15, 20, 16, 0.12); transition: background 200ms;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:34984:647:11" style="margin-top: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 13px; color: rgba(15, 20, 16, 0.5); letter-spacing: 0.12em;"><span data-om-text="txt:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:35137:35165" class="__om-t">EN 15978 · ISO 14040 / 14044</span></div></div></div></div></div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:709"><div class="fill" style="--p: 68.57%;" data-om-id="0af7d50e:710"></div></div><div class="slide-pagenum" data-om-id="4c69169a:872">24</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:709"><div class="fill" style="--p: 68.57%;" data-om-id="0af7d50e:710"></div></div><div class="slide-pagenum" data-om-id="4c69169a:872">25</div></section>
 
 <!-- =========================== 19b · SISTEMA DE PRODUTO =========================== -->
 <section data-label="19b Sistema de produto" data-chrome="on" data-chap="04 · Sistema de produto" data-foot="Adaptado de Belizário (2025)">
@@ -2189,7 +2664,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       </svg>
     </div>
   </div>
-<div class="slide-progress"><div class="fill"></div></div><div class="slide-pagenum">25</div></section>
+<div class="slide-progress"><div class="fill"></div></div><div class="slide-pagenum">26</div></section>
 
 <!-- =========================== 20 · UNIDADES FUNCIONAIS =========================== -->
 <section data-label="20 Unidades funcionais" data-chrome="on" data-chap="04 · Unidade funcional" data-foot="Damineli et al. 2010 · adaptação desta pesquisa" data-om-id="a0d9d662:378" data-screen-label="25 20 Unidades funcionais" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="24" class="">
@@ -2226,7 +2701,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       </div>
     </div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:738"><div class="fill" style="--p: 71.43%;" data-om-id="0af7d50e:739"></div></div><div class="slide-pagenum" data-om-id="4c69169a:906">25</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:738"><div class="fill" style="--p: 71.43%;" data-om-id="0af7d50e:739"></div></div><div class="slide-pagenum" data-om-id="4c69169a:906">26</div></section>
 
 <!-- =========================== 21 · CAPÍTULO 5 =========================== -->
 <section data-label="21 Cap 5" data-theme="dark" data-om-id="a0d9d662:405" data-screen-label="26 21 Cap 5" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="25" class="">
@@ -2240,7 +2715,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     </div>
     <div class="progress" data-om-id="a0d9d662:414"><div class="fill" style="width: 74.29%;" data-om-id="a0d9d662:415"></div></div>
   </div>
-<div class="slide-pagenum" data-om-id="4c69169a:918">26</div></section>
+<div class="slide-pagenum" data-om-id="4c69169a:918">27</div></section>
 
 <!-- =========================== 22 · UHPC DEFINIÇÃO =========================== -->
 <section data-label="22 UHPC definição" data-chrome="on" data-chap="05 · Definição" data-foot="ABNT NBR 17246-1:2025 · Tayeh et al. 2023 · Kravanja et al. 2024 · Rai e Wille (2025)" data-om-id="a0d9d662:416" data-screen-label="27 22 UHPC definição" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="26" class="">
@@ -2265,7 +2740,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       </div>
     </div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:809"><div class="fill" style="--p: 77.14%;" data-om-id="0af7d50e:810"></div></div><div class="slide-pagenum" data-om-id="4c69169a:983">27</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:809"><div class="fill" style="--p: 77.14%;" data-om-id="0af7d50e:810"></div></div><div class="slide-pagenum" data-om-id="4c69169a:983">28</div></section>
 
 <!-- =========================== 23 · COMPOSIÇÃO + MICROESTRUTURA SEM =========================== -->
 <section data-label="23 Composição UHPC" data-chrome="on" data-chap="05 · Composição" data-foot="Adaptado de MANZATO et al. (2023) · Imagem SEM cedida por Jacintho, 2026" data-om-id="a0d9d662:441" data-screen-label="28 23 Composição UHPC" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="27" class="">
@@ -2293,7 +2768,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       </div>
     </div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:893"><div class="fill" style="--p: 80.00%;" data-om-id="0af7d50e:894"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1070">28</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:893"><div class="fill" style="--p: 80.00%;" data-om-id="0af7d50e:894"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1070">29</div></section>
 
 <!-- =========================== 24 · MAPA OBRAS =========================== -->
 <section data-label="24 Obras icônicas" data-chrome="on" data-chap="05 · Aplicações" data-foot="Fondation Louis Vuitton · Paris · arq. Frank Gehry · estrutura em UHPC (Ductal®)" data-om-id="a0d9d662:457" data-screen-label="29 24 Obras icônicas" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="28" class="">
@@ -2306,7 +2781,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       <img src="assets/fondation-museum.png" alt="Vista aérea do edifício da Fondation Louis Vuitton, Paris — arq. Frank Gehry. Velas de vidro e painéis estruturais executados em UHPC." style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;" data-om-id="150ce694:951" data-cc-id="cc-6">
     </div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:2594"><div class="fill" style="--p: 82.86%;" data-om-id="0af7d50e:2595"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1084">29</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:2594"><div class="fill" style="--p: 82.86%;" data-om-id="0af7d50e:2595"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1084">30</div></section>
 
 <!-- =========================== 24b · SAKATA MIRAI =========================== -->
 <section data-label="24b Sakata Mirai" data-chrome="on" data-chap="05 · Aplicações" data-foot="Sakata Mirai Footbridge · Sakata, Japão · 2002 · UHPC (Ductal®)" data-screen-label="30 24b Sakata Mirai" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-om-id="150ce694:956" data-deck-slide="29" class="">
@@ -2319,7 +2794,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       <img src="assets/sakata-mirai-bridge.png" alt="Ponte pedonal Sakata Mirai, Japão — primeira ponte do mundo executada em UHPC, com tabuleiro extremamente esbelto." style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;" data-om-id="150ce694:962" data-cc-id="cc-4">
     </div>
   </div>
-<div class="slide-progress" data-om-id="150ce694:963"><div class="fill" style="--p: 85.71%;" data-om-id="150ce694:964"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1096">30</div></section>
+<div class="slide-progress" data-om-id="150ce694:963"><div class="fill" style="--p: 85.71%;" data-om-id="150ce694:964"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1096">31</div></section>
 
 <!-- =========================== 25 · FECHAMENTO =========================== -->
 <section data-label="25 Fechamento" data-theme="dark" data-om-id="a0d9d662:463" data-screen-label="31 25 Fechamento" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="30" class="">
@@ -2333,7 +2808,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     </div>
     <div class="progress" data-om-id="a0d9d662:472"><div class="fill" style="width: 88.57%;" data-om-id="a0d9d662:473"></div></div>
   </div>
-<div class="slide-pagenum" data-om-id="4c69169a:1108">31</div></section>
+<div class="slide-pagenum" data-om-id="4c69169a:1108">32</div></section>
 
 <!-- =========================== 26 · PRÓXIMOS PASSOS =========================== -->
 
@@ -2366,7 +2841,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       </div>
     </div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:2662"><div class="fill" style="--p: 91.43%;" data-om-id="0af7d50e:2663"></div></div><div class="slide-pagenum" data-om-id="4c69169a:379">32</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:2662"><div class="fill" style="--p: 91.43%;" data-om-id="0af7d50e:2663"></div></div><div class="slide-pagenum" data-om-id="4c69169a:379">33</div></section>
 
 <!-- =========================== 32b · FOREST PLOT SIMULADO =========================== -->
 <section data-label="32b Forest plot simulado" data-chrome="on" data-chap="07 · Resultados esperados" data-foot="Forest plot simulado · meta-análise multinível rma.mv (REML) · dados fictícios para ilustração">
@@ -2844,7 +3319,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     </div>
     <div id="gantt" class="widget anim-in d2" style="flex: 1; min-height: 0;" data-om-id="a0d9d662:532"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49674:930:5" style="display: flex; flex-direction: column; height: 100%; gap: 12px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49764:931:7" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49859:932:9"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Jun 25</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Jul 25</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Ago 25</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Set 25</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Out 25</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Nov 25</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:49906:934:9" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.55); text-align: center; letter-spacing: 0.05em;">Dez 25</div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50101:937:7" style="display: flex; flex-direction: column; gap: 6px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Qualificação</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(31, 90, 58); border-radius: 2px; animation: 800ms ease 0ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Protocolo PRISMA + extração</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(62, 165, 104); border-radius: 2px; animation: 800ms ease 60ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Meta-análise estatística</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(62, 165, 104); border-radius: 2px; animation: 800ms ease 120ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(62, 165, 104); border-radius: 2px; animation: 800ms ease 150ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Modelagem do sistema ACV</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(15, 20, 16); border-radius: 2px; animation: 800ms ease 180ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(15, 20, 16); border-radius: 2px; animation: 800ms ease 210ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(15, 20, 16); border-radius: 2px; animation: 800ms ease 240ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Inventário do ciclo de vida</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(15, 20, 16); border-radius: 2px; animation: 800ms ease 240ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(15, 20, 16); border-radius: 2px; animation: 800ms ease 270ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(15, 20, 16); border-radius: 2px; animation: 800ms ease 300ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Análise de impacto + sensibilidade</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(240, 160, 75); border-radius: 2px; animation: 800ms ease 300ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(240, 160, 75); border-radius: 2px; animation: 800ms ease 330ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Comparações UHPC × convencional × HPC</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(240, 160, 75); border-radius: 2px; animation: 800ms ease 360ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Escrita da dissertação</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(90, 138, 106); border-radius: 2px; animation: 800ms ease 420ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(90, 138, 106); border-radius: 2px; animation: 800ms ease 450ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(90, 138, 106); border-radius: 2px; animation: 800ms ease 480ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(90, 138, 106); border-radius: 2px; animation: 800ms ease 510ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(90, 138, 106); border-radius: 2px; animation: 800ms ease 540ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(90, 138, 106); border-radius: 2px; animation: 800ms ease 570ms 1 normal both running growHoriz; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50205:939:9" style="display: grid; grid-template-columns: 520px repeat(7, 1fr); gap: 4px; align-items: center; border-top: 1px solid rgba(15, 20, 16, 0.08); padding-top: 8px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50441:945:13" style="font-family: Geist, sans-serif; font-size: 22px; padding-right: 16px; white-space: nowrap;">Defesa</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: transparent; border-radius: 2px; animation: auto ease 0s 1 normal none running none; transform-origin: left center;"></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:50605:947:11" style="height: 24px; background: rgb(31, 90, 58); border-radius: 2px; animation: 800ms ease 480ms 1 normal both running growHoriz; transform-origin: left center;"></div></div></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51001:958:7" style="display: flex; justify-content: space-between; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(15, 20, 16, 0.14);"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51451:966:9" style="display: flex; align-items: center; gap: 10px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51538:967:13" style="width: 20px; height: 20px; background: rgb(31, 90, 58);"></div><span data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51613:968:13" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.7);">Marcos · Qualificação · Defesa</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51451:966:9" style="display: flex; align-items: center; gap: 10px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51538:967:13" style="width: 20px; height: 20px; background: rgb(62, 165, 104);"></div><span data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51613:968:13" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.7);">PRISMA · Meta-análise</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51451:966:9" style="display: flex; align-items: center; gap: 10px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51538:967:13" style="width: 20px; height: 20px; background: rgb(15, 20, 16);"></div><span data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51613:968:13" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.7);">ACV · Inventário</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51451:966:9" style="display: flex; align-items: center; gap: 10px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51538:967:13" style="width: 20px; height: 20px; background: rgb(240, 160, 75);"></div><span data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51613:968:13" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.7);">Análises comparativas</span></div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51451:966:9" style="display: flex; align-items: center; gap: 10px;"><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51538:967:13" style="width: 20px; height: 20px; background: rgb(90, 138, 106);"></div><span data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.claudeusercontent.com/v1/design/projects/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab/serve/widgets.jsx:51613:968:13" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; color: rgba(15, 20, 16, 0.7);">Escrita</span></div></div></div></div>
   </div>
-<div class="slide-progress" data-om-id="0af7d50e:2835"><div class="fill" style="--p: 94.29%;" data-om-id="0af7d50e:2836"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1325">33</div></section>
+<div class="slide-progress" data-om-id="0af7d50e:2835"><div class="fill" style="--p: 94.29%;" data-om-id="0af7d50e:2836"></div></div><div class="slide-pagenum" data-om-id="4c69169a:1325">34</div></section>
 
 
 <section data-label="29 Publicações" data-chrome="on" data-chap="09 · Publicações" data-foot="Produção acadêmica derivada" data-om-id="a0d9d662:533" data-screen-label="34 29 Publicações" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="33" class="">
