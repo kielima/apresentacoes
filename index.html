@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Apresentações — Kiê Tiburcio de Lima</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root {
+    --bg-dark: #0f1410;
+    --bg-dark-2: #161b16;
+    --bg-cream: #f8f8f8;
+    --ink: #0f1410;
+    --ink-soft: rgba(232,229,221,0.65);
+    --ink-mute: rgba(232,229,221,0.4);
+    --green: #3ea568;
+    --green-deep: #1f5a3a;
+    --orange: #f0a04b;
+    --rule: rgba(232,229,221,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg-dark);
+    color: var(--bg-cream);
+    font-family: 'Geist', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--bg-dark) 60%, transparent);
+  }
+  .nav-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .nav-mark span { color: var(--green); }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 200px 64px 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .hero-super {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 32px;
+  }
+  .hero-title {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(64px, 8vw, 120px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--bg-cream);
+    margin: 0 0 40px;
+  }
+  .hero-title em { font-style: italic; color: var(--green); }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 64px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .section-label .line { flex: 1; height: 1px; background: var(--rule); }
+  .section-label .txt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    white-space: nowrap;
+  }
+
+  /* ── Cards grid ── */
+  .cards {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 64px 160px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--bg-dark-2);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: rgba(62, 165, 104, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .card-thumb {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg,
+      rgba(62,165,104,0.12) 0%,
+      rgba(31,90,58,0.06) 50%,
+      rgba(240,160,75,0.06) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(232,229,221,0.03) 39px,
+        rgba(232,229,221,0.03) 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 39px,
+        rgba(232,229,221,0.03) 39px,
+        rgba(232,229,221,0.03) 40px
+      );
+  }
+  .card-thumb-label {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 36px;
+    color: rgba(232,229,221,0.15);
+    z-index: 1;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .card-thumb-icon {
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-thumb-icon::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: var(--green);
+  }
+
+  .card-body {
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex;
+    gap: 16px;
+  }
+  .card-meta .sep { opacity: 0.4; }
+  .card-title {
+    font-family: 'Newsreader', serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--bg-cream);
+  }
+  .card-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .card-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: rgba(62,165,104,0.12);
+    color: var(--green);
+    border-radius: 2px;
+  }
+  .card-arrow {
+    font-size: 18px;
+    color: var(--ink-mute);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .card:hover .card-arrow {
+    transform: translateX(4px);
+    color: var(--green);
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 32px 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--ink-mute);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ── Globe canvas (background decoration) ── */
+  #globe-bg {
+    position: fixed;
+    top: -10%;
+    right: -5%;
+    width: 55vw;
+    height: 55vw;
+    max-width: 800px;
+    max-height: 800px;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero, .section-label, .cards, footer { position: relative; z-index: 1; }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hero { padding: 140px 24px 80px; }
+    .section-label { padding: 0 24px 24px; }
+    .cards { padding: 0 24px 100px; grid-template-columns: 1fr; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    #globe-bg { width: 90vw; height: 90vw; top: 0; right: -20%; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="globe-bg"></canvas>
+
+<nav>
+  <div class="nav-mark">Kiê Tiburcio de Lima <span>·</span> Apresentações</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-super">Repositório de Apresentações</div>
+  <h1 class="hero-title">Apresentações<br><em>Interativas</em></h1>
+  <p class="hero-sub">Apresentações em HTML/CSS/JS — abertas no navegador, em tela cheia, de qualquer dispositivo.</p>
+</div>
+
+<div class="section-label">
+  <div class="txt">Apresentações</div>
+  <div class="line"></div>
+</div>
+
+<div class="cards">
+
+  <a class="card" href="dissertacao/">
+    <div class="card-thumb">
+      <div class="card-thumb-label">UHPC &amp; Impacto Ambiental</div>
+      <div class="card-thumb-icon">Interativa</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span>2026</span>
+        <span class="sep">·</span>
+        <span>Dissertação</span>
+        <span class="sep">·</span>
+        <span>PPGSIU</span>
+      </div>
+      <div class="card-title">Avaliação do Impacto Ambiental do Concreto de Ultra-Alto Desempenho</div>
+      <div class="card-desc">Revisão sistemática e meta-análise da pegada de carbono do UHPC em comparação com concreto convencional, com análise de ciclo de vida e fluxo de materiais.</div>
+      <div class="card-footer">
+        <span class="card-tag">Meta-análise · ACV · UHPC</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Futuras apresentações serão adicionadas aqui -->
+
+</div>
+
+<footer>
+  <span>Kiê Tiburcio de Lima</span>
+  <span>kielima.github.io/apresentacoes</span>
+</footer>
+
+<script>
+// Subtle rotating globe background
+(function () {
+  const canvas = document.getElementById('globe-bg');
+  const ctx = canvas.getContext('2d');
+  let W, H, cx, cy, R;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    W = canvas.width = rect.width * devicePixelRatio;
+    H = canvas.height = rect.height * devicePixelRatio;
+    cx = W / 2; cy = H / 2;
+    R = Math.min(W, H) * 0.44;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Simplified land-mass dots (same algorithm as in the presentation)
+  const LAND = [];
+  const isLand = (lat, lon) => {
+    // Very rough land approximation
+    if (lat > 15 && lat < 70 && lon > -10 && lon < 60) return true;   // Europe/Africa N
+    if (lat > -35 && lat < 15 && lon > -20 && lon < 55) return true;  // Africa
+    if (lat > 5  && lat < 75 && lon > 60 && lon < 145) return true;   // Asia
+    if (lat > -10 && lat < 55 && lon > -130 && lon < -55) return true; // N America
+    if (lat > -60 && lat < -10 && lon > -80 && lon < -35) return true;  // S America
+    if (lat > -45 && lat < -10 && lon > 110 && lon < 155) return true;  // Australia
+    return false;
+  };
+  for (let lat = -88; lat <= 88; lat += 3) {
+    const cosLat = Math.cos(lat * Math.PI / 180);
+    const n = Math.max(6, Math.round(120 * cosLat));
+    for (let i = 0; i < n; i++) {
+      const lon = -180 + (360 * i / n);
+      if (isLand(lat, lon)) LAND.push([lat * Math.PI / 180, lon * Math.PI / 180]);
+    }
+  }
+
+  const tilt = -16 * Math.PI / 180;
+  const cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+  const project = (latR, lonR) => {
+    const cl = Math.cos(latR);
+    const x = cl * Math.sin(lonR);
+    const y = -Math.sin(latR);
+    const z = cl * Math.cos(lonR);
+    return [cx + (x * cosT - y * sinT) * R, cy + (x * sinT + y * cosT) * R, z];
+  };
+
+  let angle = 0, last = performance.now();
+  function frame(t) {
+    const dt = Math.min(60, t - last); last = t;
+    angle = (angle + dt * 0.008) % 360;
+    ctx.clearRect(0, 0, W, H);
+    const aRad = angle * Math.PI / 180;
+
+    // parallels
+    for (let p = -60; p <= 60; p += 20) {
+      const latR = p * Math.PI / 180;
+      ctx.beginPath();
+      let pen = false;
+      for (let i = 0; i <= 90; i++) {
+        const lonR = -Math.PI + (2 * Math.PI * i / 90);
+        const [px, py, z] = project(latR, lonR + aRad);
+        if (z < 0) { pen = false; continue; }
+        if (!pen) { ctx.moveTo(px, py); pen = true; }
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = `rgba(62,165,104,${p === 0 ? 0.15 : 0.06})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // land dots
+    for (const [latR, lonR0] of LAND) {
+      const lonR = lonR0 + aRad;
+      const cl = Math.cos(latR);
+      const x = cl * Math.sin(lonR);
+      const y = -Math.sin(latR);
+      const z = cl * Math.cos(lonR);
+      if (z < 0.02) continue;
+      const px = cx + (x * cosT - y * sinT) * R;
+      const py = cy + (x * sinT + y * cosT) * R;
+      const depth = Math.min(1, z * 1.3);
+      ctx.fillStyle = `rgba(108,200,148,${0.25 + depth * 0.5})`;
+      ctx.beginPath();
+      ctx.arc(px, py, 1.8 + depth * 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // outer ring
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(62,165,104,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
