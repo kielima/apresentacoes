@@ -268,7 +268,7 @@
         text.setAttribute('text-anchor', isRight ? 'end' : 'start');
         text.setAttribute('dominant-baseline', 'middle');
         text.setAttribute('fill', '#5a5852');
-        text.setAttribute('font-size', '9');
+        text.setAttribute('font-size', '11');
         text.textContent = labelText.length > 18 ? labelText.slice(0, 16) + '…' : labelText;
       }
       gNodes.appendChild(text);
@@ -294,7 +294,7 @@
       return true;
     } catch (e) {
       container.innerHTML =
-        '<div style="padding:24px;color:#a04;font-family:monospace;font-size:12px">Falha ao renderizar Sankey: ' +
+        '<div style="padding:24px;color:#a04;font-family:monospace;font-size:14px">Falha ao renderizar Sankey: ' +
         (e.message || e) + '</div>';
       rendered = true;
       return true;
@@ -308,7 +308,7 @@
       await ensureLibs();
     } catch (e) {
       container.innerHTML =
-        '<div style="padding:24px;color:#a04;font-family:monospace;font-size:12px">Falha ao carregar D3: ' +
+        '<div style="padding:24px;color:#a04;font-family:monospace;font-size:14px">Falha ao carregar D3: ' +
         (e.message || e) + '</div>';
       return;
     }
