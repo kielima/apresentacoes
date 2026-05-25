@@ -81,7 +81,7 @@
     color: rgba(232,229,221,0.5);
   }
 
-  /* Slide page number — bottom right of chrome slides 3..31 */
+  /* Slide page number — bottom-right of chrome slides; doubles as a click-to-re-enter-fullscreen shortcut. */
   .slide-pagenum {
     position: absolute;
     bottom: 40px;
@@ -92,8 +92,30 @@
     color: var(--ink-mute);
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
-    pointer-events: none;
-    z-index: 2;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin: -4px -8px;
+    border-radius: 4px;
+    transition: color 160ms ease, background 160ms ease;
+    z-index: 3;
+  }
+  .slide-pagenum:hover {
+    color: var(--bg-cream);
+    background: rgba(62, 165, 104, 0.14);
+  }
+  .slide-pagenum:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+  /* When already fullscreen, leave the pagenum visible but inert. */
+  html:fullscreen .slide-pagenum,
+  html:-webkit-full-screen .slide-pagenum {
+    cursor: default;
+  }
+  html:fullscreen .slide-pagenum:hover,
+  html:-webkit-full-screen .slide-pagenum:hover {
+    color: var(--ink-mute);
+    background: transparent;
   }
   deck-stage section[data-theme="dark"] .slide-pagenum {
     color: rgba(232, 229, 221, 0.5);
@@ -3355,28 +3377,47 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 <script type="text/babel" src="tweaks-app.jsx"></script>
 
 <script>
-/* Fullscreen toggle button on slide 1 */
+/* Fullscreen toggle button on slide 1, plus click-to-re-enter on every .slide-pagenum (recovery after following a link). */
 (() => {
-  const btn = document.querySelector('[data-fs-btn]');
-  if (!btn) return;
   const target = document.documentElement;
   const isFs = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const enterFs = () => (target.requestFullscreen || target.webkitRequestFullscreen).call(target);
+  const exitFs = () => (document.exitFullscreen || document.webkitExitFullscreen).call(document);
   const setPresenting = (on) => window.postMessage({ __omelette_presenting: on }, '*');
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (isFs()) {
-      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    } else {
-      (target.requestFullscreen || target.webkitRequestFullscreen).call(target);
-    }
+
+  const btn = document.querySelector('[data-fs-btn]');
+  if (btn) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isFs()) exitFs(); else enterFs();
+    });
+    const sync = () => {
+      const on = isFs();
+      btn.setAttribute('data-fs-active', on ? 'true' : 'false');
+      setPresenting(on);
+    };
+    document.addEventListener('fullscreenchange', sync);
+    document.addEventListener('webkitfullscreenchange', sync);
+  }
+
+  // Make every .slide-pagenum a quick re-enter-fullscreen affordance.
+  document.querySelectorAll('.slide-pagenum').forEach((el) => {
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('title', 'Voltar para tela cheia');
+    el.setAttribute('aria-label', 'Voltar para tela cheia');
+    el.setAttribute('data-pagenum-fs', '');
+    const trigger = (e) => {
+      if (isFs()) return;
+      e.preventDefault();
+      e.stopPropagation();
+      enterFs();
+    };
+    el.addEventListener('click', trigger);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') trigger(e);
+    });
   });
-  const sync = () => {
-    const on = isFs();
-    btn.setAttribute('data-fs-active', on ? 'true' : 'false');
-    setPresenting(on);
-  };
-  document.addEventListener('fullscreenchange', sync);
-  document.addEventListener('webkitfullscreenchange', sync);
 })();
 </script>
 
