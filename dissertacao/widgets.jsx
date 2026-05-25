@@ -373,51 +373,9 @@ function CementProcess() {
 function LimeCycle() {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, height: '100%', alignItems: 'center' }}>
-      <svg viewBox="0 0 600 520" style={{ width: '100%', height: '100%', maxHeight: 520 }}>
-        <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#f0a04b" />
-          </marker>
-          <marker id="arrg" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#1f5a3a" />
-          </marker>
-        </defs>
-        {/* Center circle: calcário */}
-        <circle cx="300" cy="260" r="100" fill="#0f1410" />
-        <text x="300" y="248" textAnchor="middle" fontFamily="Newsreader, serif" fontSize="38" fill="#e8e5dd">calcário</text>
-        <text x="300" y="290" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="28" fill="#3ea568">CaCO₃</text>
-
-        {/* Three nodes around */}
-        {/* Top - CaCO3 */}
-        <circle cx="300" cy="65" r="62" fill="#f1eee5" stroke="#0f1410" strokeWidth="1.5" />
-        <text x="300" y="62" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="26" fill="#0f1410" fontWeight="600">CaCO₃</text>
-        <text x="300" y="90" textAnchor="middle" fontFamily="Newsreader, serif" fontStyle="italic" fontSize="20" fill="rgba(15,20,16,0.6)">calcário</text>
-
-        {/* Right - CaO (cal virgem) */}
-        <circle cx="520" cy="380" r="62" fill="#f1eee5" stroke="#f0a04b" strokeWidth="2" />
-        <text x="520" y="376" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="30" fill="#0f1410" fontWeight="600">CaO</text>
-        <text x="520" y="406" textAnchor="middle" fontFamily="Newsreader, serif" fontStyle="italic" fontSize="20" fill="rgba(15,20,16,0.6)">cal virgem</text>
-
-        {/* Left - Ca(OH)2 */}
-        <circle cx="80" cy="380" r="62" fill="#f1eee5" stroke="#1f5a3a" strokeWidth="2" />
-        <text x="80" y="376" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="24" fill="#0f1410" fontWeight="600">Ca(OH)₂</text>
-        <text x="80" y="406" textAnchor="middle" fontFamily="Newsreader, serif" fontStyle="italic" fontSize="20" fill="rgba(15,20,16,0.6)">cal hidratada</text>
-
-        {/* Arrows */}
-        {/* Top -> right : calcinação (orange) */}
-        <path d="M 344 108 Q 410 145 478 336" fill="none" stroke="#f0a04b" strokeWidth="3" markerEnd="url(#arr)" />
-        <text x="450" y="155" fontFamily="Geist, sans-serif" fontSize="28" fill="#f0a04b" fontWeight="600">calcinação</text>
-        <text x="450" y="183" fontFamily="Newsreader, serif" fontStyle="italic" fontSize="22" fill="rgba(240,160,75,0.85)">descarbonatação</text>
-
-        {/* Right -> left : hidratação */}
-        <path d="M 472 420 Q 300 495 128 420" fill="none" stroke="#0f1410" strokeWidth="2" markerEnd="url(#arrg)" />
-        <text x="300" y="500" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="28" fill="#0f1410" fontWeight="500">hidratação</text>
-
-        {/* Left -> top : carbonatação */}
-        <path d="M 122 336 Q 190 145 256 108" fill="none" stroke="#1f5a3a" strokeWidth="3" markerEnd="url(#arrg)" />
-        <text x="0" y="155" fontFamily="Geist, sans-serif" fontSize="28" fill="#1f5a3a" fontWeight="600">carbonatação</text>
-        <text x="0" y="183" fontFamily="Newsreader, serif" fontStyle="italic" fontSize="22" fill="rgba(31,90,58,0.8)">(recarbonização)</text>
-      </svg>
+      <div style={{ width: '100%', height: '100%', maxHeight: 520, background: '#f8f8f8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, boxSizing: 'border-box' }}>
+        <img src="assets/clinker-chemistry-cycle.png" alt="Ciclo de calcinação, hidratação e carbonatação do calcário" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
         <div style={{ borderLeft: '3px solid #f0a04b', paddingLeft: 24, marginTop: 200 }}>
