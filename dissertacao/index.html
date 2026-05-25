@@ -1818,6 +1818,19 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 
 <!-- =========================== 17b-N8N · FLUXOGRAMA N8N — TRIAGEM IA =========================== -->
 <section data-label="17b-N8N Fluxo N8N" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Plataforma n8n · triagem automatizada com IA generativa · Gemini 2.0 Flash" data-screen-label="21 17b-N8N Fluxo N8N" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+  <style>
+    .crit-exclusao li {
+      position: relative;
+      padding-left: 18px;
+    }
+    .crit-exclusao li + li { margin-top: 2px; }
+    .crit-exclusao li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
   <div class="slide" style="padding-bottom: 80px;">
     <div class="slide-header" style="margin-bottom: 24px;">
       <div class="h1 anim-in d1"><em class="ital" style="color: var(--green-deep);">Fluxograma N8N</em></div>
@@ -1834,7 +1847,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-deep);">
           Critérios de exclusão <span style="color: rgba(15,20,16,0.45);">(&ldquo;Rejected&rdquo;) · prompt Gemini 2.0 Flash</span>
         </div>
-        <ul style="margin: 0; padding-left: 22px; list-style: disc;">
+        <ul class="crit-exclusao" style="margin: 0; padding-left: 0; list-style: none;">
           <li><strong>Material não estrutural:</strong> materiais que não são estruturais como paredes, materiais asfálticos ou elementos puramente arquitetônicos;</li>
           <li><strong>Materiais não moldáveis:</strong> materiais que não podem ser moldados como tijolos e blocos;</li>
           <li><strong>Não relacionado à construção:</strong> materiais não relacionados à construção civil;</li>
