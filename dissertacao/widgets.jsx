@@ -372,8 +372,8 @@ function CementProcess() {
    ============================================================ */
 function LimeCycle() {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, height: '100%', alignItems: 'center' }}>
-      <div style={{ width: '100%', height: '100%', maxHeight: 520, background: '#f8f8f8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, boxSizing: 'border-box' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 96, height: '100%', alignItems: 'center' }}>
+      <div style={{ width: '100%', height: '100%', maxHeight: 640, background: '#f8f8f8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, boxSizing: 'border-box' }}>
         <img src="assets/clinker-chemistry-cycle.png" alt="Ciclo de calcinação, hidratação e carbonatação do calcário" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
       </div>
 
