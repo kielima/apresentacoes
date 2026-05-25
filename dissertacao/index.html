@@ -1775,129 +1775,228 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 <!-- =========================== 17b-N8N · FLUXOGRAMA N8N — TRIAGEM IA =========================== -->
 <section data-label="17b-N8N Fluxo N8N" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Plataforma n8n · triagem automatizada com IA generativa · Gemini 2.0 Flash" data-screen-label="21 17b-N8N Fluxo N8N" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
   <div class="slide" style="padding-bottom: 80px;">
-    <div class="slide-header" style="margin-bottom: 28px;">
+    <div class="slide-header" style="margin-bottom: 24px;">
       <div class="h1 anim-in d1">Figura 6 — <em class="ital" style="color: var(--green-deep);">Fluxograma no N8N.</em></div>
     </div>
+    <div class="anim-in d2" style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 16px; align-items: stretch;">
 
-    <div class="anim-in d2" style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 18px; align-items: stretch;">
-
-      <div style="flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;">
-        <svg viewBox="0 0 1520 370" style="width: 100%; height: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+      <!-- n8n diagram canvas -->
+      <div style="flex: 1; min-height: 0; background: #f8f8f8; border: 1px solid #e5e5e8; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <svg viewBox="0 0 1511 490" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <marker id="ah" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
-              <polygon points="0 0, 9 3.5, 0 7" fill="rgba(15,20,16,0.28)"/>
+            <!-- open arrowhead, n8n style -->
+            <marker id="nh" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+              <polyline points="1,1 9,4 1,7" fill="none" stroke="#bdbdc4" stroke-width="1.5" stroke-linejoin="round"/>
             </marker>
-            <marker id="ah-sm" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
-              <polygon points="0 0, 7 2.5, 0 5" fill="rgba(15,20,16,0.22)"/>
-            </marker>
+            <!-- subtle node drop shadow -->
+            <filter id="ns" x="-8%" y="-8%" width="120%" height="130%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.09)"/>
+            </filter>
           </defs>
 
-          <!-- ── MAIN FLOW ARROWS ── -->
-          <!-- Trigger → Get Data -->
-          <line x1="163" y1="104" x2="230" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
-          <!-- Get Data → If -->
-          <line x1="373" y1="104" x2="440" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
-          <!-- If → Loop  (true) -->
-          <line x1="583" y1="104" x2="650" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
-          <text x="617" y="95" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" fill="#3ea568" letter-spacing="0.07em">true</text>
-          <!-- If false branch (going down to +) -->
-          <line x1="511" y1="140" x2="511" y2="168" stroke="rgba(15,20,16,0.22)" stroke-width="1.5" marker-end="url(#ah-sm)"/>
-          <text x="530" y="161" font-family="JetBrains Mono,monospace" font-size="13" fill="rgba(15,20,16,0.38)" letter-spacing="0.07em">false</text>
-          <rect x="492" y="168" width="38" height="22" rx="5" fill="rgba(15,20,16,0.06)" stroke="rgba(15,20,16,0.18)" stroke-width="1"/>
-          <text x="511" y="184" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" fill="rgba(15,20,16,0.4)">+</text>
-          <!-- Loop → AI Agent (done) -->
-          <line x1="793" y1="104" x2="912" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
-          <text x="853" y="93" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" fill="#3ea568" letter-spacing="0.07em">done</text>
-          <text x="853" y="122" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="rgba(15,20,16,0.32)" letter-spacing="0.07em">loop</text>
-          <!-- AI Agent → Insert New Data -->
-          <line x1="1063" y1="104" x2="1162" y2="104" stroke="rgba(15,20,16,0.28)" stroke-width="2" marker-end="url(#ah)"/>
+          <!-- ────────── BACKGROUND ────────── -->
+          <rect width="1511" height="490" fill="#f8f8f8"/>
 
-          <!-- ── VERTICAL + HORIZONTAL CONNECTORS (AI Agent → sub-nodes) ── -->
-          <line x1="988" y1="140" x2="988" y2="254" stroke="rgba(15,20,16,0.22)" stroke-width="1.5"/>
-          <line x1="920" y1="254" x2="1056" y2="254" stroke="rgba(15,20,16,0.22)" stroke-width="1.5"/>
-          <circle cx="988" cy="254" r="3.5" fill="rgba(15,20,16,0.28)"/>
-          <circle cx="920" cy="254" r="3.5" fill="rgba(15,20,16,0.28)"/>
-          <circle cx="1056" cy="254" r="3.5" fill="rgba(15,20,16,0.28)"/>
-          <!-- Return arrow from sub-node area back up to AI Agent -->
-          <path d="M 1056,254 C 1095,220 1060,162 1030,145" stroke="rgba(15,20,16,0.2)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#ah-sm)"/>
+          <!-- ────────── CONNECTOR LINES ────────── -->
+          <!-- N1 → N2 -->
+          <line x1="121" y1="117" x2="201" y2="117" stroke="#bdbdc4" stroke-width="1.5" marker-end="url(#nh)"/>
+          <!-- N2 → N3 -->
+          <line x1="309" y1="117" x2="389" y2="117" stroke="#bdbdc4" stroke-width="1.5" marker-end="url(#nh)"/>
+          <!-- N3 → N4 (true) -->
+          <line x1="497" y1="109" x2="565" y2="109" stroke="#bdbdc4" stroke-width="1.5" marker-end="url(#nh)"/>
+          <!-- true label -->
+          <text x="531" y="100" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#9898a0">true</text>
+          <!-- N3 → false down -->
+          <line x1="497" y1="125" x2="497" y2="168" stroke="#bdbdc4" stroke-width="1.5"/>
+          <text x="516" y="153" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#9898a0">false</text>
+          <!-- false + button -->
+          <rect x="479" y="168" width="36" height="22" rx="6" fill="white" stroke="#d4d4dc" stroke-width="1.2"/>
+          <text x="497" y="184" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#9898a0">+</text>
 
-          <!-- ══ NODE 1 — Schedule Trigger ══ -->
-          <rect x="23" y="68" width="140" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
-          <!-- clock icon -->
-          <circle cx="93" cy="86" r="10" fill="none" stroke="#3ea568" stroke-width="1.8"/>
-          <line x1="93" y1="86" x2="93" y2="80" stroke="#3ea568" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="93" y1="86" x2="98" y2="90" stroke="#3ea568" stroke-width="1.8" stroke-linecap="round"/>
-          <text x="93" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Schedule</text>
-          <text x="93" y="128" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Trigger</text>
-          <text x="93" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">GATILHO</text>
+          <!-- N4 done → N5 -->
+          <line x1="689" y1="105" x2="813" y2="113" stroke="#bdbdc4" stroke-width="1.5" marker-end="url(#nh)"/>
+          <text x="751" y="97" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#9898a0">done</text>
+          <!-- N4 loop → N5 (lower) -->
+          <line x1="689" y1="121" x2="813" y2="125" stroke="#bdbdc4" stroke-width="1.5" marker-end="url(#nh)"/>
+          <text x="751" y="138" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#9898a0">loop</text>
 
-          <!-- ══ NODE 2 — Get Data ══ -->
-          <rect x="233" y="68" width="140" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
-          <!-- sheets icon -->
-          <rect x="285" y="76" width="16" height="20" rx="2" fill="#0f9d58"/>
-          <polygon points="295,76 301,82 295,82" fill="white" opacity="0.6"/>
-          <line x1="289" y1="85" x2="300" y2="85" stroke="white" stroke-width="1.1"/>
-          <line x1="289" y1="90" x2="300" y2="90" stroke="white" stroke-width="1.1"/>
-          <line x1="289" y1="95" x2="300" y2="95" stroke="white" stroke-width="1.1"/>
-          <line x1="294" y1="82" x2="294" y2="96" stroke="white" stroke-width="1" opacity="0.7"/>
-          <text x="303" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Get Data</text>
-          <text x="303" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">GOOGLE SHEETS</text>
+          <!-- N5 → N6 -->
+          <line x1="1141" y1="117" x2="1381" y2="117" stroke="#bdbdc4" stroke-width="1.5" marker-end="url(#nh)"/>
+          <!-- dot mid-connector -->
+          <circle cx="1141" cy="117" r="4.5" fill="#bdbdc4"/>
+          <circle cx="1381" cy="117" r="4.5" fill="#bdbdc4"/>
 
-          <!-- ══ NODE 3 — If ══ -->
-          <rect x="443" y="68" width="136" height="72" rx="11" fill="rgba(240,160,75,0.07)" stroke="#f0a04b" stroke-width="1.5"/>
-          <!-- diamond icon -->
-          <polygon points="511,74 522,85 511,96 500,85" fill="none" stroke="#f0a04b" stroke-width="1.8"/>
-          <text x="511" y="116" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">If</text>
-          <text x="511" y="131" text-anchor="middle" font-family="Geist,sans-serif" font-size="12.5" fill="rgba(15,20,16,0.5)">Condição</text>
-          <text x="511" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">JÁ TRIADO?</text>
+          <!-- ── Sub-node connections (below AI Agent) ── -->
+          <!-- Labels below AI Agent node -->
+          <text x="878" y="188" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" fill="#9898a0">Chat Mode</text>
+          <text x="878" y="201" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" fill="#9898a0">Memory</text>
+          <text x="878" y="215" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" fill="#9898a0">Model</text>
+          <!-- diamond for Gemini -->
+          <polygon points="878,224 887,233 878,242 869,233" fill="#6e5bd9"/>
+          <!-- line down to Gemini circle top -->
+          <line x1="878" y1="242" x2="878" y2="340" stroke="#bdbdc4" stroke-width="1.5"/>
+          <line x1="830" y1="340" x2="878" y2="340" stroke="#bdbdc4" stroke-width="1.5"/>
 
-          <!-- ══ NODE 4 — Loop Over Items ══ -->
-          <rect x="653" y="68" width="140" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
-          <!-- loop icon -->
-          <path d="M 713,76 A 11,11 0 1 1 702,87" fill="none" stroke="#1f5a3a" stroke-width="1.8" stroke-linecap="round"/>
-          <polygon points="702,82 702,92 710,87" fill="#1f5a3a"/>
-          <text x="723" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Loop Over</text>
-          <text x="723" y="128" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Items</text>
-          <text x="723" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">1 RESUMO / VEZ</text>
+          <text x="1040" y="188" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" fill="#9898a0">ToolOutput</text>
+          <text x="1040" y="201" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" fill="#9898a0">Parser</text>
+          <text x="1040" y="215" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" fill="#9898a0">Output Parser</text>
+          <!-- + button -->
+          <rect x="1021" y="220" width="36" height="22" rx="6" fill="white" stroke="#d4d4dc" stroke-width="1.2"/>
+          <text x="1039" y="236" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#9898a0">+</text>
+          <!-- diamond for Parser -->
+          <polygon points="1039,248 1048,257 1039,266 1030,257" fill="#6e5bd9"/>
+          <!-- line from diamond to Parser circle top -->
+          <line x1="1039" y1="266" x2="1039" y2="340" stroke="#bdbdc4" stroke-width="1.5"/>
+          <line x1="975" y1="340" x2="1039" y2="340" stroke="#bdbdc4" stroke-width="1.5"/>
 
-          <!-- ══ NODE 5 — AI Agent ══ -->
-          <rect x="915" y="68" width="148" height="72" rx="11" fill="#1f5a3a" stroke="#1f5a3a" stroke-width="1.5"/>
-          <!-- robot icon -->
-          <rect x="972" y="75" width="28" height="20" rx="4" fill="rgba(232,229,221,0.22)"/>
-          <circle cx="979" cy="84" r="3" fill="rgba(232,229,221,0.85)"/>
-          <circle cx="993" cy="84" r="3" fill="rgba(232,229,221,0.85)"/>
-          <line x1="980" y1="90" x2="992" y2="90" stroke="rgba(232,229,221,0.7)" stroke-width="1.6" stroke-linecap="round"/>
-          <text x="989" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#e8e5dd">AI Agent</text>
-          <text x="989" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">NÓ CENTRAL</text>
+          <!-- Return arrow: Parser area back up toward AI Agent -->
+          <line x1="975" y1="386" x2="830" y2="386" stroke="#bdbdc4" stroke-width="1.5"/>
+          <line x1="830" y1="386" x2="830" y2="340" stroke="#bdbdc4" stroke-width="1.5"/>
+          <!-- arrowhead pointing up (into the AI Agent area) -->
+          <polygon points="826,342 830,333 834,342" fill="#bdbdc4"/>
 
-          <!-- ══ NODE 6 — Insert New Data ══ -->
-          <rect x="1165" y="68" width="150" height="72" rx="11" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
-          <!-- sheets icon -->
-          <rect x="1213" y="76" width="16" height="20" rx="2" fill="#0f9d58"/>
-          <polygon points="1223,76 1229,82 1223,82" fill="white" opacity="0.6"/>
-          <line x1="1217" y1="85" x2="1228" y2="85" stroke="white" stroke-width="1.1"/>
-          <line x1="1217" y1="90" x2="1228" y2="90" stroke="white" stroke-width="1.1"/>
-          <line x1="1217" y1="95" x2="1228" y2="95" stroke="white" stroke-width="1.1"/>
-          <line x1="1222" y1="82" x2="1222" y2="96" stroke="white" stroke-width="1" opacity="0.7"/>
-          <text x="1240" y="112" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Insert New</text>
-          <text x="1240" y="128" text-anchor="middle" font-family="Geist,sans-serif" font-size="14" fill="#0f1410">Data</text>
-          <text x="1240" y="158" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="rgba(15,20,16,0.4)" letter-spacing="0.1em">GOOGLE SHEETS</text>
+          <!-- ────────── CONNECTION DOTS ────────── -->
+          <!-- N1 right -->
+          <circle cx="121" cy="117" r="4.5" fill="#bdbdc4"/>
+          <!-- N2 -->
+          <circle cx="201" cy="117" r="4.5" fill="#bdbdc4"/>
+          <circle cx="309" cy="117" r="4.5" fill="#bdbdc4"/>
+          <!-- N3 -->
+          <circle cx="389" cy="117" r="4.5" fill="#bdbdc4"/>
+          <circle cx="497" cy="109" r="4.5" fill="#bdbdc4"/>
+          <circle cx="497" cy="125" r="4.5" fill="#bdbdc4"/>
+          <!-- N4 -->
+          <circle cx="565" cy="109" r="4.5" fill="#bdbdc4"/>
+          <circle cx="689" cy="105" r="4.5" fill="#bdbdc4"/>
+          <circle cx="689" cy="121" r="4.5" fill="#bdbdc4"/>
+          <!-- N5 -->
+          <circle cx="813" cy="113" r="4.5" fill="#bdbdc4"/>
+          <circle cx="813" cy="125" r="4.5" fill="#bdbdc4"/>
 
-          <!-- ══ SUB-NODE: Google Gemini (Model) ══ -->
-          <circle cx="920" cy="296" r="42" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
-          <text x="920" y="307" text-anchor="middle" font-family="Geist,sans-serif" font-size="30" font-weight="700" fill="#4285f4">G</text>
-          <text x="920" y="355" text-anchor="middle" font-family="Geist,sans-serif" font-size="13.5" fill="rgba(15,20,16,0.55)">Model</text>
-          <text x="920" y="370" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="rgba(15,20,16,0.38)" letter-spacing="0.05em">Gemini 2.0 Flash</text>
+          <!-- ────────── NODE 1 — Schedule Trigger ────────── -->
+          <rect x="15" y="65" w="108" h="104" rx="14" width="108" height="104" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Teal circle (icon background) -->
+          <circle cx="69" cy="100" r="27" fill="#1ba08a"/>
+          <!-- Clock face -->
+          <circle cx="69" cy="100" r="13" fill="none" stroke="white" stroke-width="1.5"/>
+          <!-- Clock hands -->
+          <line x1="69" y1="100" x2="69" y2="91" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="69" y1="100" x2="76" y2="105" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <!-- Tick marks -->
+          <line x1="69" y1="87" x2="69" y2="89" stroke="white" stroke-width="1.5"/>
+          <line x1="69" y1="111" x2="69" y2="113" stroke="white" stroke-width="1.5"/>
+          <line x1="56" y1="100" x2="58" y2="100" stroke="white" stroke-width="1.5"/>
+          <line x1="80" y1="100" x2="82" y2="100" stroke="white" stroke-width="1.5"/>
+          <!-- Label -->
+          <text x="69" y="141" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#888890">Schedule Trigger</text>
 
-          <!-- ══ SUB-NODE: Output Parser ══ -->
-          <circle cx="1056" cy="296" r="42" fill="#ffffff" stroke="#d0d2ce" stroke-width="1.5"/>
-          <text x="1056" y="305" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="19" font-weight="600" fill="#f0a04b">&lt;/&gt;</text>
-          <text x="1056" y="355" text-anchor="middle" font-family="Geist,sans-serif" font-size="13.5" fill="rgba(15,20,16,0.55)">Parser</text>
-          <text x="1056" y="370" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="rgba(15,20,16,0.38)" letter-spacing="0.05em">Output Parser</text>
+          <!-- ────────── NODE 2 — Get Data ────────── -->
+          <rect x="203" y="65" width="108" height="104" rx="14" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Google Sheets icon -->
+          <rect x="238" y="76" width="44" height="54" rx="3" fill="#0f9d58"/>
+          <!-- Dog ear -->
+          <polygon points="272,76 282,76 282,86" fill="white" opacity="0.25"/>
+          <polygon points="272,76 272,86 282,86" fill="rgba(0,0,0,0.15)"/>
+          <!-- Spreadsheet lines (white) -->
+          <line x1="244" y1="94" x2="278" y2="94" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="244" y1="102" x2="278" y2="102" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="244" y1="110" x2="278" y2="110" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="244" y1="118" x2="278" y2="118" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="258" y1="86" x2="258" y2="124" stroke="white" stroke-width="1.2" opacity="0.55"/>
+          <!-- Node label -->
+          <text x="257" y="141" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="14" font-weight="500" fill="#2d2d30">Get Data</text>
+          <text x="257" y="157" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#9898a0">Input: sheet</text>
+
+          <!-- ────────── NODE 3 — If ────────── -->
+          <rect x="391" y="65" width="108" height="104" rx="14" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Road sign icon: a post with directional arrow signs -->
+          <!-- Post -->
+          <rect x="442" y="96" width="4" height="32" rx="1.5" fill="#3db84a"/>
+          <!-- Left arrow sign -->
+          <polygon points="418,81 432,76 432,86" fill="#3db84a"/>
+          <rect x="432" y="77" width="14" height="8" rx="1.5" fill="#3db84a"/>
+          <!-- Up-right arrow sign -->
+          <rect x="444" y="72" width="14" height="8" rx="1.5" fill="#3db84a"/>
+          <polygon points="458,68 466,76 458,84" fill="#3db84a"/>
+          <!-- Label -->
+          <text x="445" y="141" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="14" font-weight="500" fill="#2d2d30">If</text>
+
+          <!-- ────────── NODE 4 — Loop Over Items ────────── -->
+          <rect x="567" y="53" width="124" height="120" rx="14" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Large circular refresh arrows, teal color -->
+          <!-- Top arc (arrow tip at top-right) -->
+          <path d="M629,79 A26,26 0 0 1 655,113" fill="none" stroke="#1ba08a" stroke-width="5" stroke-linecap="round"/>
+          <polygon points="657,105 660,117 649,112" fill="#1ba08a"/>
+          <!-- Bottom arc (arrow tip at bottom-left) -->
+          <path d="M629,147 A26,26 0 0 1 603,113" fill="none" stroke="#1ba08a" stroke-width="5" stroke-linecap="round"/>
+          <polygon points="601,121 598,109 609,114" fill="#1ba08a"/>
+          <!-- Label -->
+          <text x="629" y="190" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="500" fill="#2d2d30">Loop Over Items</text>
+
+          <!-- ────────── NODE 5 — AI Agent ────────── -->
+          <rect x="815" y="63" width="328" height="110" rx="14" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Robot icon -->
+          <!-- Head rectangle -->
+          <rect x="843" y="80" width="38" height="30" rx="5" fill="#2d2d30"/>
+          <!-- Eyes -->
+          <rect x="850" y="88" width="7" height="7" rx="2" fill="white"/>
+          <rect x="866" y="88" width="7" height="7" rx="2" fill="white"/>
+          <!-- Mouth line -->
+          <line x1="852" y1="103" x2="874" y2="103" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <!-- Antenna -->
+          <line x1="862" y1="80" x2="862" y2="74" stroke="#2d2d30" stroke-width="2.5"/>
+          <circle cx="862" cy="72" r="3.5" fill="#2d2d30"/>
+          <!-- "AI Agent" text inside the node -->
+          <text x="895" y="116" font-family="Inter,system-ui,sans-serif" font-size="22" font-weight="600" fill="#2d2d30">AI Agent</text>
+
+          <!-- ────────── NODE 6 — Insert New Data ────────── -->
+          <rect x="1383" y="65" width="108" height="104" rx="14" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Google Sheets icon (same as N2) -->
+          <rect x="1418" y="76" width="44" height="54" rx="3" fill="#0f9d58"/>
+          <polygon points="1452,76 1462,76 1462,86" fill="white" opacity="0.25"/>
+          <polygon points="1452,76 1452,86 1462,86" fill="rgba(0,0,0,0.15)"/>
+          <line x1="1424" y1="94" x2="1458" y2="94" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="1424" y1="102" x2="1458" y2="102" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="1424" y1="110" x2="1458" y2="110" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="1424" y1="118" x2="1458" y2="118" stroke="white" stroke-width="1.4" opacity="0.85"/>
+          <line x1="1438" y1="86" x2="1438" y2="124" stroke="white" stroke-width="1.2" opacity="0.55"/>
+          <text x="1437" y="141" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="500" fill="#2d2d30">Insert New Data</text>
+          <text x="1437" y="157" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#9898a0">uposite: sheet</text>
+
+          <!-- ────────── SUB-NODE: Google Gemini (Model) ────────── -->
+          <circle cx="830" cy="386" r="46" fill="white" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- Google G logo: colored arcs on ring r=22, stroke-width=9 -->
+          <!-- circumference ≈ 138.2; each quarter ≈ 34.55 -->
+          <!-- Blue: 270°→0° (top to right), dashoffset=0 at 270°, rotating ring -->
+          <g transform="translate(830,386)">
+            <!-- Blue arc: from top going clockwise to right (270°→360°) -->
+            <circle r="22" fill="none" stroke="#4285f4" stroke-width="9"
+              stroke-dasharray="34.5 103.7" stroke-dashoffset="0" transform="rotate(-90)"/>
+            <!-- Green arc: right → bottom (0°→90°) -->
+            <circle r="22" fill="none" stroke="#34a853" stroke-width="9"
+              stroke-dasharray="34.5 103.7" stroke-dashoffset="-34.5" transform="rotate(-90)"/>
+            <!-- Yellow arc: bottom → left (90°→180°) -->
+            <circle r="22" fill="none" stroke="#fbbc05" stroke-width="9"
+              stroke-dasharray="34.5 103.7" stroke-dashoffset="-69" transform="rotate(-90)"/>
+            <!-- Red arc: left → top (180°→270°) -->
+            <circle r="22" fill="none" stroke="#ea4335" stroke-width="9"
+              stroke-dasharray="34.5 103.7" stroke-dashoffset="-103.5" transform="rotate(-90)"/>
+            <!-- Horizontal bar (blue, G's shelf) -->
+            <rect x="0" y="-5" width="22" height="10" fill="#4285f4"/>
+            <!-- Inner white donut hole -->
+            <circle r="12" fill="white"/>
+          </g>
+          <text x="830" y="448" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#888890">Model</text>
+
+          <!-- ────────── SUB-NODE: Output Parser ────────── -->
+          <circle cx="975" cy="386" r="46" fill="#ede9ff" stroke="#d4d4dc" stroke-width="1.5" filter="url(#ns)"/>
+          <!-- </> symbol -->
+          <text x="975" y="397" text-anchor="middle" font-family="'Courier New',monospace" font-size="24" font-weight="700" fill="#5e3abd">&lt;/&gt;</text>
+          <text x="975" y="448" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#888890">Parser</text>
         </svg>
       </div>
 
-      <div style="font-family: 'Newsreader', serif; font-style: italic; font-size: 22px; color: rgba(15,20,16,0.5); text-align: center; padding-bottom: 4px;">
+      <div style="font-family: 'Newsreader', serif; font-style: italic; font-size: 22px; color: rgba(15,20,16,0.5); text-align: center;">
         Fonte: Autoria própria.
       </div>
     </div>
