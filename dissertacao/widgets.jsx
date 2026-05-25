@@ -596,8 +596,10 @@ function ACVDiagram() {
           fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 22, color: '#1f5a3a'
         }}>berço</div>
         <div style={{
-          position: 'absolute', left: '40%', top: 'calc(50% + 18px)',
-          fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 22, color: 'rgba(15,20,16,0.5)'
+          position: 'absolute', left: '25%', top: 'calc(50% + 18px)',
+          transform: 'translateX(-50%)',
+          fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 22, color: 'rgba(15,20,16,0.5)',
+          whiteSpace: 'nowrap'
         }}>(portão · gate)</div>
         <div style={{
           position: 'absolute', right: 0, top: 'calc(50% + 18px)',
