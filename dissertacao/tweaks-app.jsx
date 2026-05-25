@@ -65,7 +65,7 @@
           onChange={(v) => setTweak('palette', v)}
         />
         <div style={{
-          fontSize: 10.5,
+          fontSize: 11,
           color: 'rgba(41,38,27,.55)',
           lineHeight: 1.4,
           marginTop: -4,
@@ -87,7 +87,7 @@
           onChange={(v) => setTweak('voice', v)}
         />
         <div style={{
-          fontSize: 10.5,
+          fontSize: 11,
           color: 'rgba(41,38,27,.55)',
           lineHeight: 1.4,
           marginTop: -4,
@@ -109,7 +109,7 @@
           onChange={(v) => setTweak('texture', v)}
         />
         <div style={{
-          fontSize: 10.5,
+          fontSize: 11,
           color: 'rgba(41,38,27,.55)',
           lineHeight: 1.4,
           marginTop: -4,
