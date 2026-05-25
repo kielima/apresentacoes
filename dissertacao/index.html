@@ -825,8 +825,9 @@
     z-index: 1;
   }
 
-  /* —— PDF save button (last slide) —— */
-  #btn-save-pdf {
+  /* —— PDF save / download buttons (last slide) —— */
+  #btn-save-pdf,
+  #btn-download-dissertacao {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -840,14 +841,17 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
+    text-decoration: none;
     transition: background 0.2s, border-color 0.2s, color 0.2s;
   }
-  #btn-save-pdf:hover {
+  #btn-save-pdf:hover,
+  #btn-download-dissertacao:hover {
     background: rgba(62,165,104,0.12);
     border-color: rgba(62,165,104,0.65);
     color: #6cc894;
   }
-  #btn-save-pdf:active {
+  #btn-save-pdf:active,
+  #btn-download-dissertacao:active {
     background: rgba(62,165,104,0.22);
   }
 
@@ -857,7 +861,8 @@
 
     html, body { background: #000 !important; }
 
-    #btn-save-pdf { display: none !important; }
+    #btn-save-pdf,
+    #btn-download-dissertacao { display: none !important; }
 
     deck-stage {
       display: block !important;
@@ -3067,11 +3072,15 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
           Programa de Pós-Graduação
         </div>
       </div>
-      <div class="anim-in d3" style="margin-top: 56px;">
+      <div class="anim-in d3" style="margin-top: 56px; display: flex; gap: 16px; flex-wrap: wrap;">
         <button id="btn-save-pdf" onclick="window.print()" title="Guardar apresentação como PDF">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Guardar PDF
+          Guardar apresentação
         </button>
+        <a id="btn-download-dissertacao" href="assets/dissertacao-qualificacao-kiel-lima.pdf" download title="Baixar dissertação (qualificação)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          Baixar dissertação
+        </a>
       </div>
     </div>
   </div>
