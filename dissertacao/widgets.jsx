@@ -934,13 +934,13 @@ function Gantt() {
         <div key={m} style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 22, color: 'rgba(15,20,16,0.55)', textAlign: 'center', letterSpacing: '0.05em' }}>{m}</div>
         )}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
         {tasks.map((t, i) =>
         <div key={i} style={{
           display: 'grid', gridTemplateColumns: '520px repeat(7, 1fr)', gap: 4,
           alignItems: 'center',
           borderTop: '1px solid rgba(15,20,16,0.08)',
-          paddingTop: 8
+          paddingTop: 10
         }}>
             <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 22, paddingRight: 16, whiteSpace: 'nowrap' }}>{t.label}</div>
             {months.map((_, mi) =>
