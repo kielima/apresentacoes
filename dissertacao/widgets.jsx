@@ -698,9 +698,9 @@ function UHPCMix() {
           animation: `fadeUp 500ms ease ${i * 70 + 200}ms both`
         }}>
             <div style={{ width: 18, height: 18, background: ing.color, borderRadius: 3 }}></div>
-            <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 25 }}>{ing.name}</div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 23, fontWeight: 600 }}>{ing.pct.toFixed(1).replace('.', ',')}%</div>
-            <div style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 22, color: 'rgba(15,20,16,0.6)' }}>{ing.note}</div>
+            <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 28 }}>{ing.name}</div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 26, fontWeight: 600 }}>{ing.pct.toFixed(1).replace('.', ',')}%</div>
+            <div style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 27, color: 'rgba(15,20,16,0.78)' }}>{ing.note}</div>
           </div>
         )}
       </div>
