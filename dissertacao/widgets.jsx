@@ -589,7 +589,7 @@ function ACVDiagram() {
               position: 'relative',
               border: '1px solid ' + (isActive ? p.color : 'rgba(15,20,16,0.14)')
             }}>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.15em', opacity: 0.75 }}>{p.code}</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.15em', opacity: 0.75 }}>{p.code}</div>
               <div style={{ fontFamily: 'Newsreader, serif', fontSize: 36, marginTop: 8 }}>{p.label}</div>
             </div>);
 
@@ -630,7 +630,7 @@ function ACVDiagram() {
           top: 'calc(50% - 28px)',
           transform: 'translateX(-50%)',
           fontFamily: 'JetBrains Mono, monospace',
-          fontSize: 13,
+          fontSize: 20,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
           color: cur.color,
@@ -648,7 +648,7 @@ function ACVDiagram() {
         display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 56, alignItems: 'center'
       }}>
         <div>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.15em', color: cur.color, textTransform: 'uppercase' }}>Módulo {cur.code}</div>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.15em', color: cur.color, textTransform: 'uppercase' }}>Módulo {cur.code}</div>
           <div style={{ fontFamily: 'Newsreader, serif', fontSize: 72, lineHeight: 1.05, marginTop: 8 }}>{cur.label}</div>
         </div>
         <div>
@@ -664,7 +664,7 @@ function ACVDiagram() {
             }}></div>
             )}
           </div>
-          <div style={{ marginTop: 12, fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'rgba(15,20,16,0.5)', letterSpacing: '0.12em' }}>
+          <div style={{ marginTop: 12, fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.5)', letterSpacing: '0.12em' }}>
             EN 15978 · ISO 14040 / 14044
           </div>
         </div>
