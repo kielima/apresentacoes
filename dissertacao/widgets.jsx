@@ -882,7 +882,7 @@ function Gantt() {
   { label: 'Modelagem do sistema ACV', start: 1, end: 4, color: '#0f1410' },
   { label: 'Inventário do ciclo de vida', start: 3, end: 6, color: '#0f1410' },
   { label: 'Análise de impacto + sensibilidade', start: 4, end: 6, color: '#f0a04b' },
-  { label: 'Comparações UHPC × convencional × HPC', start: 5, end: 6, color: '#f0a04b' },
+  { label: 'Comparações com outros materiais', start: 5, end: 6, color: '#f0a04b' },
   { label: 'Escrita da dissertação', start: 0, end: 6, color: '#5a8a6a' },
   { label: 'Defesa', start: 6, end: 7, color: '#1f5a3a' }];
 
