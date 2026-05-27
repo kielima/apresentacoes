@@ -979,7 +979,6 @@ const mounts = [
 ['co2-counter', CO2Counter],
 ['cement-process', CementProcess],
 ['lime-cycle', LimeCycle],
-['lime-cycle-test', LimeCycle],
 ['acv-diagram', ACVDiagram],
 ['uhpc-bars', UHPCBars],
 ['uhpc-mix', UHPCMix],
