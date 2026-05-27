@@ -1255,13 +1255,38 @@
     }
 
     _onTapBack(e) {
+      if (this._delegateTapToSlide(e)) return;
       e.preventDefault();
       this._advance(-1, 'tap');
     }
 
     _onTapForward(e) {
+      if (this._delegateTapToSlide(e)) return;
       e.preventDefault();
       this._advance(1, 'tap');
+    }
+
+    /* Tap zones cover the whole stage, so a tap on an interactive control inside
+       a slide (e.g. the cover's fullscreen button) would otherwise just advance.
+       Probe what's under the touch in the active slide and forward the click. */
+    _delegateTapToSlide(e) {
+      const x = e.clientX, y = e.clientY;
+      if (x == null || y == null) return false;
+      const active = this._slides && this._slides[this._index];
+      if (!active) return false;
+      const stack = document.elementsFromPoint(x, y);
+      for (const el of stack) {
+        if (!active.contains(el)) continue;
+        const hit = el.closest('button, a[href], [role="button"], input, select, textarea, label, [data-tap-passthrough]');
+        if (hit && active.contains(hit)) {
+          e.preventDefault();
+          e.stopPropagation();
+          hit.click();
+          return true;
+        }
+        break;
+      }
+      return false;
     }
 
     _onKey(e) {
