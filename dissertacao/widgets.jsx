@@ -92,7 +92,7 @@ function TimelineCOPs() {
             <div key={d} style={{
               position: 'absolute', left: `calc(60px + ${pct}% - 60px * ${pct / 100} * 2)`,
               transform: 'translateX(-50%)', top: 0,
-              fontFamily: 'JetBrains Mono, monospace', fontSize: 18,
+              fontFamily: 'JetBrains Mono, monospace', fontSize: 20,
               color: 'rgba(15,20,16,0.45)', letterSpacing: '0.08em'
             }}>{d}</div>);
 
@@ -145,7 +145,7 @@ function TimelineCOPs() {
                 minHeight: 'calc(26px * 1.15 * 2 + 13px + 10px + 4px)'
               }}>
                 <div style={{
-                  fontFamily: 'JetBrains Mono, monospace', fontSize: 13,
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: 20,
                   color: 'rgba(15,20,16,0.45)', letterSpacing: '0.16em', textTransform: 'uppercase'
                 }}>documento</div>
                 <div style={{
@@ -198,7 +198,7 @@ function CO2Counter() {
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: 56, height: '100%', alignItems: 'stretch' }}>
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
         <div>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 16, color: 'rgba(232,229,221,0.6)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(232,229,221,0.6)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
             Emissões globais de CO₂ <span style={{ color: '#3ea568' }}>·</span> toneladas
           </div>
           <div style={{
@@ -218,17 +218,17 @@ function CO2Counter() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, borderTop: '1px solid rgba(232,229,221,0.18)', paddingTop: 28, marginTop: 32 }}>
           <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'rgba(232,229,221,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Construção civil (21%)</div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(232,229,221,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Construção civil (21%)</div>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 42, color: '#f0a04b', marginTop: 8, fontVariantNumeric: 'tabular-nums' }}>{fmt(construcaoT)} t</div>
           </div>
           <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'rgba(232,229,221,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Só do cimento (8%)</div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(232,229,221,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Só do cimento (8%)</div>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 42, color: '#f0a04b', marginTop: 8, fontVariantNumeric: 'tabular-nums' }}>{fmt(cementT)} t</div>
           </div>
         </div>
       </div>
       <div style={{ background: 'rgba(232,229,221,0.04)', border: '1px solid rgba(232,229,221,0.12)', borderRadius: 4, overflow: 'hidden', display: 'flex', flexDirection: 'column', marginTop: -100, height: 'calc(100% + 100px)' }}>
-        <div style={{ background: 'rgba(232,229,221,0.05)', borderBottom: '1px solid rgba(232,229,221,0.12)', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'JetBrains Mono, monospace', fontSize: 14, color: 'rgba(232,229,221,0.7)' }}>
+        <div style={{ background: 'rgba(232,229,221,0.05)', borderBottom: '1px solid rgba(232,229,221,0.12)', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(232,229,221,0.7)' }}>
           <div style={{ display: 'flex', gap: 6 }}>
             <i style={{ width: 10, height: 10, borderRadius: 999, background: 'rgba(232,229,221,0.25)', display: 'block' }}></i>
             <i style={{ width: 10, height: 10, borderRadius: 999, background: 'rgba(232,229,221,0.25)', display: 'block' }}></i>
@@ -298,7 +298,7 @@ function CementProcess() {
                 }}>
               <div style={{
                     fontFamily: 'JetBrains Mono, monospace',
-                    fontSize: 15,
+                    fontSize: 20,
                     letterSpacing: '0.15em',
                     color: 'rgba(15,20,16,0.5)'
                   }}>
@@ -349,7 +349,7 @@ function CementProcess() {
                     {s.sub2 &&
                         <div style={{
                           fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: 16,
+                          fontSize: 20,
                           letterSpacing: '0.04em',
                           color: 'rgba(15,20,16,0.6)',
                           whiteSpace: 'nowrap',
@@ -398,7 +398,7 @@ function CementProcess() {
               <React.Fragment>
                 <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.15em', color: 'rgba(15,20,16,0.5)', textTransform: 'uppercase' }}>{eyebrow}</div>
                 <div style={{ fontFamily: 'Newsreader, serif', fontSize: 84, color: numColor, marginTop: 8, lineHeight: 1 }}>{big}</div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 18, letterSpacing: '0.08em', color: 'rgba(15,20,16,0.55)', marginTop: 6 }}>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.08em', color: 'rgba(15,20,16,0.55)', marginTop: 6 }}>
                   {isNegligible ? 'desprezível · —' : `de CO₂ · ${cur.pct} do total`}
                 </div>
                 {cur.breakdown &&
@@ -410,8 +410,8 @@ function CementProcess() {
                     background: 'rgba(240,160,75,0.14)',
                     borderLeft: '2px solid #f0a04b'
                   }}>
-                        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 18, letterSpacing: '0.12em', color: 'rgba(15,20,16,0.6)', textTransform: 'uppercase' }}>{b.label}</div>
-                        <div style={{ fontFamily: 'Newsreader, serif', fontSize: 28, color: '#0f1410', marginTop: 4, lineHeight: 1 }}>{b.kg} kg <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(15,20,16,0.55)', letterSpacing: '0.06em', fontSize: "19px" }}>· {b.pct}</span></div>
+                        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.12em', color: 'rgba(15,20,16,0.6)', textTransform: 'uppercase' }}>{b.label}</div>
+                        <div style={{ fontFamily: 'Newsreader, serif', fontSize: 28, color: '#0f1410', marginTop: 4, lineHeight: 1 }}>{b.kg} kg <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(15,20,16,0.55)', letterSpacing: '0.06em', fontSize: "20px" }}>· {b.pct}</span></div>
                       </div>
                   )}
                   </div>
@@ -439,19 +439,19 @@ function LimeCycle() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
         <div style={{ borderLeft: '3px solid #f0a04b', paddingLeft: 24, marginTop: 200 }}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.15em', color: '#f0a04b', textTransform: 'uppercase', marginBottom: 12 }}>Calcinação · libera</div>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.15em', color: '#f0a04b', textTransform: 'uppercase', marginBottom: 12 }}>Calcinação · libera</div>
           <div style={{ fontFamily: 'Newsreader, serif', fontSize: 100, color: '#f0a04b', lineHeight: 1 }}>553 kg</div>
           <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 22, marginTop: 8, color: 'rgba(15,20,16,0.7)' }}>
             de CO₂ <strong>por tonelada</strong> de cimento — <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>CaCO₃ + calor → CaO + CO₂</span>
           </div>
         </div>
         <div style={{ borderLeft: '3px solid #1f5a3a', paddingLeft: 24 }}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.15em', color: '#1f5a3a', textTransform: 'uppercase' }}>Carbonatação · recaptura parcial</div>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.15em', color: '#1f5a3a', textTransform: 'uppercase' }}>Carbonatação · recaptura parcial</div>
           <p style={{ fontFamily: 'Geist, sans-serif', fontSize: 22, color: 'rgba(15,20,16,0.75)', lineHeight: 1.4, margin: '8px 0 0' }}>
             O concreto absorve CO₂ ao longo da vida útil — relevante na contabilidade do <span style={{ color: '#1f5a3a', fontWeight: 600 }}>balanço por MPa·a</span>.
           </p>
         </div>
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, color: 'rgba(15,20,16,0.45)', marginTop: 8 }}>
+        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.45)', marginTop: 8 }}>
           SCRIVENER, K. L. et al., 2018.
         </div>
       </div>
@@ -503,7 +503,7 @@ function PrismaFlow() {
               animation: `slideUp 600ms ease ${i * 120}ms both`
             }}>
               <div style={{
-                fontFamily: 'JetBrains Mono, monospace', fontSize: 13,
+                fontFamily: 'JetBrains Mono, monospace', fontSize: 20,
                 letterSpacing: '0.18em', opacity: 0.7
               }}>{String(i + 1).padStart(2, '0')} · {s.tag}</div>
 
@@ -511,14 +511,14 @@ function PrismaFlow() {
 
               {s.items.map((it, k) =>
               <div key={k}>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.12em', opacity: 0.6, textTransform: 'uppercase' }}>{it.label}</div>
+                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.12em', opacity: 0.6, textTransform: 'uppercase' }}>{it.label}</div>
                   <div style={{ fontFamily: 'Newsreader, serif', fontSize: 38, lineHeight: 1, marginTop: 4, color: it.neg ? isActive ? '#f0a04b' : '#c4654a' : 'currentColor' }}>{it.n}</div>
-                  <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 14, opacity: 0.7, marginTop: 4 }}>{it.sub}</div>
+                  <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 20, opacity: 0.7, marginTop: 4 }}>{it.sub}</div>
                 </div>
               )}
 
               <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid currentColor', opacity: 0.4 }}>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.8 }}>Restantes</div>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.8 }}>Restantes</div>
                 <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 28, fontWeight: 600 }}>n = {s.total.toLocaleString('pt-BR')}</div>
               </div>
 
@@ -540,13 +540,13 @@ function PrismaFlow() {
       </div>
 
       <div style={{ display: 'flex', gap: 32, alignItems: 'center', padding: '20px 0', borderTop: '1px solid rgba(15,20,16,0.14)' }}>
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, color: 'rgba(15,20,16,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Bases utilizadas</div>
+        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Bases utilizadas</div>
         {['Scopus', 'Web of Science', 'Compendex', 'ScienceDirect'].map((b) =>
         <div key={b} style={{
           padding: '8px 16px',
           border: '1px solid rgba(15,20,16,0.15)',
           fontFamily: 'JetBrains Mono, monospace',
-          fontSize: 16,
+          fontSize: 20,
           letterSpacing: '0.05em'
         }}>{b}</div>
         )}
@@ -689,7 +689,7 @@ function UHPCBars() {
       <div key={d.label}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10 }}>
             <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 24, fontWeight: d.highlight ? 600 : 400, color: d.highlight ? '#0f1410' : 'rgba(15,20,16,0.7)' }}>{d.label}</div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 16, color: 'rgba(15,20,16,0.5)' }}>{d.range}</div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.5)' }}>{d.range}</div>
           </div>
           <div style={{ position: 'relative', height: 56, background: 'rgba(15,20,16,0.05)' }}>
             <div style={{
@@ -707,7 +707,7 @@ function UHPCBars() {
         </div>
       )}
       <div style={{ display: 'flex', gap: 16, alignItems: 'center', borderTop: '1px solid rgba(15,20,16,0.14)', paddingTop: 20, marginTop: 12 }}>
-        <span style={{ padding: '4px 10px', background: '#0f1410', color: '#e8e5dd', fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.12em' }}>DURABILIDADE</span>
+        <span style={{ padding: '4px 10px', background: '#0f1410', color: '#e8e5dd', fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.12em' }}>DURABILIDADE</span>
         <span style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 26 }}>UHPC dura <strong style={{ color: '#1f5a3a', fontStyle: 'normal' }}>2×</strong> mais que o convencional.</span>
       </div>
       <style>{`
@@ -766,7 +766,7 @@ function UHPCMix() {
       </div>
       <div style={{
         fontFamily: 'JetBrains Mono, monospace',
-        fontSize: 17,
+        fontSize: 20,
         lineHeight: 1.55,
         color: 'rgba(15,20,16,0.62)',
         paddingTop: 6,
@@ -876,10 +876,10 @@ function WorldMap() {
                 padding: '10px 14px',
                 whiteSpace: 'nowrap',
                 fontFamily: 'Geist, sans-serif',
-                fontSize: 16,
+                fontSize: 20,
                 fontWeight: 500,
                 boxShadow: '0 6px 18px rgba(0,0,0,0.2)'
-              }}>{w.name}<div style={{ fontSize: 12, opacity: 0.7, marginTop: 2, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}>{w.loc} · {w.year}</div></div>
+              }}>{w.name}<div style={{ fontSize: 20, opacity: 0.7, marginTop: 2, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}>{w.loc} · {w.year}</div></div>
               }
             </div>);
 
@@ -889,9 +889,9 @@ function WorldMap() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18, overflow: 'hidden' }}>
         <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           <div style={{ width: 14, height: 14, borderRadius: '50%', background: '#1f5a3a' }}></div>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.1em' }}>Arquitetura / fachada</span>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.1em' }}>Arquitetura / fachada</span>
           <div style={{ width: 14, height: 14, borderRadius: '50%', background: '#f0a04b', marginLeft: 16 }}></div>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, letterSpacing: '0.1em' }}>Ponte / infra</span>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.1em' }}>Ponte / infra</span>
         </div>
         <div style={{ borderTop: '1px solid rgba(15,20,16,0.14)' }}></div>
         <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -907,16 +907,16 @@ function WorldMap() {
             cursor: 'pointer'
           }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-                <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 17, fontWeight: 500 }}>{w.name}</div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'rgba(15,20,16,0.5)' }}>{w.year}</div>
+                <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 20, fontWeight: 500 }}>{w.name}</div>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.5)' }}>{w.year}</div>
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'rgba(15,20,16,0.55)', letterSpacing: '0.05em', marginTop: 2 }}>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.55)', letterSpacing: '0.05em', marginTop: 2 }}>
                 {w.loc} · {w.type}
               </div>
             </div>
           )}
         </div>
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'rgba(15,20,16,0.45)', marginTop: 'auto', lineHeight: 1.5 }}>
+        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, color: 'rgba(15,20,16,0.45)', marginTop: 'auto', lineHeight: 1.5 }}>
           TAYEH et al. (2023). <i>Ultra-High-Performance Concrete (UHPC) — Applications Worldwide: A State-of-the-Art Review.</i> J. Engineering Research and Technology, v.10, n.1.
         </div>
       </div>
