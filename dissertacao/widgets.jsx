@@ -434,7 +434,7 @@ function LimeCycle() {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1.9fr 1fr', gap: 112, height: '100%', alignItems: 'start' }}>
       <div style={{ width: '100%', height: '100%', background: '#f8f8f8', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', boxSizing: 'border-box' }}>
-        <img src="assets/clinker-chemistry-cycle.png" alt="Ciclo de calcinação, hidratação e carbonatação do calcário" style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top' }} />
+        <img src="assets/clinker-chemistry-cycle.png" alt="Ciclo de calcinação, hidratação e carbonatação do calcário" style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center' }} />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
@@ -442,7 +442,7 @@ function LimeCycle() {
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.15em', color: '#f0a04b', textTransform: 'uppercase', marginBottom: 12 }}>Calcinação · libera</div>
           <div style={{ fontFamily: 'Newsreader, serif', fontSize: 100, color: '#f0a04b', lineHeight: 1 }}>553 kg</div>
           <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 22, marginTop: 8, color: 'rgba(15,20,16,0.7)' }}>
-            de CO₂ <strong>por tonelada</strong> de cimento — <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>CaCO₃ + calor → CaO + CO₂</span>
+            de CO₂ <strong>por tonelada</strong> de cimento<br /><span style={{ fontFamily: 'JetBrains Mono, monospace' }}>CaCO₃ + calor → CaO + CO₂</span>
           </div>
         </div>
         <div style={{ borderLeft: '3px solid #1f5a3a', paddingLeft: 24 }}>
