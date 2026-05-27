@@ -1350,6 +1350,20 @@
      *  nothing further in that direction. */
     _advance(dir, reason) {
       if (!this._slides.length) return;
+      // Give the current slide a chance to consume the advance for in-slide
+      // fragment navigation (e.g. interactive node walkthroughs). When a
+      // listener calls preventDefault, the slide handled it and we don't
+      // step to the next/previous slide.
+      const cur = this._slides[this._index];
+      if (cur) {
+        const ev = new CustomEvent('deck:advance', {
+          detail: { dir, reason },
+          cancelable: true,
+          bubbles: true,
+        });
+        cur.dispatchEvent(ev);
+        if (ev.defaultPrevented) { this._flashOverlay(); return; }
+      }
       let i = this._index + dir;
       while (i >= 0 && i < this._slides.length && this._slides[i].hasAttribute('data-deck-skip')) {
         i += dir;
