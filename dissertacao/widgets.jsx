@@ -918,9 +918,9 @@ function Gantt() {
   { label: 'Qualificação', start: 0, end: 1, color: '#1f5a3a' },
   { label: 'Protocolo PRISMA + extração', start: 0, end: 1, color: '#3ea568' },
   { label: 'Meta-análise estatística', start: 0, end: 2, color: '#3ea568' },
-  { label: 'Modelagem do sistema ACV', start: 1, end: 4, color: '#0f1410' },
-  { label: 'Inventário do ciclo de vida', start: 3, end: 6, color: '#0f1410' },
-  { label: 'Análise de impacto + sensibilidade', start: 4, end: 6, color: '#f0a04b' },
+  { label: 'Modelagem do sistema ACV', start: 1, end: 3, color: '#0f1410' },
+  { label: 'Inventário do ciclo de vida', start: 2, end: 4, color: '#0f1410' },
+  { label: 'Análise de impacto + sensibilidade', start: 3, end: 5, color: '#f0a04b' },
   { label: 'Comparações com outros materiais', start: 5, end: 6, color: '#f0a04b' },
   { label: 'Escrita da dissertação', start: 0, end: 6, color: '#5a8a6a' },
   { label: 'Defesa', start: 6, end: 7, color: '#1f5a3a' }];
