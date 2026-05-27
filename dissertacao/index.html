@@ -1830,6 +1830,19 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       left: 0;
       top: 0;
     }
+    /* marca-texto verde — varre da esquerda para a direita */
+    .crit-agua {
+      background-image: linear-gradient(rgba(80, 195, 110, 0.38), rgba(80, 195, 110, 0.38));
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-size: 0% 100%;
+      border-radius: 3px;
+      transition: background-size 0s;
+    }
+    .crit-agua.highlighted {
+      background-size: 100% 100%;
+      transition: background-size 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
   </style>
   <div class="slide" style="padding-bottom: 80px;">
     <div class="slide-header" style="margin-bottom: 24px;">
@@ -1853,13 +1866,42 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
           <li><strong>Não relacionado à construção:</strong> materiais não relacionados à construção civil;</li>
           <li><strong>Não menciona emissões:</strong> não menciona análise de ciclo de vida, emissão de CO<sub>2</sub> ou gases do efeito estufa;</li>
           <li><strong>Estudos regionalizados:</strong> aqueles que só podem ser aplicados a algum contexto local e não globalmente;</li>
-          <li><strong>Não menciona consumo de água:</strong> quando o resumo não menciona o consumo de água;</li>
+          <li class="crit-agua"><strong>Não menciona consumo de água:</strong> quando o resumo não menciona o consumo de água;</li>
           <li><strong>Materiais em desenvolvimento:</strong> exclua materiais que ainda só existem no ambiente acadêmico e não são produzidos comercialmente.</li>
         </ul>
       </div>
     </div>
   </div>
 
+<script>
+(function () {
+  var slide = document.currentScript.closest('section');
+  var shown = false;
+
+  /* 1.º clique → mostra o marca-texto; 2.º clique → avança o slide */
+  slide.addEventListener('deck:advance', function (e) {
+    if (e.detail.dir !== 1) return; // só bloqueia avanço (→), não recuo
+    if (!shown) {
+      e.preventDefault();
+      shown = true;
+      slide.querySelector('.crit-agua').classList.add('highlighted');
+    }
+  });
+
+  /* Ao sair do slide, reseta para a próxima visita */
+  document.addEventListener('DOMContentLoaded', function () {
+    var stage = document.querySelector('deck-stage');
+    if (!stage) return;
+    stage.addEventListener('slidechange', function (ev) {
+      if (ev.detail.previousSlide === slide) {
+        shown = false;
+        var el = slide.querySelector('.crit-agua');
+        if (el) el.classList.remove('highlighted');
+      }
+    });
+  });
+})();
+</script>
 <div class="slide-progress"><div class="fill" style="--p:61.43%"></div></div><div class="slide-pagenum">22</div></section>
 
 <!-- =========================== 17c · FUNIL PRISMA — BAR CHART =========================== -->
