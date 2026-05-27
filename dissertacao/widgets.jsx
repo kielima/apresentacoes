@@ -266,7 +266,7 @@ function CementProcess() {
       <div style={{ position: 'relative', height: 250, flex: '0 0 auto' }}>
         {/* Connector pipe — endpoints sit near the centres of the edge-anchored circles */}
         <div style={{
-          position: 'absolute', left: 110, right: 110, top: 94,
+          position: 'absolute', left: 115, right: 115, top: 99,
           height: 2, background: 'rgba(15,20,16,0.15)'
         }}></div>
         <div style={{
@@ -305,7 +305,7 @@ function CementProcess() {
                 {String(i + 1).padStart(2, '0')}
               </div>
               <div style={{
-                    width: 110, height: 110,
+                    width: 120, height: 120,
                     borderRadius: '50%',
                     background: isActive ? '#0f1410' : '#f1eee5',
                     border: '1px solid ' + (isActive ? '#0f1410' : 'rgba(15,20,16,0.2)'),
@@ -313,7 +313,7 @@ function CementProcess() {
                     placeItems: 'center',
                     color: isActive ? '#e8e5dd' : '#0f1410',
                     fontFamily: 'Newsreader, serif',
-                    fontSize: 22,
+                    fontSize: 26,
                     lineHeight: 1.05,
                     textAlign: 'center',
                     whiteSpace: 'pre',
@@ -334,12 +334,12 @@ function CementProcess() {
                     return (
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                     <div style={{
-                          padding: '6px 14px',
+                          padding: '7px 16px',
                           background: bgColor,
                           border: borderStyle,
                           color: isNegligible ? 'rgba(15,20,16,0.55)' : fgColor,
                           fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: 18,
+                          fontSize: 22,
                           letterSpacing: '0.04em',
                           fontWeight: 500,
                           whiteSpace: 'nowrap'
@@ -349,7 +349,7 @@ function CementProcess() {
                     {s.sub2 &&
                         <div style={{
                           fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: 14,
+                          fontSize: 16,
                           letterSpacing: '0.04em',
                           color: 'rgba(15,20,16,0.6)',
                           whiteSpace: 'nowrap',
