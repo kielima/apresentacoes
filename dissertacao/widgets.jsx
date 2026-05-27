@@ -994,6 +994,125 @@ function Gantt() {
 }
 
 /* ============================================================
+   LIME STRUCTURES — Lewis-structure variant of the lime cycle
+   Same three compounds (CaCO₃, CaO, Ca(OH)₂) arranged as a
+   triangle, with dot-and-line Lewis structures for each species
+   and equation labels on the arrows.
+   ============================================================ */
+function LimeStructures() {
+  const ink = '#0f1410';
+  const dim = 'rgba(15,20,16,0.55)';
+  const dimmer = 'rgba(15,20,16,0.45)';
+  const eqInk = 'rgba(15,20,16,0.78)';
+  const accent = '#3ea568';
+  const orange = '#f0a04b';
+  const greenDeep = '#1f5a3a';
+
+  return (
+    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
+      <svg viewBox="0 0 1600 760" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
+        <defs>
+          <marker id="arrhead-lime" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L12,6 L0,12 Z" fill={accent}/>
+          </marker>
+        </defs>
+
+        {/* ---------- CaCO₃ node (top) ---------- */}
+        <g transform="translate(800,130)">
+          <rect x="-230" y="-110" width="460" height="220" rx="14" fill="rgba(62,165,104,0.08)" stroke={accent} strokeWidth="2"/>
+          <text x="0" y="-62" textAnchor="middle" fontFamily="Newsreader, serif" fontSize="48" fontWeight="500" fill={ink}>CaCO₃</text>
+          <text x="0" y="-26" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="24" fill={dim}>carbonato de cálcio · calcário</text>
+          {/* Ca²⁺ + [CO₃]²⁻ */}
+          <g transform="translate(0,60)">
+            <text x="-170" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>Ca²⁺</text>
+            <text x="-108" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={dimmer}>+</text>
+            <text x="-72" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="56" fill={ink}>[</text>
+            <text x="0" y="-22" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="30" fill={ink}>O</text>
+            <line x1="-4" y1="-10" x2="-4" y2="4" stroke={ink} strokeWidth="2.5"/>
+            <line x1="4" y1="-10" x2="4" y2="4" stroke={ink} strokeWidth="2.5"/>
+            <text x="0" y="24" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="30" fill={ink}>C</text>
+            <line x1="-14" y1="24" x2="-30" y2="36" stroke={ink} strokeWidth="2.5"/>
+            <text x="-52" y="52" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="30" fill={ink}>O⁻</text>
+            <line x1="14" y1="24" x2="30" y2="36" stroke={ink} strokeWidth="2.5"/>
+            <text x="52" y="52" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="30" fill={ink}>O⁻</text>
+            <text x="118" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="56" fill={ink}>]</text>
+          </g>
+        </g>
+
+        {/* ---------- CaO node (bottom right) ---------- */}
+        <g transform="translate(1280,560)">
+          <rect x="-230" y="-110" width="460" height="220" rx="14" fill="rgba(62,165,104,0.08)" stroke={accent} strokeWidth="2"/>
+          <text x="0" y="-62" textAnchor="middle" fontFamily="Newsreader, serif" fontSize="48" fontWeight="500" fill={ink}>CaO</text>
+          <text x="0" y="-26" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="24" fill={dim}>óxido de cálcio · cal virgem</text>
+          {/* Ca²⁺ + [Ö]²⁻ with 4 lone pairs */}
+          <g transform="translate(0,55)">
+            <text x="-90" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>Ca²⁺</text>
+            <text x="-30" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={dimmer}>+</text>
+            <g transform="translate(40,0)">
+              <circle cx="-6" cy="-22" r="3" fill={ink}/><circle cx="6" cy="-22" r="3" fill={ink}/>
+              <circle cx="-6" cy="26" r="3" fill={ink}/><circle cx="6" cy="26" r="3" fill={ink}/>
+              <circle cx="-22" cy="-2" r="3" fill={ink}/><circle cx="-22" cy="10" r="3" fill={ink}/>
+              <circle cx="22" cy="-2" r="3" fill={ink}/><circle cx="22" cy="10" r="3" fill={ink}/>
+              <text x="0" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>O</text>
+            </g>
+            <text x="90" y="-8" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="26" fill={ink}>²⁻</text>
+          </g>
+        </g>
+
+        {/* ---------- Ca(OH)₂ node (bottom left) ---------- */}
+        <g transform="translate(320,560)">
+          <rect x="-230" y="-110" width="460" height="220" rx="14" fill="rgba(62,165,104,0.08)" stroke={accent} strokeWidth="2"/>
+          <text x="0" y="-62" textAnchor="middle" fontFamily="Newsreader, serif" fontSize="44" fontWeight="500" fill={ink}>Ca(OH)₂</text>
+          <text x="0" y="-26" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="24" fill={dim}>hidróxido de cálcio · cal hidratada</text>
+          {/* Ca²⁺ + 2 [Ö−H]⁻ with 3 lone pairs on O */}
+          <g transform="translate(0,55)">
+            <text x="-170" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>Ca²⁺</text>
+            <text x="-108" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={dimmer}>+</text>
+            <text x="-72" y="6" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>2</text>
+            <g transform="translate(-22,0)">
+              <text x="0" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="56" fill={ink}>[</text>
+              <g transform="translate(42,0)">
+                <circle cx="-6" cy="-20" r="3" fill={ink}/><circle cx="6" cy="-20" r="3" fill={ink}/>
+                <circle cx="-6" cy="24" r="3" fill={ink}/><circle cx="6" cy="24" r="3" fill={ink}/>
+                <circle cx="-22" cy="0" r="3" fill={ink}/><circle cx="-22" cy="10" r="3" fill={ink}/>
+                <text x="0" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>O</text>
+              </g>
+              <line x1="64" y1="6" x2="82" y2="6" stroke={ink} strokeWidth="2.5"/>
+              <text x="98" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="32" fill={ink}>H</text>
+              <text x="130" y="10" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="56" fill={ink}>]⁻</text>
+            </g>
+          </g>
+        </g>
+
+        {/* ---------- Cycle arrows ---------- */}
+        {/* CaCO₃ → CaO (calcinação, right arm) */}
+        <path d="M 1030,190 Q 1340,290 1280,450" fill="none" stroke={accent} strokeWidth="3" markerEnd="url(#arrhead-lime)"/>
+        {/* CaO → Ca(OH)₂ (hidratação, bottom) */}
+        <path d="M 1240,670 Q 800,755 360,670" fill="none" stroke={accent} strokeWidth="3" markerEnd="url(#arrhead-lime)"/>
+        {/* Ca(OH)₂ → CaCO₃ (carbonatação, left arm) */}
+        <path d="M 320,450 Q 260,290 570,190" fill="none" stroke={accent} strokeWidth="3" markerEnd="url(#arrhead-lime)"/>
+
+        {/* ---------- Arrow labels (inside triangle) ---------- */}
+        <g transform="translate(1080,360)">
+          <text x="0" y="0" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="24" fontWeight="500" fill={orange} letterSpacing="0.12em">CALCINAÇÃO</text>
+          <text x="0" y="36" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="26" fill={eqInk}>CaCO₃ + Calor</text>
+          <text x="0" y="68" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="26" fill={eqInk}>→ CaO + CO₂</text>
+        </g>
+        <g transform="translate(800,610)">
+          <text x="0" y="0" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="24" fontWeight="500" fill={accent} letterSpacing="0.12em">HIDRATAÇÃO</text>
+          <text x="0" y="36" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="26" fill={eqInk}>CaO + H₂O → Ca(OH)₂ + Calor</text>
+        </g>
+        <g transform="translate(520,360)">
+          <text x="0" y="0" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="24" fontWeight="500" fill={greenDeep} letterSpacing="0.12em">CARBONATAÇÃO</text>
+          <text x="0" y="36" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="26" fill={eqInk}>Ca(OH)₂ + CO₂</text>
+          <text x="0" y="68" textAnchor="middle" fontFamily="Geist, sans-serif" fontSize="26" fill={eqInk}>→ CaCO₃ + H₂O</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+/* ============================================================
    MOUNTING
    ============================================================ */
 const mounts = [
@@ -1001,6 +1120,7 @@ const mounts = [
 ['co2-counter', CO2Counter],
 ['cement-process', CementProcess],
 ['lime-cycle', LimeCycle],
+['lime-structures', LimeStructures],
 ['acv-diagram', ACVDiagram],
 ['uhpc-bars', UHPCBars],
 ['uhpc-mix', UHPCMix],
