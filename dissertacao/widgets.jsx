@@ -891,7 +891,7 @@ function Gantt() {
       <div style={{ display: 'grid', gridTemplateColumns: '520px repeat(7, 1fr)', gap: 4 }}>
         <div></div>
         {months.map((m) =>
-        <div key={m} style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 22, color: 'rgba(15,20,16,0.55)', textAlign: 'center', letterSpacing: '0.05em' }}>{m}</div>
+        <div key={m} style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 28, color: 'rgba(15,20,16,0.55)', textAlign: 'center', letterSpacing: '0.05em' }}>{m}</div>
         )}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
@@ -902,7 +902,7 @@ function Gantt() {
           borderTop: '1px solid rgba(15,20,16,0.08)',
           paddingTop: 10
         }}>
-            <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 22, paddingRight: 16, whiteSpace: 'nowrap' }}>{t.label}</div>
+            <div style={{ fontFamily: 'Geist, sans-serif', fontSize: 28, paddingRight: 16, whiteSpace: 'nowrap' }}>{t.label}</div>
             {months.map((_, mi) =>
           <div key={mi} style={{
             height: 24,
@@ -925,7 +925,7 @@ function Gantt() {
         map((g) =>
         <div key={g.l} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ width: 20, height: 20, background: g.c }}></div>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 22, color: 'rgba(15,20,16,0.7)' }}>{g.l}</span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 28, color: 'rgba(15,20,16,0.7)' }}>{g.l}</span>
           </div>
         )}
       </div>
