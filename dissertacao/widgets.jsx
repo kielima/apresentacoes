@@ -3,6 +3,66 @@
 
 const { useState, useEffect, useRef, useMemo } = React;
 
+/* ------------------------------------------------------------
+   useFragmentNav — step through internal "fragments" (nodes)
+   driven by the deck's ←/→ keys. Hooks into:
+   • deck:advance (cancelable) on the owning <section>
+   • slidechange on the deck-stage / document
+   Forward entry resets to 0; backward entry resets to last.
+   ------------------------------------------------------------ */
+function useFragmentNav(count) {
+  const [active, setActiveState] = useState(0);
+  const activeRef = useRef(0);
+  const containerRef = useRef(null);
+
+  // Synchronous setter — keeps the ref in lockstep with state so rapid
+  // key-presses can't read stale values before React commits.
+  const setActive = (v) => {
+    activeRef.current = v;
+    setActiveState(v);
+  };
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const slide = el.closest('section');
+    if (!slide) return;
+    const stage = slide.closest('deck-stage') || document;
+
+    const onAdvance = (e) => {
+      const dir = (e.detail && e.detail.dir) || 0;
+      if (!dir) return;
+      const cur = activeRef.current;
+      const next = cur + dir;
+      if (next >= 0 && next < count) {
+        e.preventDefault();
+        setActive(next);
+      }
+    };
+
+    const onSlideChange = (e) => {
+      const d = e.detail || {};
+      if (d.slide !== slide) return;
+      const prev = typeof d.previousIndex === 'number' ? d.previousIndex : -1;
+      const curr = typeof d.index === 'number' ? d.index : -1;
+      if (prev >= 0 && prev > curr) {
+        setActive(count - 1);
+      } else {
+        setActive(0);
+      }
+    };
+
+    slide.addEventListener('deck:advance', onAdvance);
+    stage.addEventListener('slidechange', onSlideChange);
+    return () => {
+      slide.removeEventListener('deck:advance', onAdvance);
+      stage.removeEventListener('slidechange', onSlideChange);
+    };
+  }, [count]);
+
+  return [active, setActive, containerRef];
+}
+
 /* ============================================================
    1. TIMELINE OF CLIMATE CONFERENCES — anim on scroll position
    ============================================================ */
@@ -199,10 +259,10 @@ const CEMENT_STAGES = [
 
 
 function CementProcess() {
-  const [active, setActive] = useState('kiln');
-  const cur = CEMENT_STAGES.find((s) => s.id === active);
+  const [active, setActive, containerRef] = useFragmentNav(CEMENT_STAGES.length);
+  const cur = CEMENT_STAGES[active];
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 28 }}>
+    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 28 }}>
       <div style={{ position: 'relative', height: 250, flex: '0 0 auto' }}>
         {/* Connector pipe — endpoints sit near the centres of the edge-anchored circles */}
         <div style={{
@@ -217,13 +277,13 @@ function CementProcess() {
           height: '100%'
         }}>
         {CEMENT_STAGES.map((s, i) => {
-            const isActive = active === s.id;
+            const isActive = active === i;
             const isFirst = i === 0;
             const isLast = i === CEMENT_STAGES.length - 1;
             const colAlign = isFirst ? 'flex-start' : isLast ? 'flex-end' : 'center';
             return (
               <div key={s.id}
-              onMouseEnter={() => setActive(s.id)}
+              onMouseEnter={() => setActive(i)}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -510,10 +570,10 @@ const ACV_PHASES = [
 
 
 function ACVDiagram() {
-  const [active, setActive] = useState(0);
+  const [active, setActive, containerRef] = useFragmentNav(ACV_PHASES.length);
   const cur = ACV_PHASES[active];
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 36 }}>
+    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 36 }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8 }}>
         {ACV_PHASES.map((p, i) => {
           const isActive = i === active;
