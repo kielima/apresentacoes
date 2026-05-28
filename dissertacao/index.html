@@ -1537,68 +1537,139 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       <div class="h1 anim-in d1" style="font-size: 56px;" data-om-id="8a35a1bb:761">Fluxograma da revisão sistemática <span class="ital" style="color: var(--green-deep);" data-om-id="8a35a1bb:762">— do planejamento à apresentação.</span></div>
     </div>
 
-    <div class="rsl-flow anim-in d2" data-om-id="8a35a1bb:763">
-      <!-- Empacotamento bracket (PLAN · EXEC · SUMAR) -->
-      <div class="rsl-bracket" data-om-id="8a35a1bb:764"></div>
-      <div class="rsl-bracket-label" data-om-id="8a35a1bb:765">EMPACOTAMENTO</div>
-
-      <!-- Top row of nodes -->
-      <div class="rsl-node terminus" style="grid-column: 1;" data-om-id="8a35a1bb:766">INÍCIO</div>
-      <div class="rsl-arrow" style="grid-column: 2;" data-om-id="8a35a1bb:767"></div>
-      <div class="rsl-node step" style="grid-column: 3;" data-om-id="8a35a1bb:768">PLANEJAMENTO</div>
-      <div class="rsl-arrow" style="grid-column: 4;" data-om-id="8a35a1bb:769"></div>
-      <div class="rsl-node step" style="grid-column: 5;" data-om-id="8a35a1bb:770">EXECUÇÃO</div>
-      <div class="rsl-arrow" style="grid-column: 6;" data-om-id="8a35a1bb:771"></div>
-      <div class="rsl-node step" style="grid-column: 7;" data-om-id="8a35a1bb:772">SUMARIZAÇÃO</div>
-      <div class="rsl-arrow" style="grid-column: 8;" data-om-id="8a35a1bb:773"></div>
-      <div class="rsl-node step" style="grid-column: 9;" data-om-id="8a35a1bb:774">APRESENTAÇÃO DOS RESULTADOS</div>
-      <div class="rsl-arrow" style="grid-column: 10;" data-om-id="8a35a1bb:775"></div>
-      <div class="rsl-node terminus" style="grid-column: 11;" data-om-id="8a35a1bb:776">FIM</div>
-
-      <!-- Vertical connector tees from each middle step -->
-      <div class="rsl-tee" style="grid-column: 3;" data-om-id="8a35a1bb:777"></div>
-      <div class="rsl-tee" style="grid-column: 5;" data-om-id="8a35a1bb:778"></div>
-      <div class="rsl-tee" style="grid-column: 7;" data-om-id="8a35a1bb:779"></div>
-      <div class="rsl-tee" style="grid-column: 9;" data-om-id="8a35a1bb:780"></div>
-
-      <!-- Detail cards (each aligned under its step) -->
-      <div class="rsl-card" style="grid-column: 3;" data-om-id="8a35a1bb:781">
-        <div class="rsl-card-hd" data-om-id="8a35a1bb:782">
-          <div class="rsl-card-num" data-om-id="8a35a1bb:783">01</div>
-          <div class="rsl-card-name" data-om-id="8a35a1bb:784">Planejamento</div>
-        </div>
-        <div class="rsl-card-text" style="font-size: 24px" data-om-id="8a35a1bb:785">Definição das palavras-chave iniciais, dos termos de busca <span class="mono" data-om-id="8a35a1bb:786">(strings)</span> e seleção dos bancos de dados.</div>
-      </div>
-      <div class="rsl-card" style="grid-column: 5;" data-om-id="8a35a1bb:787">
-        <div class="rsl-card-hd" data-om-id="8a35a1bb:788">
-          <div class="rsl-card-num" data-om-id="8a35a1bb:789">02</div>
-          <div class="rsl-card-name" data-om-id="8a35a1bb:790">Execução</div>
-        </div>
-        <div class="rsl-card-text" style="font-size: 24px" data-om-id="8a35a1bb:791">Coleta dos trabalhos e aplicação dos critérios de inclusão e exclusão.</div>
-      </div>
-      <div class="rsl-card" style="grid-column: 7;" data-om-id="8a35a1bb:792">
-        <div class="rsl-card-hd" data-om-id="8a35a1bb:793">
-          <div class="rsl-card-num" data-om-id="8a35a1bb:794">03</div>
-          <div class="rsl-card-name" data-om-id="8a35a1bb:795">Sumarização</div>
-        </div>
-        <div class="rsl-card-text" style="font-size: 24px" data-om-id="8a35a1bb:796">Avaliação e classificação completa dos artigos selecionados.</div>
-      </div>
-      <div class="rsl-card" style="grid-column: 9;" data-om-id="8a35a1bb:797">
-        <div class="rsl-card-hd" data-om-id="8a35a1bb:798">
-          <div class="rsl-card-num" data-om-id="8a35a1bb:799">04</div>
-          <div class="rsl-card-name" data-om-id="8a35a1bb:800">Apresentação</div>
-        </div>
-        <div class="rsl-card-text" style="font-size: 24px" data-om-id="8a35a1bb:801">Elaboração do documento (neste estudo, a dissertação) com os resultados encontrados na revisão.</div>
-      </div>
-    </div>
-
-    <div class="rsl-legend anim-in d3" data-om-id="8a35a1bb:802">
-      <span data-om-id="8a35a1bb:803"><span class="swatch sw-term" data-om-id="8a35a1bb:804"></span>Marcos do processo</span>
-      <span data-om-id="8a35a1bb:805"><span class="swatch sw-step" data-om-id="8a35a1bb:806"></span>Etapa metodológica</span>
-      <span data-om-id="8a35a1bb:807"><span class="swatch sw-pkg" data-om-id="8a35a1bb:808"></span>Empacotamento — núcleo iterativo</span>
-    </div>
+    <div id="rsl-flow" class="widget anim-in d2" style="flex: 1; min-height: 0;"></div>
   </div>
 <div class="slide-progress" data-om-id="8a35a1bb:809"><div class="fill" style="--p: 54.29%;" data-om-id="8a35a1bb:810"></div></div><div class="slide-pagenum">19</div></section>
+
+<!-- =========================== 16c · META-ANÁLISE =========================== -->
+<section data-label="16c Meta-análise" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Meta-análise multinível · rma.mv (REML) · pacote metafor (R) · 174 estudos primários">
+  <style>
+    .ma-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      flex: 1;
+      min-height: 0;
+      align-items: stretch;
+    }
+    .ma-card {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ma-card.light { background: var(--bg-paper); border: 1px solid var(--rule); }
+    .ma-card.dark  { background: var(--bg-dark); color: var(--bg-cream); }
+    .ma-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .ma-card.light .ma-tag { color: var(--ink-mute); }
+    .ma-card.dark  .ma-tag { color: rgba(232,229,221,0.45); }
+    .ma-big {
+      font-family: 'Newsreader', serif;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .ma-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+    }
+    .ma-card.light .ma-sub { color: var(--ink-mute); }
+    .ma-card.dark  .ma-sub { color: rgba(232,229,221,0.5); }
+    .ma-rule { border: 0; border-top: 1px solid var(--rule); margin: 4px 0; }
+    .ma-card.dark .ma-rule { border-color: rgba(232,229,221,0.15); }
+    .ma-body {
+      font-family: 'Geist', sans-serif;
+      font-size: 24px;
+      line-height: 1.4;
+      margin-top: auto;
+    }
+    .ma-card.light .ma-body { color: var(--ink-soft); }
+    .ma-card.dark  .ma-body { color: rgba(232,229,221,0.75); }
+    .ma-kv { display: flex; flex-direction: column; gap: 8px; }
+    .ma-kv-row { display: flex; flex-direction: column; gap: 3px; }
+    .ma-kv-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(232,229,221,0.45);
+    }
+    .ma-kv-val {
+      font-family: 'Geist', sans-serif;
+      font-size: 24px;
+      color: var(--bg-cream);
+      line-height: 1.3;
+    }
+    .ma-result-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: auto;
+    }
+  </style>
+  <div class="slide" style="padding-bottom: 92px;">
+    <div class="slide-header" style="margin-bottom: 28px;">
+      <div class="h1 anim-in d1">Meta-análise — <span class="ital" style="color: var(--green-deep);">síntese quantitativa da RSL.</span></div>
+    </div>
+
+    <div class="ma-grid anim-in d2">
+
+      <!-- 01 · Corpus -->
+      <div class="ma-card light">
+        <div class="ma-tag">01 · Corpus</div>
+        <div class="ma-big" style="font-size: 80px; color: var(--green-deep);">174</div>
+        <div class="ma-sub">estudos primários</div>
+        <hr class="ma-rule">
+        <div class="ma-big" style="font-size: 52px; color: var(--ink);">101</div>
+        <div class="ma-sub">observações de CO₂eq</div>
+        <p class="ma-body">Cobrindo UHPC, HPC e concreto convencional — aprovados no controle de qualidade da RSL (CASP adaptado · corte 4,0/6,0 pts).</p>
+      </div>
+
+      <!-- 02 · Modelo -->
+      <div class="ma-card dark">
+        <div class="ma-tag">02 · Modelo</div>
+        <div class="ma-big" style="font-size: 52px; font-style: italic; color: var(--green);">rma.mv</div>
+        <div class="ma-sub">pacote metafor · R · REML</div>
+        <hr class="ma-rule">
+        <div class="ma-kv">
+          <div class="ma-kv-row">
+            <span class="ma-kv-key">Estrutura</span>
+            <span class="ma-kv-val">Multinível · 3 níveis · efeitos aleatórios</span>
+          </div>
+          <div class="ma-kv-row">
+            <span class="ma-kv-key">Variância</span>
+            <span class="ma-kv-val">τ²₁ entre artigos · τ²₂ intraestudo</span>
+          </div>
+          <div class="ma-kv-row">
+            <span class="ma-kv-key">Heterog.</span>
+            <span class="ma-kv-val">Teste Q de Cochran · I² de Higgins</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · Desfecho -->
+      <div class="ma-card light">
+        <div class="ma-tag">03 · Desfecho</div>
+        <div class="ma-big" style="font-size: 72px; color: var(--ink);">c<sub style="font-size: 0.5em; vertical-align: baseline;">it</sub></div>
+        <div class="ma-sub" style="color: var(--green-deep); letter-spacing: 0.03em;">kg CO₂eq · m⁻³ · MPa⁻¹ · ano⁻¹</div>
+        <hr class="ma-rule">
+        <p class="ma-body">Taxa anual de emissão por unidade de desempenho mecânico. Normaliza pela resistência (f<sub>ck</sub>) e pela vida útil — quanto menor, mais eco-eficiente.</p>
+        <div class="ma-result-row">
+          <div class="tag orange" style="font-size: 20px;">RESULTADO</div>
+          <span style="font-family: 'Newsreader', serif; font-size: 26px; font-style: italic;">Forest plot por categoria de material</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-progress"><div class="fill" style="--p: 54.29%;"></div></div>
+  <div class="slide-pagenum">19·</div>
+</section>
 
 <!-- =========================== 17b · BASES DE DADOS — BAR CHART =========================== -->
 <section data-label="17b Bases de dados" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Bases consultadas · identificação · jul 2024 – set 2025" data-om-id="8a35a1bb:827" data-screen-label="20 17b Bases de dados" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="19">

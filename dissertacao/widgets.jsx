@@ -972,6 +972,130 @@ function Gantt() {
 
 }
 /* ============================================================
+   11. RSL FLOW — fragment-stepped flowchart with meta-analysis reveal
+   ============================================================ */
+function RSLFlow() {
+  const [step, , containerRef] = useFragmentNav(2);
+
+  const CARDS = [
+    { col: 3, num: '01', name: 'Planejamento',  text: 'Definição das palavras-chave iniciais, dos termos de busca (strings) e seleção dos bancos de dados.' },
+    { col: 5, num: '02', name: 'Execução',      text: 'Coleta dos trabalhos e aplicação dos critérios de inclusão e exclusão.' },
+    { col: 7, num: '03', name: 'Sumarização',   text: 'Avaliação e classificação completa dos artigos selecionados.' },
+    { col: 9, num: '04', name: 'Apresentação',  text: 'Elaboração do documento (neste estudo, a dissertação) com os resultados encontrados na revisão.' },
+  ];
+
+  const hideOuter = step >= 1;
+
+  return (
+    <div ref={containerRef} style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+
+      <div className="rsl-flow" style={{ flex: 1 }}>
+
+        {/* Bracket */}
+        <div className="rsl-bracket"></div>
+        <div className="rsl-bracket-label">EMPACOTAMENTO</div>
+
+        {/* Nodes + arrows */}
+        <div className="rsl-node terminus" style={{ gridColumn: 1 }}>INÍCIO</div>
+        <div className="rsl-arrow" style={{ gridColumn: 2 }}></div>
+        <div className="rsl-node step" style={{ gridColumn: 3 }}>PLANEJAMENTO</div>
+        <div className="rsl-arrow" style={{ gridColumn: 4 }}></div>
+        <div className="rsl-node step" style={{ gridColumn: 5 }}>EXECUÇÃO</div>
+        <div className="rsl-arrow" style={{ gridColumn: 6 }}></div>
+        <div className="rsl-node step" style={{ gridColumn: 7 }}>SUMARIZAÇÃO</div>
+        <div className="rsl-arrow" style={{ gridColumn: 8 }}></div>
+        <div className="rsl-node step" style={{ gridColumn: 9 }}>APRESENTAÇÃO DOS RESULTADOS</div>
+        <div className="rsl-arrow" style={{ gridColumn: 10 }}></div>
+        <div className="rsl-node terminus" style={{ gridColumn: 11 }}>FIM</div>
+
+        {/* Vertical tees — hide SUMAR + APRES when meta-analysis is shown */}
+        <div className="rsl-tee" style={{ gridColumn: 3 }}></div>
+        <div className="rsl-tee" style={{ gridColumn: 5 }}></div>
+        <div className="rsl-tee" style={{ gridColumn: 7, opacity: hideOuter ? 0 : 1, transition: 'opacity 0.3s' }}></div>
+        <div className="rsl-tee" style={{ gridColumn: 9, opacity: hideOuter ? 0 : 1, transition: 'opacity 0.3s' }}></div>
+
+        {/* Detail cards */}
+        {CARDS.map(c => (
+          <div key={c.col} className="rsl-card" style={{
+            gridColumn: c.col,
+            opacity: (hideOuter && (c.col === 7 || c.col === 9)) ? 0 : 1,
+            transition: 'opacity 0.3s',
+          }}>
+            <div className="rsl-card-hd">
+              <div className="rsl-card-num">{c.num}</div>
+              <div className="rsl-card-name">{c.name}</div>
+            </div>
+            <div className="rsl-card-text" style={{ fontSize: 24 }}>{c.text}</div>
+          </div>
+        ))}
+
+        {/* Meta-analysis callout — revealed on step 1 */}
+        <div style={{
+          gridColumn: '7 / 10',
+          gridRow: '3 / 5',
+          zIndex: 5,
+          opacity: step >= 1 ? 1 : 0,
+          transform: step >= 1 ? 'translateY(0)' : 'translateY(14px)',
+          transition: 'opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s',
+          background: 'var(--bg-dark)',
+          color: 'var(--bg-cream)',
+          padding: '22px 28px 26px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+          border: '2px solid var(--green-deep)',
+          margin: '0 14px',
+        }}>
+          <div style={{
+            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: 20,
+            letterSpacing: '0.22em',
+            color: 'var(--green)',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            marginBottom: 2,
+          }}>META-ANÁLISE</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              ['Corpus',    '174 estudos · 101 observações de CO₂eq'],
+              ['Modelo',    'Multinível · efeitos aleatórios · rma.mv (REML)'],
+              ['Desfecho',  'cit = kg CO₂eq · m⁻³ · MPa⁻¹ · ano⁻¹'],
+              ['Resultado', 'Forest plot por categoria · UHPC · HPC · CC'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
+                <span style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: 17,
+                  letterSpacing: '0.12em',
+                  color: 'rgba(232,229,221,0.5)',
+                  textTransform: 'uppercase',
+                  flex: '0 0 88px',
+                }}>{k}</span>
+                <span style={{
+                  fontFamily: 'Geist, sans-serif',
+                  fontSize: 22,
+                  color: 'var(--bg-cream)',
+                  lineHeight: 1.3,
+                }}>{v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      {/* Legend */}
+      <div className="rsl-legend">
+        <span><span className="swatch sw-term"></span>Marcos do processo</span>
+        <span><span className="swatch sw-step"></span>Etapa metodológica</span>
+        <span><span className="swatch sw-pkg"></span>Empacotamento — núcleo iterativo</span>
+      </div>
+
+    </div>
+  );
+}
+
+/* ============================================================
    MOUNTING
    ============================================================ */
 const mounts = [
@@ -983,7 +1107,8 @@ const mounts = [
 ['uhpc-bars', UHPCBars],
 ['uhpc-mix', UHPCMix],
 ['world-map', WorldMap],
-['gantt', Gantt]];
+['gantt', Gantt],
+['rsl-flow', RSLFlow]];
 
 
 mounts.forEach(([id, Comp]) => {
