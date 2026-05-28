@@ -901,10 +901,12 @@
         if (!act) return;
         const i = this._menuIndex;
         this._closeMenu();
-        if (act === 'skip') this._toggleSkip(i);
-        else if (act === 'up') this._moveSlide(i, i - 1);
-        else if (act === 'down') this._moveSlide(i, i + 1);
-        else if (act === 'delete') this._openConfirm(i);
+        this._requireAuth(() => {
+          if (act === 'skip') this._toggleSkip(i);
+          else if (act === 'up') this._moveSlide(i, i - 1);
+          else if (act === 'down') this._moveSlide(i, i + 1);
+          else if (act === 'delete') this._openConfirm(i);
+        });
       });
       menu.addEventListener('contextmenu', (e) => e.preventDefault());
 
@@ -1667,6 +1669,20 @@
           thumb.removeAttribute('data-current');
         }
       });
+    }
+
+    _requireAuth(action) {
+      try {
+        if (localStorage.getItem('deck-stage.auth') === '1') { action(); return; }
+      } catch (err) {}
+      const pin = window.prompt('PIN de editor:');
+      if (pin === null) return;
+      if (pin === '241395') {
+        try { localStorage.setItem('deck-stage.auth', '1'); } catch (err) {}
+        action();
+      } else {
+        window.alert('PIN incorrecto.');
+      }
     }
 
     _openMenu(i, x, y) {
