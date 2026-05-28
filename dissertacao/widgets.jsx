@@ -954,7 +954,7 @@ function Gantt() {
           </div>
         )}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, marginTop: 16, paddingTop: 16, borderTop: '1px solid rgba(15,20,16,0.14)' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 48, marginTop: 16, paddingTop: 16, borderTop: '1px solid rgba(15,20,16,0.14)' }}>
         {[
         { c: '#1f5a3a', l: 'Marcos' },
         { c: '#3ea568', l: 'RSL' },
