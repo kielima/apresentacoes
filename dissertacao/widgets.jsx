@@ -1048,7 +1048,7 @@ function RSLFlow() {
         }}>
           <div style={{
             fontFamily: 'JetBrains Mono, monospace',
-            fontSize: 20,
+            fontSize: 24,
             letterSpacing: '0.22em',
             color: 'var(--green)',
             fontWeight: 600,
