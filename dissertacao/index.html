@@ -1618,6 +1618,22 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       0%, 100% { opacity: 1; transform: scale(1); }
       50%       { opacity: 0.4; transform: scale(0.7); }
     }
+    .ma-done {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+      margin-top: auto;
+    }
+    .ma-done::before {
+      content: '✓';
+      font-size: 18px;
+      font-weight: 700;
+    }
   </style>
   <div class="slide" style="padding-bottom: 92px;">
     <div class="slide-header" style="margin-bottom: 28px;">
@@ -1633,7 +1649,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
         <hr class="ma-rule">
         <div class="ma-action">Emissão de CO₂eq, resistência à compressão e vida útil estimada do material.</div>
         <p class="ma-body">Esses três valores permitem calcular o índice de eco-eficiência de cada observação antes de combiná-las.</p>
-        <span class="ma-wip">Em andamento</span>
+        <span class="ma-done">Concluído</span>
       </div>
 
       <!-- 02 · Combinação -->
@@ -1661,6 +1677,42 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
   <div class="slide-progress"><div class="fill" style="--p: 54.29%;"></div></div>
   <div class="slide-pagenum">19·</div>
 </section>
+
+<section data-label="20 Unidades funcionais" data-chrome="on" data-chap="04 · Unidade funcional" data-foot="Damineli et al. 2010 · adaptação desta pesquisa" data-om-id="a0d9d662:378" data-screen-label="25 20 Unidades funcionais" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="24" class="">
+  <div class="slide" data-om-id="a0d9d662:379">
+    <div class="slide-header" data-om-id="a0d9d662:380">
+      <div class="crumb anim-in" data-om-id="a0d9d662:381">Unidade funcional</div>
+      <div class="h1 anim-in d1" data-om-id="a0d9d662:382">A escolha da <em class="ital" data-om-id="a0d9d662:383">unidade</em> reescreve o ranking.</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr; column-gap: 100px; row-gap: 32px; flex: 1; min-height: 0; align-content: center; justify-items: center;" data-om-id="a0d9d662:384">
+      <!-- Row 1 · tags (bottom-aligned to sit just above the equations) -->
+      <div class="anim-in d2" style="align-self: end;" data-om-id="a0d9d662:385">
+        <div class="tag" data-om-id="a0d9d662:386">UNIDADE TRADICIONAL</div>
+      </div>
+      <div class="anim-in d3" style="align-self: end;" data-om-id="a0d9d662:387">
+        <div class="tag green" data-om-id="a0d9d662:388">ÍNDICE PROPOSTO · c<span style="font-size: 0.7em;" data-om-id="a0d9d662:389">i</span><span style="font-size: 0.7em; vertical-align: sub;" data-om-id="a0d9d662:390">t</span></div>
+      </div>
+      <!-- Row 2 · equations (bottom-aligned so the two equations share a baseline despite different font sizes) -->
+      <div class="anim-in d2" style="text-align: center; align-self: start;" data-om-id="a0d9d662:391">
+        <div class="mono" style="font-family: 'JetBrains Mono', monospace; font-size: 130px; color: var(--ink); letter-spacing: -0.02em; line-height: 1;" data-om-id="a0d9d662:392">
+          kg CO₂eq<br data-om-id="a0d9d662:393">/ m³
+        </div>
+      </div>
+      <div class="anim-in d3" style="text-align: center; align-self: start;" data-om-id="a0d9d662:394">
+        <div class="mono" style="font-family: 'JetBrains Mono', monospace; font-size: 110px; color: var(--green-deep); letter-spacing: -0.02em; line-height: 1;" data-om-id="a0d9d662:395">
+          kg CO₂eq<br data-om-id="a0d9d662:396">/ MPa·ano
+        </div>
+      </div>
+      <!-- Row 3 · descriptive text (top-aligned so first lines start at the same y) -->
+      <div class="anim-in d2" style="align-self: start; text-align: center;" data-om-id="a0d9d662:397">
+        <p class="body" style="color: var(--ink-soft); max-width: 520px; margin: 0 auto; font-family: Geist;" data-om-id="a0d9d662:398">Impacto por <strong data-om-id="a0d9d662:399">volume</strong> (ou massa) de concreto produzido. Penaliza materiais densos em ligante — ignora desempenho mecânico e durabilidade.</p>
+      </div>
+      <div class="anim-in d3" style="align-self: start; text-align: center;" data-om-id="a0d9d662:400">
+        <p class="body" style="color: var(--ink-soft); max-width: 520px; margin: 0 auto; font-family: Geist;" data-om-id="a0d9d662:401">Normaliza emissões pela <strong data-om-id="a0d9d662:402">resistência característica</strong> (f<sub data-om-id="a0d9d662:403">ck</sub>) e pela <strong data-om-id="a0d9d662:404">vida útil</strong>. Captura o ganho que o UHPC traz à equação (Damineli et al., 2010).</p>
+      </div>
+    </div>
+  </div>
+<div class="slide-progress"><div class="fill" style="--p: 57.14%;"></div></div><div class="slide-pagenum">20</div></section>
 
 <!-- =========================== 17b · BASES DE DADOS — BAR CHART =========================== -->
 <section data-label="17b Bases de dados" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Bases consultadas · identificação · jul 2024 – set 2025" data-om-id="8a35a1bb:827" data-screen-label="20 17b Bases de dados" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="19">
@@ -2504,42 +2556,6 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 <div class="slide-progress"><div class="fill"></div></div><div class="slide-pagenum">27</div></section>
 
 <!-- =========================== 20 · UNIDADES FUNCIONAIS =========================== -->
-<section data-label="20 Unidades funcionais" data-chrome="on" data-chap="04 · Unidade funcional" data-foot="Damineli et al. 2010 · adaptação desta pesquisa" data-om-id="a0d9d662:378" data-screen-label="25 20 Unidades funcionais" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="24" class="">
-  <div class="slide" data-om-id="a0d9d662:379">
-    <div class="slide-header" data-om-id="a0d9d662:380">
-      <div class="crumb anim-in" data-om-id="a0d9d662:381">Unidade funcional</div>
-      <div class="h1 anim-in d1" data-om-id="a0d9d662:382">A escolha da <em class="ital" data-om-id="a0d9d662:383">unidade</em> reescreve o ranking.</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr; column-gap: 100px; row-gap: 32px; flex: 1; min-height: 0; align-content: center; justify-items: center;" data-om-id="a0d9d662:384">
-      <!-- Row 1 · tags (bottom-aligned to sit just above the equations) -->
-      <div class="anim-in d2" style="align-self: end;" data-om-id="a0d9d662:385">
-        <div class="tag" data-om-id="a0d9d662:386">UNIDADE TRADICIONAL</div>
-      </div>
-      <div class="anim-in d3" style="align-self: end;" data-om-id="a0d9d662:387">
-        <div class="tag green" data-om-id="a0d9d662:388">ÍNDICE PROPOSTO · c<span style="font-size: 0.7em;" data-om-id="a0d9d662:389">i</span><span style="font-size: 0.7em; vertical-align: sub;" data-om-id="a0d9d662:390">t</span></div>
-      </div>
-      <!-- Row 2 · equations (bottom-aligned so the two equations share a baseline despite different font sizes) -->
-      <div class="anim-in d2" style="text-align: center; align-self: start;" data-om-id="a0d9d662:391">
-        <div class="mono" style="font-family: 'JetBrains Mono', monospace; font-size: 130px; color: var(--ink); letter-spacing: -0.02em; line-height: 1;" data-om-id="a0d9d662:392">
-          kg CO₂eq<br data-om-id="a0d9d662:393">/ m³
-        </div>
-      </div>
-      <div class="anim-in d3" style="text-align: center; align-self: start;" data-om-id="a0d9d662:394">
-        <div class="mono" style="font-family: 'JetBrains Mono', monospace; font-size: 110px; color: var(--green-deep); letter-spacing: -0.02em; line-height: 1;" data-om-id="a0d9d662:395">
-          kg CO₂eq<br data-om-id="a0d9d662:396">/ MPa·ano
-        </div>
-      </div>
-      <!-- Row 3 · descriptive text (top-aligned so first lines start at the same y) -->
-      <div class="anim-in d2" style="align-self: start; text-align: center;" data-om-id="a0d9d662:397">
-        <p class="body" style="color: var(--ink-soft); max-width: 520px; margin: 0 auto; font-family: Geist;" data-om-id="a0d9d662:398">Impacto por <strong data-om-id="a0d9d662:399">volume</strong> (ou massa) de concreto produzido. Penaliza materiais densos em ligante — ignora desempenho mecânico e durabilidade.</p>
-      </div>
-      <div class="anim-in d3" style="align-self: start; text-align: center;" data-om-id="a0d9d662:400">
-        <p class="body" style="color: var(--ink-soft); max-width: 520px; margin: 0 auto; font-family: Geist;" data-om-id="a0d9d662:401">Normaliza emissões pela <strong data-om-id="a0d9d662:402">resistência característica</strong> (f<sub data-om-id="a0d9d662:403">ck</sub>) e pela <strong data-om-id="a0d9d662:404">vida útil</strong>. Captura o ganho que o UHPC traz à equação (Damineli et al., 2010).</p>
-      </div>
-    </div>
-  </div>
-<div class="slide-progress" data-om-id="0af7d50e:738"><div class="fill" style="--p: 71.43%;" data-om-id="0af7d50e:739"></div></div><div class="slide-pagenum" data-om-id="4c69169a:906">28</div></section>
-
 <!-- =========================== 21 · CAPÍTULO 5 =========================== -->
 <section data-label="21 Cap 5" data-theme="dark" data-om-id="a0d9d662:405" data-screen-label="26 21 Cap 5" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="25" class="">
   <div class="slide section-cover" data-om-id="a0d9d662:406">
