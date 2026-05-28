@@ -1055,31 +1055,15 @@ function RSLFlow() {
             textTransform: 'uppercase',
             marginBottom: 2,
           }}>META-ANÁLISE</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {[
-              ['Corpus',    '174 estudos · 101 observações de CO₂eq'],
-              ['Modelo',    'Multinível · efeitos aleatórios · rma.mv (REML)'],
-              ['Desfecho',  'cit = kg CO₂eq · m⁻³ · MPa⁻¹ · ano⁻¹'],
-              ['Resultado', 'Forest plot por categoria · UHPC · HPC · CC'],
-            ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
-                <span style={{
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: 17,
-                  letterSpacing: '0.12em',
-                  color: 'rgba(232,229,221,0.5)',
-                  textTransform: 'uppercase',
-                  flex: '0 0 88px',
-                }}>{k}</span>
-                <span style={{
-                  fontFamily: 'Geist, sans-serif',
-                  fontSize: 22,
-                  color: 'var(--bg-cream)',
-                  lineHeight: 1.3,
-                }}>{v}</span>
-              </div>
-            ))}
-          </div>
+          <p style={{
+            fontFamily: 'Geist, sans-serif',
+            fontSize: 24,
+            color: 'rgba(232,229,221,0.85)',
+            lineHeight: 1.5,
+            margin: 0,
+          }}>
+            Técnica estatística que <strong style={{ color: 'var(--bg-cream)', fontWeight: 600 }}>combina os resultados quantitativos de múltiplos estudos independentes</strong> para produzir uma estimativa síntese mais robusta do que qualquer estudo isolado — aplicada aqui entre a sumarização e a apresentação dos resultados.
+          </p>
         </div>
 
       </div>
