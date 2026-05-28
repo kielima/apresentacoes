@@ -1542,7 +1542,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
 <div class="slide-progress" data-om-id="8a35a1bb:809"><div class="fill" style="--p: 54.29%;" data-om-id="8a35a1bb:810"></div></div><div class="slide-pagenum">19</div></section>
 
 <!-- =========================== 16c · META-ANÁLISE =========================== -->
-<section data-label="16c Meta-análise" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Meta-análise multinível · rma.mv (REML) · pacote metafor (R) · 174 estudos primários">
+<section data-label="16c Meta-análise" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Meta-análise multinível · rma.mv (REML) · pacote metafor (R) · em andamento">
   <style>
     .ma-grid {
       display: grid;
@@ -1556,7 +1556,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       padding: 36px 32px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
     .ma-card.light { background: var(--bg-paper); border: 1px solid var(--rule); }
     .ma-card.dark  { background: var(--bg-dark); color: var(--bg-cream); }
@@ -1568,101 +1568,92 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     }
     .ma-card.light .ma-tag { color: var(--ink-mute); }
     .ma-card.dark  .ma-tag { color: rgba(232,229,221,0.45); }
-    .ma-big {
+    .ma-step-title {
       font-family: 'Newsreader', serif;
-      line-height: 1;
-      letter-spacing: -0.02em;
+      font-size: 38px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
     }
-    .ma-sub {
+    .ma-card.light .ma-step-title { color: var(--ink); }
+    .ma-card.dark  .ma-step-title { color: var(--bg-cream); }
+    .ma-rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+    .ma-card.dark .ma-rule { border-color: rgba(232,229,221,0.15); }
+    .ma-action {
       font-family: 'JetBrains Mono', monospace;
       font-size: 24px;
       letter-spacing: 0.04em;
+      line-height: 1.4;
     }
-    .ma-card.light .ma-sub { color: var(--ink-mute); }
-    .ma-card.dark  .ma-sub { color: rgba(232,229,221,0.5); }
-    .ma-rule { border: 0; border-top: 1px solid var(--rule); margin: 4px 0; }
-    .ma-card.dark .ma-rule { border-color: rgba(232,229,221,0.15); }
+    .ma-card.light .ma-action { color: var(--green-deep); }
+    .ma-card.dark  .ma-action { color: var(--green); }
     .ma-body {
       font-family: 'Geist', sans-serif;
       font-size: 24px;
-      line-height: 1.4;
+      line-height: 1.5;
       margin-top: auto;
     }
     .ma-card.light .ma-body { color: var(--ink-soft); }
     .ma-card.dark  .ma-body { color: rgba(232,229,221,0.75); }
-    .ma-kv { display: flex; flex-direction: column; gap: 8px; }
-    .ma-kv-row { display: flex; flex-direction: column; gap: 3px; }
-    .ma-kv-key {
+    .ma-wip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 24px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(232,229,221,0.45);
-    }
-    .ma-kv-val {
-      font-family: 'Geist', sans-serif;
-      font-size: 24px;
-      color: var(--bg-cream);
-      line-height: 1.3;
-    }
-    .ma-result-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      color: var(--orange, #c4622d);
       margin-top: auto;
+    }
+    .ma-wip::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--orange, #c4622d);
+      animation: pulse-dot 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
     }
   </style>
   <div class="slide" style="padding-bottom: 92px;">
     <div class="slide-header" style="margin-bottom: 28px;">
-      <div class="h1 anim-in d1">Meta-análise — <span class="ital" style="color: var(--green-deep);">síntese quantitativa da RSL.</span></div>
+      <div class="h1 anim-in d1">Meta-análise — <span class="ital" style="color: var(--green-deep);">como a síntese será construída.</span></div>
     </div>
 
     <div class="ma-grid anim-in d2">
 
-      <!-- 01 · Corpus -->
+      <!-- 01 · Extração -->
       <div class="ma-card light">
-        <div class="ma-tag">01 · Corpus</div>
-        <div class="ma-big" style="font-size: 80px; color: var(--green-deep);">174</div>
-        <div class="ma-sub">estudos primários</div>
+        <div class="ma-tag">01 · Extração</div>
+        <div class="ma-step-title">O que será coletado de cada estudo</div>
         <hr class="ma-rule">
-        <div class="ma-big" style="font-size: 52px; color: var(--ink);">101</div>
-        <div class="ma-sub">observações de CO₂eq</div>
-        <p class="ma-body">Cobrindo UHPC, HPC e concreto convencional — aprovados no controle de qualidade da RSL (CASP adaptado · corte 4,0/6,0 pts).</p>
+        <div class="ma-action">Emissão de CO₂eq, resistência à compressão e vida útil estimada do material.</div>
+        <p class="ma-body">Esses três valores permitem calcular o índice de eco-eficiência de cada observação antes de combiná-las.</p>
+        <span class="ma-wip">Em andamento</span>
       </div>
 
-      <!-- 02 · Modelo -->
+      <!-- 02 · Combinação -->
       <div class="ma-card dark">
-        <div class="ma-tag">02 · Modelo</div>
-        <div class="ma-big" style="font-size: 52px; font-style: italic; color: var(--green);">rma.mv</div>
-        <div class="ma-sub">pacote metafor · R · REML</div>
+        <div class="ma-tag">02 · Combinação</div>
+        <div class="ma-step-title">Como os estudos serão integrados</div>
         <hr class="ma-rule">
-        <div class="ma-kv">
-          <div class="ma-kv-row">
-            <span class="ma-kv-key">Estrutura</span>
-            <span class="ma-kv-val">Multinível · 3 níveis · efeitos aleatórios</span>
-          </div>
-          <div class="ma-kv-row">
-            <span class="ma-kv-key">Variância</span>
-            <span class="ma-kv-val">τ²₁ entre artigos · τ²₂ intraestudo</span>
-          </div>
-          <div class="ma-kv-row">
-            <span class="ma-kv-key">Heterog.</span>
-            <span class="ma-kv-val">Teste Q de Cochran · I² de Higgins</span>
-          </div>
-        </div>
+        <div class="ma-action">Modelo multinível que respeita o fato de um mesmo artigo poder ter múltiplas medições.</div>
+        <p class="ma-body">Em vez de tratar cada número isoladamente, o modelo separa a variação que vem de dentro de um artigo da variação entre artigos diferentes.</p>
+        <span class="ma-wip" style="color: rgba(232,229,221,0.4); --orange: rgba(232,229,221,0.4);">Em andamento</span>
       </div>
 
-      <!-- 03 · Desfecho -->
+      <!-- 03 · Resultado esperado -->
       <div class="ma-card light">
-        <div class="ma-tag">03 · Desfecho</div>
-        <div class="ma-big" style="font-size: 72px; color: var(--ink);">c<sub style="font-size: 0.5em; vertical-align: baseline;">it</sub></div>
-        <div class="ma-sub" style="color: var(--green-deep); letter-spacing: 0.03em;">kg CO₂eq/MPa.a</div>
+        <div class="ma-tag">03 · Resultado esperado</div>
+        <div class="ma-step-title">O que a análise deverá responder</div>
         <hr class="ma-rule">
-        <p class="ma-body">Taxa anual de emissão por unidade de desempenho mecânico. Normaliza pela resistência (f<sub>ck</sub>) e pela vida útil — quanto menor, mais eco-eficiente.</p>
-        <div class="ma-result-row">
-          <div class="tag orange" style="font-size: 24px;">RESULTADO</div>
-          <span style="font-family: 'Newsreader', serif; font-size: 26px; font-style: italic;">Forest plot por categoria de material</span>
-        </div>
+        <div class="ma-action">Qual tipo de concreto gera menos emissão por unidade de desempenho e por ano de vida útil.</div>
+        <p class="ma-body">O índice c<sub>it</sub> (kg CO₂eq/MPa.a) permitirá comparar UHPC, HPC e concreto convencional numa métrica comum.</p>
+        <span class="ma-wip">Em andamento</span>
       </div>
 
     </div>
