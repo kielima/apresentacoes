@@ -1849,12 +1849,17 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     }
     /* marca-texto verde — varre da esquerda para a direita */
     .crit-agua {
+      display: inline;
       background-image: linear-gradient(rgba(80, 195, 110, 0.38), rgba(80, 195, 110, 0.38));
       background-repeat: no-repeat;
       background-position: left center;
       background-size: 0% 100%;
       border-radius: 3px;
+      padding: 2px 4px;
+      margin: -2px -4px;
       transition: background-size 0s;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
     }
     .crit-agua.highlighted {
       background-size: 100% 100%;
@@ -1883,7 +1888,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
           <li><strong>Não relacionado à construção:</strong> materiais não relacionados à construção civil;</li>
           <li><strong>Não menciona emissões:</strong> não menciona análise de ciclo de vida, emissão de CO<sub>2</sub> ou gases do efeito estufa;</li>
           <li><strong>Estudos regionalizados:</strong> aqueles que só podem ser aplicados a algum contexto local e não globalmente;</li>
-          <li class="crit-agua"><strong>Não menciona consumo de água:</strong> quando o resumo não menciona o consumo de água;</li>
+          <li><span class="crit-agua"><strong>Não menciona consumo de água:</strong> quando o resumo não menciona o consumo de água;</span></li>
           <li><strong>Materiais em desenvolvimento:</strong> exclua materiais que ainda só existem no ambiente acadêmico e não são produzidos comercialmente.</li>
         </ul>
       </div>
