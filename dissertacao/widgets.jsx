@@ -956,10 +956,10 @@ function Gantt() {
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, marginTop: 16, paddingTop: 16, borderTop: '1px solid rgba(15,20,16,0.14)' }}>
         {[
-        { c: '#1f5a3a', l: 'Marcos · Qualificação · Defesa' },
-        { c: '#3ea568', l: 'PRISMA · Meta-análise' },
-        { c: '#0f1410', l: 'ACV · Inventário' },
-        { c: '#f0a04b', l: 'Análises comparativas' },
+        { c: '#1f5a3a', l: 'Marcos' },
+        { c: '#3ea568', l: 'RSL' },
+        { c: '#0f1410', l: 'ACV' },
+        { c: '#f0a04b', l: 'Análises' },
         { c: '#5a8a6a', l: 'Escrita' }].
         map((g) =>
         <div key={g.l} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
