@@ -1080,12 +1080,10 @@ function RSLFlow() {
 }
 
 /* ============================================================
-   LIME CYCLE — variants for stepping through the calcination
-   cycle. Two designs that share the same SDF data:
-   • LimeCycleSteps (V1): 5 viewers in a row, fragments highlight
-     the reagents/products of each step.
-   • LimeCycleTransform (V5): one central viewer whose molecule
-     swaps as the user advances through the reactions.
+   LIME CYCLE — LimeCycleSteps reveals each reaction of the
+   calcination cycle (CaCO₃ ↔ CaO ↔ Ca(OH)₂) by highlighting the
+   reagents and products of the active step. 5 viewers (CaCO₃,
+   CO₂, CaO, H₂O, Ca(OH)₂), one fragment per reaction.
    ============================================================ */
 
 const SDF_CACO3 = `caco3
@@ -1267,169 +1265,6 @@ function LimeCycleSteps() {
 
 }
 
-/* ---- V5: LimeCycleTransform — central viewer that morphs ---- */
-const TRANSFORM_STEPS = [
-{
-  name: 'CALCÁRIO',
-  main: 'caco3',
-  eq: 'estado inicial · forma estoque',
-  enter: null,
-  leave: null,
-  color: 'rgba(15,20,16,0.55)' },
-
-{
-  name: 'CALCINAÇÃO',
-  main: 'cao',
-  eq: 'CaCO₃ + Calor → CaO + CO₂',
-  enter: { id: 'calor', label: '+ Calor' },
-  leave: { id: 'co2', label: 'CO₂' },
-  color: '#f0a04b' },
-
-{
-  name: 'HIDRATAÇÃO',
-  main: 'caoh2',
-  eq: 'CaO + H₂O → Ca(OH)₂ + Calor',
-  enter: { id: 'h2o', label: 'H₂O' },
-  leave: { id: 'calor', label: 'Calor liberado' },
-  color: '#3ea568' },
-
-{
-  name: 'CARBONATAÇÃO',
-  main: 'caco3',
-  eq: 'Ca(OH)₂ + CO₂ → CaCO₃ + H₂O',
-  enter: { id: 'co2', label: 'CO₂ recapturado' },
-  leave: { id: 'h2o', label: 'H₂O' },
-  color: '#1f5a3a' }];
-
-
-function LimeCycleTransform() {
-  const [step, , containerRef] = useFragmentNav(TRANSFORM_STEPS.length);
-  const viewerRef = useRef(null);
-  const currentMolRef = useRef(null);
-  const [fading, setFading] = useState(false);
-
-  useEffect(() => {
-    if (viewerRef.current) return;
-    const root = containerRef.current;
-    if (!root || !window.$3Dmol) return;
-    const el = root.querySelector('#viewer-transform-main');
-    if (!el) return;
-    const mol = CYCLE_MOLS.find((m) => m.id === TRANSFORM_STEPS[0].main);
-    viewerRef.current = mountMolViewer(el, mol.sdf);
-    currentMolRef.current = mol.id;
-  }, []);
-
-  useEffect(() => {
-    const v = viewerRef.current;
-    if (!v) return;
-    const targetId = TRANSFORM_STEPS[step].main;
-    if (currentMolRef.current === targetId) return;
-    const mol = CYCLE_MOLS.find((m) => m.id === targetId);
-    if (!mol) return;
-    setFading(true);
-    const t = setTimeout(() => {
-      v.removeAllModels();
-      v.addModel(mol.sdf, 'sdf');
-      v.setStyle({}, { stick: { radius: 0.18, colorscheme: 'Jmol' }, sphere: { scale: 0.32, colorscheme: 'Jmol' } });
-      v.zoomTo();
-      v.zoom(1.15);
-      v.spin(true);
-      v.render();
-      currentMolRef.current = targetId;
-      setFading(false);
-    }, 250);
-    return () => clearTimeout(t);
-  }, [step]);
-
-  const cur = TRANSFORM_STEPS[step];
-  const mainMol = CYCLE_MOLS.find((m) => m.id === cur.main);
-
-  return (
-    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', height: '100%', boxSizing: 'border-box' }}>
-      <div style={{ flex: '0 0 auto', textAlign: 'center', marginBottom: 20, minHeight: 90 }}>
-        <div style={{
-          fontFamily: 'JetBrains Mono, monospace', fontSize: 28,
-          letterSpacing: '0.16em', color: cur.color,
-          textTransform: 'uppercase', transition: 'color 300ms ease'
-        }}>{cur.name}</div>
-        <div style={{
-          fontFamily: 'Newsreader, serif', fontSize: 36, color: '#0f1410',
-          marginTop: 12, transition: 'all 300ms ease'
-        }}>{cur.eq}</div>
-      </div>
-      <div style={{
-        flex: 1, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', gap: 56, minHeight: 0
-      }}>
-        {/* Entering species (left) */}
-        <div style={{
-          width: 220, display: 'flex', flexDirection: 'column',
-          alignItems: 'center', gap: 10,
-          opacity: cur.enter ? 1 : 0,
-          transition: 'opacity 400ms ease'
-        }}>
-          <div style={{
-            fontFamily: 'JetBrains Mono, monospace', fontSize: 24,
-            letterSpacing: '0.1em', color: cur.color,
-            textTransform: 'uppercase'
-          }}>{cur.enter ? cur.enter.label : ''}</div>
-          <div style={{ fontSize: 64, color: cur.color, lineHeight: 1 }}>{cur.enter ? '→' : ''}</div>
-        </div>
-
-        {/* Main central viewer */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-          <div style={{
-            fontFamily: 'Newsreader, serif', fontSize: 56,
-            lineHeight: 1, color: '#0f1410'
-          }}>{mainMol ? mainMol.label : ''}</div>
-          <div style={{
-            fontFamily: 'Geist, sans-serif', fontSize: 24,
-            color: 'rgba(15,20,16,0.55)'
-          }}>{mainMol ? mainMol.name : ''}</div>
-          <div
-            id="viewer-transform-main"
-            style={{
-              width: 480, height: 420, position: 'relative',
-              borderRadius: 10, overflow: 'hidden',
-              opacity: fading ? 0.25 : 1,
-              transition: 'opacity 250ms ease',
-              boxShadow: '0 0 0 1px rgba(15,20,16,0.08)'
-            }}></div>
-        </div>
-
-        {/* Leaving species (right) */}
-        <div style={{
-          width: 220, display: 'flex', flexDirection: 'column',
-          alignItems: 'center', gap: 10,
-          opacity: cur.leave ? 1 : 0,
-          transition: 'opacity 400ms ease'
-        }}>
-          <div style={{ fontSize: 64, color: cur.color, lineHeight: 1 }}>{cur.leave ? '→' : ''}</div>
-          <div style={{
-            fontFamily: 'JetBrains Mono, monospace', fontSize: 24,
-            letterSpacing: '0.1em', color: cur.color,
-            textTransform: 'uppercase'
-          }}>{cur.leave ? cur.leave.label : ''}</div>
-        </div>
-      </div>
-      <div style={{
-        flex: '0 0 auto', marginTop: 16, display: 'flex',
-        justifyContent: 'center', gap: 28,
-        fontFamily: 'JetBrains Mono, monospace', fontSize: 24,
-        letterSpacing: '0.12em', textTransform: 'uppercase'
-      }}>
-        {TRANSFORM_STEPS.map((s, i) => (
-          <div key={i} style={{
-            color: i === step ? s.color : 'rgba(15,20,16,0.32)',
-            fontWeight: i === step ? 600 : 400,
-            transition: 'color 300ms ease'
-          }}>{s.name}</div>
-        ))}
-      </div>
-    </div>);
-
-}
-
 /* ============================================================
    MOUNTING
    ============================================================ */
@@ -1439,7 +1274,6 @@ const mounts = [
 ['cement-process', CementProcess],
 ['lime-cycle', LimeCycle],
 ['lime-cycle-steps', LimeCycleSteps],
-['lime-cycle-transform', LimeCycleTransform],
 ['acv-diagram', ACVDiagram],
 ['uhpc-bars', UHPCBars],
 ['uhpc-mix', UHPCMix],
