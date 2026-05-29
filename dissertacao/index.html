@@ -1503,21 +1503,31 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       <div class="crumb anim-in">Descarbonatação do calcário</div>
       <div class="h1 anim-in d1">Os outros <span class="orange">553 kg</span> vêm da química, não da queima.</div>
     </div>
-    <div class="widget anim-in d2" style="flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 56px; box-sizing: border-box;">
+    <div class="widget anim-in d2" style="flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 36px; box-sizing: border-box;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
-        <div style="font-family: 'Newsreader', serif; font-size: 48px; line-height: 1; color: #0f1410;">CaCO<sub style="font-size: 0.55em; vertical-align: baseline; line-height: 1;">3</sub></div>
+        <div style="font-family: 'Newsreader', serif; font-size: 44px; line-height: 1; color: #0f1410;">CaCO<sub style="font-size: 0.55em; vertical-align: baseline; line-height: 1;">3</sub></div>
         <div style="font-family: 'Geist', sans-serif; font-size: 24px; color: rgba(15,20,16,0.55);">calcário</div>
-        <div id="viewer-caco3" style="width: 460px; height: 460px; position: relative; border-radius: 8px; overflow: hidden;"></div>
+        <div id="viewer-caco3" style="width: 310px; height: 310px; position: relative; border-radius: 8px; overflow: hidden;"></div>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
-        <div style="font-family: 'Newsreader', serif; font-size: 48px; line-height: 1; color: #0f1410;">CaO</div>
+        <div style="font-family: 'Newsreader', serif; font-size: 44px; line-height: 1; color: #0f1410;">CO<sub style="font-size: 0.55em; vertical-align: baseline; line-height: 1;">2</sub></div>
+        <div style="font-family: 'Geist', sans-serif; font-size: 24px; color: rgba(15,20,16,0.55);">dióxido de carbono</div>
+        <div id="viewer-co2" style="width: 310px; height: 310px; position: relative; border-radius: 8px; overflow: hidden;"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+        <div style="font-family: 'Newsreader', serif; font-size: 44px; line-height: 1; color: #0f1410;">CaO</div>
         <div style="font-family: 'Geist', sans-serif; font-size: 24px; color: rgba(15,20,16,0.55);">cal virgem</div>
-        <div id="viewer-cao" style="width: 460px; height: 460px; position: relative; border-radius: 8px; overflow: hidden;"></div>
+        <div id="viewer-cao" style="width: 310px; height: 310px; position: relative; border-radius: 8px; overflow: hidden;"></div>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
-        <div style="font-family: 'Newsreader', serif; font-size: 44px; line-height: 1; color: #0f1410;">Ca(OH)<sub style="font-size: 0.55em; vertical-align: baseline; line-height: 1;">2</sub></div>
+        <div style="font-family: 'Newsreader', serif; font-size: 44px; line-height: 1; color: #0f1410;">H<sub style="font-size: 0.55em; vertical-align: baseline; line-height: 1;">2</sub>O</div>
+        <div style="font-family: 'Geist', sans-serif; font-size: 24px; color: rgba(15,20,16,0.55);">água</div>
+        <div id="viewer-h2o" style="width: 310px; height: 310px; position: relative; border-radius: 8px; overflow: hidden;"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+        <div style="font-family: 'Newsreader', serif; font-size: 40px; line-height: 1; color: #0f1410;">Ca(OH)<sub style="font-size: 0.55em; vertical-align: baseline; line-height: 1;">2</sub></div>
         <div style="font-family: 'Geist', sans-serif; font-size: 24px; color: rgba(15,20,16,0.55);">cal hidratada</div>
-        <div id="viewer-caoh2" style="width: 460px; height: 460px; position: relative; border-radius: 8px; overflow: hidden;"></div>
+        <div id="viewer-caoh2" style="width: 310px; height: 310px; position: relative; border-radius: 8px; overflow: hidden;"></div>
       </div>
     </div>
     <script type="text/plain" id="sdf-caco3">caco3
@@ -1544,6 +1554,28 @@ $$$$</script>
   1  2  1  0  0  0  0
 M  END
 $$$$</script>
+    <script type="text/plain" id="sdf-co2">co2
+  3Dmol hand-crafted
+
+  3  2  0  0  0  0  0  0  0  0999 V2000
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1600    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1600    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  3  2  0  0  0  0
+M  END
+$$$$</script>
+    <script type="text/plain" id="sdf-h2o">h2o
+  3Dmol hand-crafted
+
+  3  2  0  0  0  0  0  0  0  0999 V2000
+    0.0000    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7600    0.5900    0.1000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7600    0.5900   -0.1000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  1  0  0  0  0
+M  END
+$$$$</script>
     <script type="text/plain" id="sdf-caoh2">caoh2
   3Dmol hand-crafted
 
@@ -1561,7 +1593,7 @@ M  END
 $$$$</script>
     <script>
     (function mountClinkerMolViewers() {
-      var ids = ['caco3', 'cao', 'caoh2'];
+      var ids = ['caco3', 'co2', 'cao', 'h2o', 'caoh2'];
       function init() {
         if (!window.$3Dmol) return false;
         ids.forEach(function (id) {
