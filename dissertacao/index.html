@@ -2326,6 +2326,237 @@ $$$$</script>
 </script>
 <div class="slide-progress"><div class="fill" style="--p:61.43%"></div></div><div class="slide-pagenum">22</div></section>
 
+<!-- =========================== 17b-Q · CONTROLE DE QUALIDADE — CRITÉRIOS Q1–Q6 =========================== -->
+<section data-label="17b-Q Controle de qualidade" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="Controle de qualidade · PRISMA 2020 (item 12) · Page et al. (2021) · Sousa; Ribeiro (2009) · Damineli et al. (2010)" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+  <style>
+    .qc-grid {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      column-gap: 48px;
+      align-items: stretch;
+    }
+    .qc-col-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+      margin-bottom: 18px;
+    }
+    .qc-col-label span { color: rgba(15,20,16,0.45); }
+
+    /* ── critérios Q1–Q6 ── */
+    .qc-crit {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .qc-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .qc-item:first-of-type { border-top: 0; }
+    .qc-badge {
+      flex: 0 0 auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--bg-cream);
+      background: var(--green-deep);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .qc-item.adapt .qc-badge { background: var(--orange); color: var(--bg-dark); }
+    .qc-txt {
+      font-family: 'Newsreader', serif;
+      font-size: 26px;
+      line-height: 1.28;
+      color: var(--ink);
+    }
+    .qc-tag-adapt {
+      display: inline-block;
+      margin-left: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--orange);
+      vertical-align: 1px;
+    }
+
+    /* ── cálculo da pontuação ── */
+    .qc-score {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding-left: 48px;
+      border-left: 1px solid var(--rule);
+    }
+    .qc-scale {
+      display: flex;
+      gap: 12px;
+    }
+    .qc-level {
+      flex: 1;
+      text-align: center;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 14px 8px;
+    }
+    .qc-level .n {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 40px;
+      line-height: 1;
+      color: var(--green-deep);
+    }
+    .qc-level .k {
+      display: block;
+      margin-top: 8px;
+      font-family: 'Geist', sans-serif;
+      font-size: 24px;
+      color: var(--ink-soft);
+    }
+    .qc-formula {
+      font-family: 'Newsreader', serif;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .qc-formula strong { color: var(--green-deep); }
+
+    .qc-cut {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      background: rgba(80,195,110,0.12);
+      border: 1px solid rgba(31,90,58,0.25);
+      border-radius: 10px;
+      padding: 18px 22px;
+    }
+    .qc-cut .big {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--green-deep);
+      letter-spacing: -0.02em;
+    }
+    .qc-cut .desc {
+      font-family: 'Geist', sans-serif;
+      font-size: 24px;
+      line-height: 1.3;
+      color: var(--ink-soft);
+    }
+    .qc-cut .desc strong { color: var(--ink); }
+
+    /* ── resultados ── */
+    .qc-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .qc-stat { text-align: center; }
+    .qc-stat .v {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .qc-stat.in .v { color: var(--green-deep); }
+    .qc-stat.out .v { color: rgba(15,20,16,0.45); }
+    .qc-stat .l {
+      display: block;
+      margin-top: 8px;
+      font-family: 'Geist', sans-serif;
+      font-size: 24px;
+      line-height: 1.25;
+      color: var(--ink-soft);
+    }
+    .qc-results-cap {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      text-align: center;
+    }
+  </style>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="crumb anim-in">Controle de qualidade · PRISMA 2020 — item 12</div>
+      <div class="h1 anim-in d1" style="font-size: 52px;">Filtro de <em class="ital" style="color: var(--green-deep);">rigor metodológico</em> — seis critérios, nota de corte 4,0.</div>
+    </div>
+
+    <div class="qc-grid">
+      <!-- coluna esquerda · critérios Q1–Q6 -->
+      <div class="anim-in d2" style="display: flex; flex-direction: column; min-height: 0;">
+        <div class="qc-col-label">Seis critérios <span>· instrumento adaptado à ACV de materiais cimentícios</span></div>
+        <div class="qc-crit">
+          <div class="qc-item">
+            <div class="qc-badge">Q1</div>
+            <div class="qc-txt">Definição explícita da <strong>unidade funcional</strong>.</div>
+          </div>
+          <div class="qc-item">
+            <div class="qc-badge">Q2</div>
+            <div class="qc-txt">Declaração do método de <strong>avaliação de impacto</strong> (LCIA).</div>
+          </div>
+          <div class="qc-item">
+            <div class="qc-badge">Q3</div>
+            <div class="qc-txt">Clareza na <strong>unidade de medida</strong> das emissões de CO<sub>2</sub>eq.</div>
+          </div>
+          <div class="qc-item">
+            <div class="qc-badge">Q4</div>
+            <div class="qc-txt">Identificação da <strong>fonte dos dados</strong> de inventário.</div>
+          </div>
+          <div class="qc-item adapt">
+            <div class="qc-badge">Q5</div>
+            <div class="qc-txt">Declaração da <strong>vida útil</strong> do material.<span class="qc-tag-adapt">adaptação</span></div>
+          </div>
+          <div class="qc-item adapt">
+            <div class="qc-badge">Q6</div>
+            <div class="qc-txt">Declaração da <strong>resistência à compressão</strong> (f<sub>ck</sub>).<span class="qc-tag-adapt">adaptação</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- coluna direita · como se calcula a pontuação -->
+      <div class="anim-in d3 qc-score">
+        <div>
+          <div class="qc-col-label">Como se calcula a pontuação</div>
+          <div class="qc-scale">
+            <div class="qc-level"><span class="n">0,0</span><span class="k">ausente</span></div>
+            <div class="qc-level"><span class="n">0,5</span><span class="k">parcial</span></div>
+            <div class="qc-level"><span class="n">1,0</span><span class="k">explícito</span></div>
+          </div>
+        </div>
+
+        <div class="qc-formula">
+          A soma dos seis critérios resulta no índice de qualidade: <strong>Q1 + … + Q6 = 0 a 6 pontos</strong>. A escala de três níveis reconhece a transparência mesmo quando incompleta.
+        </div>
+
+        <div class="qc-cut">
+          <div class="big">≥ 4,0</div>
+          <div class="desc"><strong>nota de corte</strong> (66,7% do máximo) — acima do limiar usual de 50%. Admite no máximo duas respostas &ldquo;Não&rdquo;, desde que o somatório iguale ou supere 4,0.</div>
+        </div>
+
+        <div>
+          <div class="qc-results">
+            <div class="qc-stat in"><span class="v">124</span><span class="l">incluídos na síntese quantitativa</span></div>
+            <div class="qc-stat"><span class="v">24</span><span class="l">no corte exato (4,0 pts)</span></div>
+            <div class="qc-stat out"><span class="v">49</span><span class="l">excluídos — discussão qualitativa</span></div>
+          </div>
+          <div class="qc-results-cap" style="margin-top: 16px;">Aplicação a 173 estudos elegíveis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="slide-progress"><div class="fill" style="--p:62.5%"></div></div><div class="slide-pagenum">23</div></section>
+
 <!-- =========================== 17c · FUNIL PRISMA — BAR CHART =========================== -->
 <section data-label="17c Funil PRISMA" data-chrome="on" data-chap="03 · Revisão Sistemática" data-foot="PRISMA 2020 · etapas de seleção · jul 2024 – set 2025" data-om-id="8a35a1bb:890" data-screen-label="21 17c Funil PRISMA" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="20" class="">
   <style>
