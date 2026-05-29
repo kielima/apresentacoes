@@ -2422,13 +2422,18 @@ $$$$</script>
     .qc-legend {
       margin-top: 16px;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 10px 28px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 24px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--ink-mute);
+    }
+    .qc-legend .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .qc-legend .mark {
       flex: 0 0 auto;
@@ -2437,6 +2442,7 @@ $$$$</script>
       border-radius: 4px;
       background: var(--orange);
     }
+    .qc-legend .mark.green { background: var(--green-deep); }
 
     /* ── cálculo da pontuação ── */
     .qc-score {
@@ -2569,7 +2575,10 @@ $$$$</script>
             <div class="qc-txt">Declaração da <strong>resistência à compressão</strong> (f<sub>ck</sub>).</div>
           </div>
         </div>
-        <div class="qc-legend"><span class="mark"></span>Q5 e Q6 — específico da meta-análise</div>
+        <div class="qc-legend">
+          <span class="item"><span class="mark green"></span>requisito geral de comparabilidade</span>
+          <span class="item"><span class="mark"></span>específico da meta-análise</span>
+        </div>
       </div>
 
       <!-- coluna direita · como se calcula a pontuação -->
