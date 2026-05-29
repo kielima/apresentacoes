@@ -2429,15 +2429,23 @@ $$$$</script>
       line-height: 1.28;
       color: var(--ink);
     }
-    .qc-tag-adapt {
-      display: inline-block;
-      margin-left: 8px;
+    .qc-legend {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 24px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--orange);
-      vertical-align: 1px;
+    }
+    .qc-legend .mark {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: var(--orange);
     }
 
     /* ── cálculo da pontuação ── */
@@ -2564,13 +2572,14 @@ $$$$</script>
           </div>
           <div class="qc-item adapt">
             <div class="qc-badge">Q5</div>
-            <div class="qc-txt">Declaração da <strong>vida útil</strong> do material.<span class="qc-tag-adapt">específico da meta-análise</span></div>
+            <div class="qc-txt">Declaração da <strong>vida útil</strong> do material.</div>
           </div>
           <div class="qc-item adapt">
             <div class="qc-badge">Q6</div>
-            <div class="qc-txt">Declaração da <strong>resistência à compressão</strong> (f<sub>ck</sub>).<span class="qc-tag-adapt">específico da meta-análise</span></div>
+            <div class="qc-txt">Declaração da <strong>resistência à compressão</strong> (f<sub>ck</sub>).</div>
           </div>
         </div>
+        <div class="qc-legend"><span class="mark"></span>Q5 e Q6 — específico da meta-análise</div>
       </div>
 
       <!-- coluna direita · como se calcula a pontuação -->
