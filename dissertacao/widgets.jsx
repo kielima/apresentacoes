@@ -428,17 +428,6 @@ function CementProcess() {
 }
 
 /* ============================================================
-   4. LIME CYCLE — calcium cycle SVG
-   ============================================================ */
-function LimeCycle() {
-  return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
-      <img src="assets/clinker-chemistry-cycle.png" alt="Ciclo de calcinação, hidratação e carbonatação do calcário" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-    </div>);
-
-}
-
-/* ============================================================
    5. PRISMA FLOW
    ============================================================ */
 const PRISMA_STAGES = [
@@ -1272,7 +1261,6 @@ const mounts = [
 ['timeline-cops', TimelineCOPs],
 ['co2-counter', CO2Counter],
 ['cement-process', CementProcess],
-['lime-cycle', LimeCycle],
 ['lime-cycle-steps', LimeCycleSteps],
 ['acv-diagram', ACVDiagram],
 ['uhpc-bars', UHPCBars],
