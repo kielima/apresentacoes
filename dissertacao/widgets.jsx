@@ -676,7 +676,10 @@ function UHPCBars() {
       )}
       <div style={{ display: 'flex', gap: 16, alignItems: 'center', borderTop: '1px solid rgba(15,20,16,0.14)', paddingTop: 20, marginTop: 12 }}>
         <span style={{ padding: '4px 10px', background: '#0f1410', color: '#e8e5dd', fontFamily: 'JetBrains Mono, monospace', fontSize: 20, letterSpacing: '0.12em' }}>DURABILIDADE</span>
-        <span style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 26 }}><strong style={{ color: '#1f5a3a', fontStyle: 'normal' }}>350 anos</strong> de vida útil no pilar de referência.</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <span style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 26 }}>UHPC dura <strong style={{ color: '#1f5a3a', fontStyle: 'normal' }}>5×</strong> mais que o convencional.</span>
+          <span style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 26 }}><strong style={{ color: '#1f5a3a', fontStyle: 'normal' }}>350 anos</strong> de vida útil no pilar de referência.</span>
+        </div>
       </div>
       <style>{`
         @keyframes growBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
