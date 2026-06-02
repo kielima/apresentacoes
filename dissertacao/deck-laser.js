@@ -93,9 +93,10 @@
   canvas.setAttribute('data-noncommentable', '');
   canvas.style.cssText =
     'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;' +
-    'z-index:2147483200;';
+    'touch-action:none;z-index:2147483200;';
   const ctx = canvas.getContext('2d');
   let dpr = 1;
+  let capturedId = null;   // pointerId capturado durante o traço da caneta
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -139,10 +140,29 @@
   }
 
   // ── Entrada da caneta ───────────────────────────────────────────────────────
+  // Ao tocar, capturamos o ponteiro no overlay (que passa a pointer-events:auto
+  // com touch-action:none). Sem isso, ao arrastar a caneta em contato o
+  // navegador (Android/Samsung) interpreta como rolagem/gesto e dispara
+  // pointercancel — o traço andava poucos mm e parava. A captura redireciona
+  // todos os eventos da caneta para o overlay e suprime o gesto.
+  function grabPointer(e) {
+    try {
+      canvas.style.pointerEvents = 'auto';
+      canvas.setPointerCapture(e.pointerId);
+      capturedId = e.pointerId;
+    } catch (_) {}
+  }
+  function releasePointer() {
+    if (capturedId != null) { try { canvas.releasePointerCapture(capturedId); } catch (_) {} }
+    capturedId = null;
+    canvas.style.pointerEvents = 'none';
+  }
+
   function onDown(e) {
     if (!isPen(e) || overUI(e)) return;
     lastPenTs = now();
     drawing = true;
+    grabPointer(e);
     newStroke('local');
     const p = norm(e);
     addPoint('local', p.x, p.y);
@@ -172,17 +192,22 @@
       }
     }
   }
+  function finishStroke() {
+    if (!drawing) return;
+    drawing = false;
+    flush(true);
+    send({ k: 'e' });
+    endStroke('local');
+  }
   function onUp(e) {
     if (!isPen(e)) return;
-    if (drawing) {
-      drawing = false;
-      flush(true);
-      send({ k: 'e' });
-      endStroke('local');
-      e.preventDefault();
-    }
+    if (drawing) { finishStroke(); e.preventDefault(); }
+    releasePointer();
     lastPenTs = now();
   }
+  // Se a captura for perdida no meio (alguma plataforma ainda cancela),
+  // encerra o traço atual graciosamente em vez de deixá-lo pendurado.
+  canvas.addEventListener('lostpointercapture', () => { finishStroke(); releasePointer(); });
   // Suprime o "click" sintetizado por um toque de caneta, para a S Pen não
   // avançar slide / acionar tap-zones enquanto serve de laser.
   function onClick(e) {
