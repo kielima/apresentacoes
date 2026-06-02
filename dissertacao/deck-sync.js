@@ -142,6 +142,7 @@
     total: 1,
     peers: new Map(),        // id -> lastSeen ts
     seen: new Set(),         // ids já cumprimentados (evita ping-pong de hello)
+    appEcho: new Map(),      // channel -> {j,ts} do último estado aplicado (anti-eco)
     heartbeat: null,
     prune: null,
     ui: null,
@@ -170,6 +171,23 @@
         const dir = e.detail && e.detail.dir;
         if (dir === 1 || dir === -1) this.publish({ t: 'advance', dir });
       });
+
+      // Ponte para mini-apps embutidos em <iframe> (ex.: o mapa do ced-map).
+      // Apps same-origin anunciam seu estado ao host via postMessage; o host
+      // difunde para a sala e reentrega aos apps dos outros dispositivos.
+      //
+      // Contrato de mensagens (campo __deckSync:1 identifica o canal):
+      //   app  → host:  { __deckSync:1, from:'app',  channel:'<nome>', payload:<qualquer> }
+      //   host → app :  { __deckSync:1, from:'host', type:'apply', channel, payload, remote:true }
+      //                 { __deckSync:1, from:'host', type:'request' }   // reanuncie seu estado
+      //
+      // O app deve aplicar 'apply' SEM reanunciar (para não criar loop entre
+      // dispositivos); ainda assim o host filtra o eco imediato por
+      // (channel, payload) recente. Ao receber 'request', o app reanuncia seu
+      // estado atual — é assim que um dispositivo que entra no meio recupera
+      // o estado do mapa. A própria página (sem iframe) pode usar o evento
+      // `deck-sync:app` e o método DeckSync.broadcastApp(channel, payload).
+      window.addEventListener('message', (e) => this.onAppMessage(e));
 
       // Auto-conexão se a página foi aberta via QR (?room=CODE).
       const params = new URLSearchParams(location.search);
@@ -259,6 +277,7 @@
           break;
         case 'request':
           this.publish({ t: 'state', index: this.currentIndex, total: this.total });
+          this.relayRequestToApps(); // apps locais reanunciam seu estado p/ o novo par
           break;
         case 'state':
           if (typeof m.total === 'number') this.total = m.total;
@@ -266,6 +285,9 @@
           break;
         case 'advance':
           this.applyAdvance(m.dir);
+          break;
+        case 'app':
+          this.relayToApps(m.channel, m.payload);
           break;
       }
     },
@@ -282,6 +304,48 @@
       try { dir === 1 ? this.deck.next() : this.deck.prev(); }
       finally { this.applyingRemote = false; }
     },
+
+    // ── Ponte de mini-apps em <iframe> ───────────────────────────────────────
+    // Estado anunciado por um app filho → difunde para a sala.
+    onAppMessage(e) {
+      const d = e.data;
+      if (!d || d.__deckSync !== 1 || d.from !== 'app') return;
+      const channel = d.channel || '';
+      const j = JSON.stringify(d.payload);
+      // Ignora o eco imediato: estado que acabámos de aplicar e o app
+      // reanunciou em seguida (mesmo (channel,payload) dentro de ~600ms).
+      const last = this.appEcho.get(channel);
+      if (last && last.j === j && (Date.now() - last.ts) < 600) return;
+      this.publish({ t: 'app', channel, payload: d.payload });
+    },
+
+    // Estado recebido da sala → entrega aos apps filhos e à própria página.
+    relayToApps(channel, payload) {
+      this.appEcho.set(channel, { j: JSON.stringify(payload), ts: Date.now() });
+      document.querySelectorAll('iframe').forEach((f) => {
+        try {
+          f.contentWindow && f.contentWindow.postMessage(
+            { __deckSync: 1, from: 'host', type: 'apply', channel, payload, remote: true }, '*');
+        } catch (_) {}
+      });
+      try {
+        document.dispatchEvent(new CustomEvent('deck-sync:app',
+          { detail: { channel, payload, remote: true } }));
+      } catch (_) {}
+    },
+
+    // Pede aos apps filhos que reanunciem seu estado (novo par entrou).
+    relayRequestToApps() {
+      document.querySelectorAll('iframe').forEach((f) => {
+        try {
+          f.contentWindow && f.contentWindow.postMessage(
+            { __deckSync: 1, from: 'host', type: 'request' }, '*');
+        } catch (_) {}
+      });
+    },
+
+    // API pública: a própria página pode difundir um estado de app sem iframe.
+    broadcastApp(channel, payload) { this.publish({ t: 'app', channel, payload }); },
 
     peerCount() { return this.peers.size + 1; }, // +1 = este dispositivo
 
