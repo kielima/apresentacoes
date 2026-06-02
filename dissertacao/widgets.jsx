@@ -648,7 +648,7 @@ function UHPCBars() {
   const data = [
   { label: 'Concreto convencional', val: 35, range: '20—50 MPa', color: '#a8a293' },
   { label: 'Concreto de alto desempenho (HPC)', val: 80, range: '60—100 MPa', color: '#5a8a6a' },
-  { label: 'UHPC', val: 180, range: '> 150 MPa', color: '#1f5a3a', highlight: true }];
+  { label: 'UHPC', val: 150, range: '> 100 MPa', color: '#1f5a3a', highlight: true }];
 
   const max = 220;
   return (
