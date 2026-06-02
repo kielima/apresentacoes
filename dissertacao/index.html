@@ -1371,6 +1371,39 @@
         w.blur();
       }
     });
+
+    // ── Integração com a navegação do deck ────────────────────────────
+    // Enquanto não estivermos na última aba (FHWA), cada avanço do deck
+    // (clique na tela, seta ou espaço) percorre as abas dentro do próprio
+    // slide. Só depois da última aba é que o próximo avanço passa para o
+    // slide seguinte; o recuo funciona de forma simétrica.
+    var section = w.closest('section');
+    if (section) {
+      section.addEventListener('deck:advance', function (e) {
+        var dir = e.detail && e.detail.dir;
+        if (dir > 0 && current < INST.length - 1) {
+          current++;
+          refresh();
+          e.preventDefault();
+        } else if (dir < 0 && current > 0) {
+          current--;
+          refresh();
+          e.preventDefault();
+        }
+      });
+
+      var deck = document.querySelector('deck-stage');
+      if (deck) {
+        deck.addEventListener('slidechange', function (e) {
+          if (!e.detail || e.detail.slide !== section) return;
+          // Entrando vindo de trás: começa na primeira aba (ACI). Voltando
+          // de um slide seguinte: começa na última (FHWA), para percorrer
+          // as abas em ordem inversa antes de sair do slide.
+          current = e.detail.previousIndex > e.detail.index ? INST.length - 1 : 0;
+          refresh();
+        });
+      }
+    }
   }
 
   function refresh() {
