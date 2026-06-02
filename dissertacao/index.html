@@ -2518,12 +2518,18 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
     .funil .f-logo {
       position: absolute;
       top: 50%;
-      /* alinhado acima do centro da barra */
+      /* alinhado acima do centro da barra.
+         Usa animação só de opacidade (logoFade) para o transform não ser
+         sobrescrito — dbFade animava translateX e anulava este translateY. */
       transform: translateY(calc(-50% - 55px));
       pointer-events: none;
       opacity: 0;
-      animation: dbFade 700ms ease both;
+      animation: logoFade 700ms ease both;
       animation-delay: calc(var(--d, 0ms) + 1100ms);
+    }
+    @keyframes logoFade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
     /* Axis overlay — same approach as the previous chart */
     .funil .axis-wrap {
@@ -2631,7 +2637,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       <div class="f-row" data-om-id="8a35a1bb:920">
         <div class="f-bar" style="--w: 42.367%; --d: 180ms; width: var(--w);" data-om-id="8a35a1bb:921"></div>
         <div class="f-value" data-om-id="8a35a1bb:922">2.542</div>
-        <img class="f-logo" src="assets/logo-parsifal.png" alt="Parsifal" style="left: 63%; height: 62px; --d: 180ms;">
+        <img class="f-logo" src="assets/logo-parsifal.png" alt="Parsifal" style="left: 63%; height: 56px; --d: 180ms;">
         <div class="f-delta" data-om-id="8a35a1bb:923">−50,1 %</div>
       </div>
 
@@ -2655,7 +2661,7 @@ Portland</div><div data-om-id="jsx:/https:/8eac6e07-1d7c-4915-a2ce-17f32da2d6ab.
       <div class="f-row" data-om-id="8a35a1bb:932">
         <div class="f-bar" style="--w: 2.067%; --d: 420ms; width: var(--w);" data-om-id="8a35a1bb:933"></div>
         <div class="f-value" data-om-id="8a35a1bb:934">124</div>
-        <img class="f-logo" src="assets/logo-claude.png" alt="Claude" style="left: 20%; height: 44px; --d: 420ms;">
+        <img class="f-logo" src="assets/logo-claude.png" alt="Claude" style="left: 20%; height: 40px; --d: 420ms;">
         <div class="f-delta" data-om-id="8a35a1bb:935">−29,1 %</div>
       </div>
     </div>
