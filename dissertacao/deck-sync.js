@@ -289,6 +289,11 @@
         case 'app':
           this.relayToApps(m.channel, m.payload);
           break;
+        case 'laser':
+          // Ponteiro/laser da caneta — alta frequência, canal próprio e leve
+          // (não reentrega a iframes). deck-laser.js escuta este evento.
+          try { document.dispatchEvent(new CustomEvent('deck-sync:laser', { detail: m })); } catch (_) {}
+          break;
       }
     },
 
@@ -346,6 +351,9 @@
 
     // API pública: a própria página pode difundir um estado de app sem iframe.
     broadcastApp(channel, payload) { this.publish({ t: 'app', channel, payload }); },
+
+    // API pública: difunde um quadro do ponteiro/laser (usado por deck-laser.js).
+    sendLaser(msg) { this.publish(Object.assign({ t: 'laser' }, msg)); },
 
     peerCount() { return this.peers.size + 1; }, // +1 = este dispositivo
 
