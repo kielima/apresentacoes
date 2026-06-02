@@ -158,10 +158,30 @@
     canvas.style.pointerEvents = 'none';
   }
 
+  // Desativa os gestos de rolagem/zoom do navegador NA RAIZ enquanto a caneta
+  // está por perto. Precisa estar ativo ANTES do contato (o navegador decide
+  // "isto é scroll" já no toque, pelo touch-action do alvo) — por isso armamos
+  // no hover, que a S Pen reporta antes de encostar. Desarma após um tempinho
+  // sem eventos de caneta, devolvendo o toque/rolagem normal ao dedo.
+  let penIdleTimer = null;
+  function armPenSurface() {
+    document.documentElement.style.setProperty('touch-action', 'none');
+    if (document.body) document.body.style.setProperty('touch-action', 'none');
+    if (penIdleTimer) clearTimeout(penIdleTimer);
+    penIdleTimer = setTimeout(disarmPenSurface, 1500);
+  }
+  function disarmPenSurface() {
+    if (drawing) return; // nunca desarmar no meio de um traço
+    document.documentElement.style.removeProperty('touch-action');
+    if (document.body) document.body.style.removeProperty('touch-action');
+    penIdleTimer = null;
+  }
+
   function onDown(e) {
     if (!isPen(e) || overUI(e)) return;
     lastPenTs = now();
     drawing = true;
+    armPenSurface();
     grabPointer(e);
     newStroke('local');
     const p = norm(e);
@@ -173,6 +193,7 @@
   }
   function onMove(e) {
     if (!isPen(e)) return;
+    armPenSurface(); // mantém os gestos desativados enquanto a caneta atua/paira
     if (drawing) {
       lastPenTs = now();
       const p = norm(e);
