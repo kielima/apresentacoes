@@ -49,8 +49,15 @@
 
   // ── Configuração ────────────────────────────────────────────────────────
   const CFG = {
-    // Broker MQTT público (sem cadastro). Alternativa: broker.emqx.io:8084.
-    brokerUrl: 'wss://broker.hivemq.com:8884/mqtt',
+    // Brokers MQTT públicos (sem cadastro), tentados em paralelo — o primeiro
+    // que conectar vence. Portas diferentes (8084/8884) aumentam a chance de
+    // passar quando o firewall de uma rede bloqueia uma porta não-padrão.
+    // (Nenhum broker público oferece a porta 443; redes que só liberam 443
+    //  precisam do plano alternativo — ver README/observações.)
+    brokerUrls: [
+      'wss://broker.emqx.io:8084/mqtt',
+      'wss://broker.hivemq.com:8884/mqtt',
+    ],
     // Prefixo único do tópico para não colidir com outros usuários do broker.
     topicPrefix: 'kielima-apresentacoes',
     mqttCdn: 'https://unpkg.com/mqtt@5.10.1/dist/mqtt.min.js',
@@ -58,6 +65,7 @@
     PROTOCOL: 1,
     HEARTBEAT_MS: 8000,
     PEER_TTL_MS: 22000,
+    CONNECT_TIMEOUT_MS: 12000,
   };
 
   // ── Utilitários ───────────────────────────────────────────────────────────
@@ -89,6 +97,27 @@
     let client = null;
     let topic = null;
     let handlers = null;
+    let pending = [];        // clients em corrida durante a descoberta
+    let activeUrl = null;
+
+    function attachWinner(c) {
+      client = c;
+      activeUrl = c.__url;
+      try { console.info('[deck-sync] conectado via', activeUrl); } catch (_) {}
+      // Reabilita a reconexão automática só no vencedor (durante a corrida
+      // ela ficou desligada para o timeout/erro decidir rápido).
+      try { c.options.reconnectPeriod = 2500; } catch (_) {}
+      c.on('reconnect', () => handlers.status('connecting'));
+      c.on('close', () => handlers.status('disconnected'));
+      c.on('offline', () => handlers.status('disconnected'));
+      c.on('error', () => handlers.status('error'));
+      c.on('message', (t, payload) => {
+        if (t !== topic) return;
+        try { handlers.message(JSON.parse(payload.toString())); } catch (_) {}
+      });
+      c.subscribe(topic, { qos: 0 }, () => {});
+      handlers.status('connected');
+    }
 
     return {
       async connect(room, h) {
@@ -96,25 +125,49 @@
         if (!window.mqtt) await loadScript(CFG.mqttCdn);
         topic = CFG.topicPrefix + '/' + room;
         handlers.status('connecting');
-        client = window.mqtt.connect(CFG.brokerUrl, {
-          clientId: 'deck-' + uid(),
-          reconnectPeriod: 2500,
-          connectTimeout: 8000,
-          clean: true,
-          keepalive: 30,
+
+        let settled = false;
+        let errors = 0;
+        const urls = CFG.brokerUrls;
+
+        // Corrida paralela: abre todos os brokers ao mesmo tempo; o primeiro
+        // que conectar vence e os demais são encerrados. Cobre o caso de um
+        // broker/porta estar bloqueado ou fora do ar sem esperar em série.
+        pending = urls.map((url) => {
+          let c;
+          try {
+            c = window.mqtt.connect(url, {
+              clientId: 'deck-' + uid(),
+              reconnectPeriod: 0,        // sem auto-reconnect durante a corrida
+              connectTimeout: CFG.CONNECT_TIMEOUT_MS,
+              clean: true,
+              keepalive: 30,
+            });
+          } catch (e) { return null; }
+          c.__url = url;
+          c.on('connect', () => {
+            if (settled) { try { c.end(true); } catch (_) {} return; }
+            settled = true;
+            // encerra os perdedores
+            pending.forEach((o) => { if (o && o !== c) { try { o.end(true); } catch (_) {} } });
+            pending = [];
+            attachWinner(c);
+          });
+          c.on('error', (err) => {
+            try { console.warn('[deck-sync] falha no broker', url, err && err.message); } catch (_) {}
+            if (!settled) { errors++; if (errors >= urls.length) handlers.status('error'); }
+          });
+          return c;
         });
-        client.on('connect', () => {
-          client.subscribe(topic, { qos: 0 }, () => {});
-          handlers.status('connected');
-        });
-        client.on('reconnect', () => handlers.status('connecting'));
-        client.on('close', () => handlers.status('disconnected'));
-        client.on('offline', () => handlers.status('disconnected'));
-        client.on('error', () => handlers.status('error'));
-        client.on('message', (t, payload) => {
-          if (t !== topic) return;
-          try { handlers.message(JSON.parse(payload.toString())); } catch (_) {}
-        });
+
+        // Rede pode aceitar o TCP mas o firewall/proxy segurar o handshake —
+        // garante um veredito de erro mesmo sem 'error' de todos.
+        setTimeout(() => {
+          if (!settled) {
+            try { console.warn('[deck-sync] tempo esgotado — nenhum broker conectou (porta bloqueada pela rede?)'); } catch (_) {}
+            handlers.status('error');
+          }
+        }, CFG.CONNECT_TIMEOUT_MS + 1000);
       },
       publish(obj) {
         if (client && client.connected) {
@@ -122,6 +175,8 @@
         }
       },
       close() {
+        pending.forEach((o) => { if (o) { try { o.end(true); } catch (_) {} } });
+        pending = [];
         if (client) { try { client.end(true); } catch (_) {} client = null; }
       },
     };
