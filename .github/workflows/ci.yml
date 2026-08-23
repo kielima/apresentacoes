@@ -20,15 +20,32 @@ jobs:
             python3 -c "import yaml, sys; yaml.safe_load(open('$f'))" && echo "  OK"
           done
 
-      - name: Check for forbidden large files
+      # Este repositório foi aposentado: o que resta são páginas de
+      # redirecionamento para kielima.com/ppt. Se alguém acrescentar conteúdo
+      # aqui de novo, ele não vai a lugar nenhum — o endereço divulgado é o
+      # outro. Falhar aqui é mais barato que descobrir isso depois.
+      - name: Só redirecionamentos devem existir
         run: |
-          find . -not -path './.git/*' -size +50M | while read f; do
-            echo "ERROR: File too large: $f"
+          esperado="./.github/workflows/auto-merge.yml
+          ./.github/workflows/ci.yml
+          ./.nojekyll
+          ./CLAUDE.md
+          ./README.md
+          ./dissertacao/index.html
+          ./index.html"
+          atual=$(find . -not -path './.git/*' -type f | sort)
+          if [ "$(echo "$esperado" | sed 's/^ *//')" != "$atual" ]; then
+            echo "ERRO: o conteúdo do repositório mudou."
+            echo "--- esperado ---"; echo "$esperado" | sed 's/^ *//'
+            echo "--- atual ---";   echo "$atual"
             exit 1
-          done
-          echo "File size check passed"
+          fi
+          echo "OK: só os redirecionamentos."
 
-      - name: List presentation files
+      - name: Cada página aponta para kielima.com/ppt
         run: |
-          echo "=== Repository contents ==="
-          find . -not -path './.git/*' -type f | sort
+          for f in index.html dissertacao/index.html; do
+            grep -q 'http-equiv="refresh"' "$f" || { echo "ERRO: $f sem meta refresh"; exit 1; }
+            grep -q 'kielima.com/ppt' "$f"      || { echo "ERRO: $f não aponta para kielima.com/ppt"; exit 1; }
+            echo "  OK: $f"
+          done
